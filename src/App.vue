@@ -6,4 +6,9 @@
 <script>
 
 </script>
-<style ></style>
+<style >
+* {
+  font-family: 'Montserrat' !important;
+
+}
+</style>
