@@ -5,6 +5,8 @@ import QuotationsList from './components/Pages/pipeline/Quotations/QuotationsLis
 import NewQuate from './components/Pages/pipeline/Quotations/NewQuate.vue';
 import AddItems from './components/Pages/pipeline/Quotations/AddItems.vue';
 import FinalItems from './components/Pages/pipeline/Quotations/FinalItems.vue';
+import SalesOder from './components/Pages/SalesOder/SalesOder.vue';
+import NewSales from './components/Pages/SalesOder/NewSales.vue';
 
 const routes = [
     {
@@ -31,6 +33,14 @@ const routes = [
         path: '/FinalItems',
         component: FinalItems
     },
+    {
+        path:'/SalesOders',
+        component:SalesOder
+    },
+    {
+        path:'/NewSales',
+        component:NewSales
+    }
 
 ]
 const router = createRouter({
