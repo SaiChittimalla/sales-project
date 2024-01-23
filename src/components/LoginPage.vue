@@ -41,7 +41,7 @@
 
         <a href="" class="forget-pass text-decoration-none d-flex justify-content-end mt-3">Forget
           Password?</a>
-        <button type="submit" class=" btn btn-white login">LOGIN</button>
+        <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
       </form>
