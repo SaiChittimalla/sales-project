@@ -1,13 +1,11 @@
 <template>
     <div class="container-fluid">
       <div class="d-flex justify-content-between align-items-center mt-2 header">
-        <div class="d-flex gap-2">
-          <div>
-            <i class="ri-arrow-left-line"></i>
+        <div class="d-flex gap-2 p-3 align-items-center">
+            <div>
+            <i class="ri-arrow-left-line  "><span class="ps-2 quotationsfs">SalesOders(199)</span></i>
           </div>
-          <div>
-            <h6 class="quotationsfs">Quotations&nbsp;(199)</h6>
-          </div>
+         
         </div>
         <div class="ri-search-line1">
           <i class="ri-search-line"></i>
@@ -16,9 +14,9 @@
       <div class="header2">
         <div class="d-flex justify-content-between align-items-center buttonsall">
           <ul class="d-flex flex-wrap list-unstyled justify-content-between list-group  flex-row gap-1 ">
+            <div></div>
             <li class=" list-group-item active btn1">All</li>
-            <li class=" list-group-item btn2">Lead</li>
-            <li class=" list-group-item btn2">Customer</li>
+            <li class=" list-group-item btn2">Draft</li> 
             <li class=" list-group-item btn2">Saved</li>
             <li class=" list-group-item btn2">
               <select class="border-0">
@@ -123,7 +121,7 @@
         </div>
       </div>
       <div>
-        <button
+         <button
           class="btn btn-primary circle-with-plus"
           type="button"
           data-bs-toggle="offcanvas"
@@ -133,7 +131,7 @@
           +
         </button>
   
-        <div
+        <!-- <div
           class="offcanvas offcanvas-bottom h-50"
           tabindex="-1"
           id="offcanvasBottom"
@@ -161,7 +159,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>  -->
       </div>
     </div>
   </template>
@@ -240,7 +238,7 @@
 .quotationsfs {
   color: #111;
   font-family: Montserrat;
-  font-size: 15px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
