@@ -200,7 +200,7 @@
           </div>
           <div class="d-flex justify-content-evenly my-4  g-0  ">
             <div class="">
-              <router-link to="/" class=" text-decoration-none ">
+              <router-link to="/addleads" class=" text-decoration-none ">
                 <div class="card border-0 ">
                   <div class="icon-quotations">
                     <div class=" text-center ">
