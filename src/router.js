@@ -5,6 +5,7 @@ import QuotationsList from './components/Pages/pipeline/Quotations/QuotationsLis
 import NewQuate from './components/Pages/pipeline/Quotations/NewQuate.vue';
 import AddItems from './components/Pages/pipeline/Quotations/AddItems.vue';
 import FinalItems from './components/Pages/pipeline/Quotations/FinalItems.vue';
+import LeadNewQuate from './components/Pages/pipeline/Quotations/LeadNewQuate.vue';
 import SalesOder from './components/Pages/SalesOder/SalesOder.vue';
 import NewSales from './components/Pages/SalesOder/NewSales.vue';
 import AddLeads from './components/Pages/clientsBuyers/Leads/AddLeads.vue';
@@ -36,12 +37,18 @@ const routes = [
         component: FinalItems
     },
     {
+        path: '/LeadNewQuate',
+        component: LeadNewQuate
+    },
+    {
         path:'/SalesOders',
         component:SalesOder
     },
     {
         path:'/NewSales',
-        component:NewSales},{
+        component:NewSales
+    },
+    {
         path: '/addleads',
         component: AddLeads,
 
