@@ -287,7 +287,6 @@ export default {
             this.count--;
         },
 
-
     },
 }
 </script>
@@ -307,6 +306,10 @@ export default {
     position: sticky;
     top: 0px;
     z-index: 100;
+}
+
+.item-img {
+    border-radius: 25%;
 }
 
 .item-img {

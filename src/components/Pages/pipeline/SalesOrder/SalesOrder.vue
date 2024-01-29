@@ -61,10 +61,6 @@
               </h6>
               <p style="font-size: 11px; color: #3b43f9">Customer</p>
             </div>
-            <div class="p-3">
-              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
-              <p style="font-size: 11px; color: #3b43f9">Customer</p>
-            </div>
           </div>
         </div>
       </div>

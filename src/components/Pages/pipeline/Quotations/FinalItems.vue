@@ -110,6 +110,9 @@
             <div>
               <h6 class="text-muted">₹ 0.00</h6>
             </div>
+            <div>
+              <h6 class="text-muted">₹ 0.00</h6>
+            </div>
           </div>
           <div class="d-flex justify-content-between p-1 mt-3">
             <div>
