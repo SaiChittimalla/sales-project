@@ -5,7 +5,7 @@
     <nav class="navbar navigation-main">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../assets/Morgan-Logo.jpg" alt="Morgan" class="logo">
+          <img src="../assets/MorganLogo.svg" alt="Morgan" class="logo">
         </a>
         <div>
           <!-- Button trigger modal -->
@@ -83,10 +83,11 @@
             <div class="card first-cards">
               <div class=" card-body d-flex  justify-content-evenly status-pad  ">
                 <div>
-                  <img src="../assets/iconamoon_invoice-duotone.png" alt="" class=" img-fluid status-img">
+                  <img src="../assets/totalorder.svg" alt="" class=" img-fluid status-img">
                 </div>
                 <div>
-                  <h4 class=" num-status m-0">345</h4>
+                  <h4 class=" num-status m-0">345
+                  </h4>
                   <span class=" num-titles"> Total Sales Orders</span>
                 </div>
               </div>
@@ -96,22 +97,11 @@
             <div class="card first-cards">
               <div class=" card-body d-flex  justify-content-evenly status-pad  ">
                 <div>
-                  <img src="../assets/mdi_invoice-outline.png" alt="" class=" img-fluid status-img">
+                  <img src="../assets/dollar.svg" alt="" class=" img-fluid status-img">
                 </div>
                 <div>
                   <h4 class=" num-status m-0">345</h4>
-                  <span class=" num-titles"> Total Sales Orders</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=" col-lg-3 col-md-6 col-sm-6 my-2  ">
-            <div class="card first-cards">
-              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
-                <div><img src="../assets/tabler_calendar-due.png" alt="" class=" img-fluid status-img"></div>
-                <div>
-                  <h4 class=" num-status m-0">345</h4>
-                  <span class=" num-titles"> Total Sales Orders</span>
+                  <span class=" num-titles"> Total Sales Invoices</span>
                 </div>
               </div>
             </div>
@@ -119,10 +109,21 @@
           <div class=" col-lg-3 col-md-6 col-sm-6 my-2  ">
             <div class="card first-cards">
               <div class=" card-body d-flex  justify-content-evenly status-pad  ">
-                <div><img src="../assets/solar_delivery-bold.png" alt="" class=" img-fluid status-img"></div>
+                <div><img src="../assets/Group7561.svg" alt="" class=" img-fluid status-img"></div>
                 <div>
                   <h4 class=" num-status m-0">345</h4>
-                  <span class=" num-titles"> Total Sales Orders</span>
+                  <span class=" num-titles"> Pending Payments</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" col-lg-3 col-md-6 col-sm-6 my-2  ">
+            <div class="card first-cards">
+              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
+                <div><img src="../assets/solar_delivery-bold.svg" alt="" class=" img-fluid status-img"></div>
+                <div>
+                  <h4 class=" num-status m-0">345</h4>
+                  <span class=" num-titles"> Total Delivery Notes</span>
                 </div>
               </div>
             </div>
@@ -140,13 +141,26 @@
               <router-link to="./QuotationsList" class=" text-decoration-none ">
                 <div class="card border-0 ">
                   <div class="icon-quotations">
-                    <div>
-                      <img src="../assets/Vector.png" alt="icon" class="icon-one img-fluid ">
-                      <img src="../assets/mdi_invoice-edit.png" alt="icon" class="icon-two">
+                    <div class=" text-center">
+                      <img src="../assets/Group 237652.svg" alt="icon" class=" img-fluid pipe-imgs  ">
                     </div>
                   </div>
                   <div class="card-body px-2">
-                    <h5 class="card-text cards-headings quotation-only">Quotations</h5>
+                    <h5 class="card-text cards-headings ">Quotations</h5>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+            <div class="">
+              <router-link to="/SalesOrders" class="text-decoration-none ">
+                <div class="card border-0  ">
+                  <div class="icon-quotations">
+                    <div class=" text-center">
+                      <img src="../assets/Group 237653.svg" alt="icon" class=" img-fluid pipe-imgs ">
+                    </div>
+                  </div>
+                  <div class="card-body px-2">
+                    <h5 class="card-text cards-headings">Sales Orders</h5>
                   </div>
                 </div>
               </router-link>
@@ -155,19 +169,7 @@
               <div class="card border-0  ">
                 <div class="icon-quotations">
                   <div class=" text-center">
-                    <img src="../assets/iconamoon_invoice-duotone.png" alt="icon" class=" img-fluid pipe-imgs ">
-                  </div>
-                </div>
-                <div class="card-body px-2">
-                  <h5 class="card-text cards-headings">Sales Orders</h5>
-                </div>
-              </div>
-            </div>
-            <div class="">
-              <div class="card border-0  ">
-                <div class="icon-quotations">
-                  <div class=" text-center">
-                    <img src="../assets/mdi_invoice-outline.png" alt="icon" class=" img-fluid pipe-imgs ">
+                    <img src="../assets/dollar1.svg" alt="icon" class=" img-fluid pipe-imgs ">
 
                   </div>
                 </div>
@@ -180,7 +182,7 @@
               <div class="card border-0  ">
                 <div class="icon-quotations">
                   <div class=" text-center">
-                    <img src="../assets/carbon_delivery.png" alt="icon" class=" img-fluid pipe-imgs ">
+                    <img src="../assets/carbon_delivery1.svg" alt="icon" class=" img-fluid pipe-imgs ">
 
                   </div>
                 </div>
@@ -204,8 +206,7 @@
                 <div class="card border-0 ">
                   <div class="icon-quotations">
                     <div class=" text-center ">
-                      <img src="../assets/Vectorperson.png" alt="icon" class="leads-icon1 img-fluid ">
-                      <img src="../assets/mdi_users.png" alt="icon" class="leads-icon2 ">
+                      <img src="../assets/Group 237656.svg" alt="icon">
                     </div>
                   </div>
                   <div class="card-body px-2">
@@ -218,8 +219,7 @@
               <div class="card border-0  ">
                 <div class="icon-quotations">
                   <div class=" text-center position-relative ">
-                    <img src="../assets/Vectorperson.png" alt="icon" class="Opportunities img-fluid ">
-                    <img src="../assets/Groupraise.png" alt="icon" class=" img-fluid Opportunities2 pipe-imgs ">
+                    <img src="../assets/Group 237649.svg" alt="">
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -231,8 +231,7 @@
               <div class="card border-0  ">
                 <div class="icon-quotations">
                   <div class=" text-center position-relative">
-                    <img src="../assets/ph_buildings-fill.png" alt="icon" class="Customers img-fluid ">
-                    <img src="../assets/ph_buildings-fill (1).png" alt="icon" class=" img-fluid  Customers2 ">
+                    <img src="../assets/Group 237658.svg" alt="">
 
                   </div>
 
@@ -246,7 +245,7 @@
               <div class="card border-0  ">
                 <div class="icon-quotations">
                   <div class=" text-center">
-                    <img src="../assets/system-uicons_contacts.png" alt="icon" class=" img-fluid pipe-imgs ">
+                    <img src="../assets/Group 237659.svg" alt="icon" class=" img-fluid ">
 
                   </div>
                 </div>
@@ -263,8 +262,7 @@
           <div class=" d-flex  ">
             <div class="ps-3 pt-3">
               <div class="text-center position-relative ">
-                <img src="../assets/fluent_box-search-20-filled.png" alt="">
-                <img src="../assets/majesticons_search.png" alt="" class="search-img">
+                <img src="../assets/Group 237533.svg " alt="">
               </div>
             </div>
             <div>
@@ -284,6 +282,34 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+export default {
+
+  name: 'HomePage',
+  data() {
+    return {
+      data: []
+
+    }
+  },
+  mounted() {
+    this.SalesOrder()
+  },
+  methods: {
+    SalesOrder() {
+      // Make an HTTP GET request to the API endpoint
+      axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]')
+        .then((response) => {
+          this.data = response.data;
+          console.log(this.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
+
+}
 
 </script>
 <style scoped>
@@ -459,26 +485,6 @@
 
 }
 
-.icon-one {
-
-  position: absolute;
-  left: 44%;
-  width: 18px;
-  height: 19px;
-
-}
-
-.icon-two {
-
-  position: absolute;
-  left: 38%;
-  width: 22px;
-  height: 22px;
-
-
-}
-
-
 .cards-headings {
   color: #001B4E;
   text-align: center;
@@ -518,30 +524,6 @@
   line-height: normal;
 }
 
-.Opportunities {
-  position: absolute;
-  bottom: -4px;
-  left: 42%;
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-
-.Customers {
-  position: absolute;
-  bottom: 0px;
-  left: 34%;
-  width: 14px;
-  height: 24px;
-
-}
-
-.search-img {
-  position: absolute;
-  left: 15px;
-  bottom: 2px;
-}
-
 
 
 
@@ -550,27 +532,9 @@
     width: 50%;
   }
 
-  .icon-one {
-    left: 40%;
-    bottom: -23px;
-  }
-
-  .icon-two {
-    left: 34%;
-  }
-
   .status-pad {
     padding: 10px 5px;
   }
-
-  .quotation-only {
-    margin-top: 24px;
-  }
-
-  .Customers2 {
-    padding-left: 10px;
-  }
-
 }
 
 @media (min-width: 575px) and (max-width: 2560px) {
@@ -593,31 +557,11 @@
   }
 
   .num-titles {
-    font-size: 17px;
-  }
-
-  .icon-one {
-    width: 26px;
-    height: 24px;
-    bottom: -26px;
-  }
-
-  .icon-two {
-    width: 24px;
-    height: 22px;
-    left: 42%;
+    font-size: 15px;
   }
 
   .status-img {
     width: 30px;
-  }
-
-  .pipe-imgs {
-    width: 30px;
-  }
-
-  .quotation-only {
-    margin-top: 30px;
   }
 
   .collected-amt {
@@ -633,22 +577,6 @@
   .amount-collected {
     font-size: 14px;
 
-  }
-
-  .Opportunities {
-    left: 45%;
-  }
-
-  .Customers {
-    position: absolute;
-    bottom: 0px;
-    left: 34%;
-    width: 14px;
-    height: 24px;
-  }
-
-  .Customers2 {
-    padding: 0px;
   }
 }
 </style> 

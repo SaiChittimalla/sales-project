@@ -4,10 +4,11 @@ import HomePage from './components/HomePage.vue';
 import QuotationsList from './components/Pages/pipeline/Quotations/QuotationsList.vue';
 import NewQuate from './components/Pages/pipeline/Quotations/NewQuate.vue';
 import AddItems from './components/Pages/pipeline/Quotations/AddItems.vue';
+import ItemEdit from './components/Pages/pipeline/Quotations/ItemEdit.vue';
 import FinalItems from './components/Pages/pipeline/Quotations/FinalItems.vue';
 import LeadNewQuate from './components/Pages/pipeline/Quotations/LeadNewQuate.vue';
-import SalesOder from './components/Pages/SalesOder/SalesOder.vue';
-import NewSales from './components/Pages/SalesOder/NewSales.vue';
+import SalesOrder from './components/Pages/pipeline/SalesOrder/SalesOrder.vue';
+import NewSales from './components/Pages/pipeline/SalesOrder/NewSales.vue';
 import AddLeads from './components/Pages/clientsBuyers/Leads/AddLeads.vue';
 import LeadForm from './components/Pages/clientsBuyers/Leads/LeadForm.vue';
 
@@ -17,6 +18,7 @@ const routes = [
         component: LoginPage
     },
     {
+        name: 'HomePage',
         path: '/HomePage',
         component: HomePage
     },
@@ -34,6 +36,10 @@ const routes = [
         component: AddItems
     },
     {
+        path: '/ItemEdit',
+        component: ItemEdit
+    },
+    {
         path: '/FinalItems',
         component: FinalItems
     },
@@ -42,12 +48,12 @@ const routes = [
         component: LeadNewQuate
     },
     {
-        path:'/SalesOders',
-        component:SalesOder
+        path: '/SalesOrders',
+        component: SalesOrder
     },
     {
-        path:'/NewSales',
-        component:NewSales
+        path: '/NewSales',
+        component: NewSales
     },
     {
         path: '/addleads',

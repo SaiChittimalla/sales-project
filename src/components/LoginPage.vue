@@ -2,14 +2,14 @@
   <nav class="navbar bg-body-tertiary">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="../assets/Morgan-Logo.jpg" alt="Morgan">
+        <img src="../assets/MorganLogo.svg" alt="Morgan">
       </a>
     </div>
   </nav>
 
   <div class=" d-flex  justify-content-center  align-items-center ">
     <div class="from-padding mt-5 ">
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="submitForm()">
         <h4 class="login-tag">Login</h4>
         <p class="credential-tag ">Enter valid credentials</p>
         <div class="mb-3 position-relative ">
@@ -44,8 +44,13 @@
         <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
+        <button type="submit" class=" btn btn-white login" :disabled="!formData.email || !formData.password">
+          <div v-if="loading" class=" spinner-border  spinner-border-sm ">
+          </div>
+          <span v-if="!loading"> LOGIN
+          </span>
+        </button>
       </form>
-      <router-link to="/HomePage"><button type="submit" class=" btn btn-white login">LOGIN</button></router-link>
       <div class="bottom-div">
 
       </div>
@@ -56,6 +61,8 @@
 <script>
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -64,37 +71,50 @@ export default {
         password: ''
       },
       errors: {},
-      userName: "sai@gmail.com",
-      password: "root123",
       showPassword: false,
+      loading: false,
+
+
+
     }
   }
   , methods: {
     submitForm() {
-      console.log("username: " + this.formData.email);
-      console.log("password: " + this.formData.password);
-      console.log(this.formData);
-      if (this.formData.email == this.userName && this.formData.password == this.password) {
-        toast.success("Login Successfull", { autoClose: 10000, });
-        this.$router.push({
-          path: '/homepage',
-          query: {
-            page: 'HomePage'
-          }
-        });
-      } else {
-        toast.error("Invalid Credentials")
-      }
+      this.loading = true;  // Update to set loading to true
+      const data = {
+        usr: this.formData.email,
+        pwd: this.formData.password,
+      };
+      axios.post('http://192.168.1.177:8000/api/method/login', { ...data })
+        .then((response) => {
+          console.log(response);
+          toast.success("Login Successfull"), {
+            position: "top-right",
+          };
+          if (response.status == 200) {
+            this.loading = false;
+            localStorage.setItem("user", JSON.stringify(data))
+            setTimeout(() => {
+              this.$router.push({ name: 'HomePage' })
+            }, 1000)
 
+          }
+        })
+        .catch((error) => {
+          this.loading = false;  // Set loading to false on error
+          toast.error("Invalid Credentials");
+          console.error(error);
+        });
 
     },
     validatemail() {
       if (!this.formData.email) {
         this.errors.email = "Email requried"
         console.log('=========' + this.errors.email);
-      } else if (!this.formData.email.includes("@gmail.com")) {
-        this.errors.email = "Invalid email format"
       }
+      // else if (!this.formData.email.includes("@gmail.com")) {
+      //   this.errors.email = "Invalid email format"
+      // }
       else {
         delete this.errors.email;
       }
