@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mt-2 header">
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2 p-3 align-items-center">
         <div>
-          <i class="ri-arrow-left-line"></i>
+          <router-link to="/Homepage" class="text-decoration-none  ">
+            <span class="ps-2 quotationsfs"><i class="ri-arrow-left-line"></i> SalesOders(199)</span>
+          </router-link>
         </div>
-        <div>
-          <h6 class="quotationsfs">Quotations&nbsp;(199)</h6>
-        </div>
+
       </div>
       <div class="ri-search-line1">
         <i class="ri-search-line"></i>
@@ -16,9 +16,9 @@
     <div class="header2">
       <div class="d-flex justify-content-between align-items-center buttonsall">
         <ul class="d-flex flex-wrap list-unstyled justify-content-between list-group  flex-row gap-1 ">
+          <div></div>
           <li class=" list-group-item active btn1">All</li>
-          <li class=" list-group-item btn2">Lead</li>
-          <li class=" list-group-item btn2">Customer</li>
+          <li class=" list-group-item btn2">Draft</li>
           <li class=" list-group-item btn2">Saved</li>
           <li class=" list-group-item btn2">
             <select class="border-0">
@@ -107,29 +107,35 @@
         +
       </button>
 
-      <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom"
-        aria-labelledby="offcanvasBottomLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body small">
-          <h5 class="offcanvastext text-center">
-            <b>Specify the quotation's <br />intended recipient.</b>
-          </h5>
-          <div>
-            <div class="mt-3">
-              <router-link to="/NewQuate" class="  text-decoration-none "> <button class="btn btncustomer w-100">To
-                  Customer</button></router-link>
-            </div>
-            <div class="mt-3">
-              <router-link to="/LeadNewQuate" class="text-decoration-none ">
+      <!-- <div
+          class="offcanvas offcanvas-bottom h-50"
+          tabindex="-1"
+          id="offcanvasBottom"
+          aria-labelledby="offcanvasBottomLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
+            <button
+              type="button"
+              class="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body small">
+            <h5 class="offcanvastext text-center">
+              <b>Specify the quotation's <br />intended recipient.</b>
+            </h5>
+            <div>
+              <div class="mt-3">
+                <button class="btn btncustomer w-100">To Customer</button>
+              </div>
+              <div class="mt-3">
                 <button class="btn btncustomer w-100">To Lead</button>
-              </router-link>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div>  -->
     </div>
   </div>
 </template>
@@ -213,7 +219,7 @@
 .quotationsfs {
   color: #111;
   font-family: Montserrat;
-  font-size: 15px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -264,7 +270,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
-  /* 150% */
   padding: 4px 15px;
   /* margin: 0px 5px; */
 }
@@ -278,9 +283,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
-  /* 150% */
   padding: 4px 15px;
-
   /* margin: 0px 5px; */
 }
 
@@ -336,7 +339,6 @@ h5,
 h6,
 p {
   font-family: Montserrat;
-
   font-style: normal;
   font-weight: 600;
   line-height: normal;

@@ -56,105 +56,11 @@
                                     aria-controls="offcanvasExample">
                                     Add
                                 </button>
-                                <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
-                                    aria-labelledby="offcanvasExampleLabel">
-                                    <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add Item</h5>
-                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body">
-                                        <div class="row">
-                                            <div class="col-sm-10 offcanvas-txt">
-                                                <h6 class="label-heading">Cake mukka</h6>
-                                                <p class="label-name">Item Name</p>
-                                            </div>
-                                            <div class="col-sm-2 offcanvas-txt1">
-                                                <h6 class="label-heading">HGYFg76yy_d7y</h6>
-                                                <p class="label-name">Item Code</p>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3 mt-3">
-                                            <div>
-                                                <h6 class="label-heading">₹ 9,82,82,002.55</h6>
-                                                <p class="label-name">Actual Price 1x</p>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2 m-1">
-                                            <div class="card rounded-2 price-card">
-                                                <div class="p-1">
-                                                    <p class="price">1x Price</p>
-                                                    <span>$<input type="text" placeholder="Enter negotiated value"
-                                                            class="border-0 ms-2 input-price w-75"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4 qty-row">
-                                            <div class="col-sm-9 qty-div">
-                                                <span>Total Qty</span>
-                                            </div>
-                                            <div class="col-sm-3 qty-div1">
-                                                <div class="d-flex align-items-center justify-content-center gap-2">
-                                                    <button type="button" class="border-0"><i
-                                                            class="bi bi-dash"></i></button>
-                                                    <p class="mt-3">6</p>
-                                                    <button type="button" class="border-0"><i
-                                                            class="bi bi-plus"></i></button>
-                                                    <button type="button" class="border-0 add-qty-btn"><i
-                                                            class="bi bi-plus "></i>10</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4 m-1">
-                                            <div class="card rounded-2 total-price-card">
-                                                <div class="p-1">
-                                                    <p class="total-price">Total Price</p>
-                                                    <span class="amount">₹ 9,82,82,00200.55</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-sm-12">
-                                                <router-link to="/ItemEdit">
-                                                    <button type="button" class="border-0 add-item-btn w-100">Add
-                                                        Item</button>
-                                                </router-link>
-                                            </div>
-                                        </div>
+                                <router-link to="/">
+                                    <h6 class="editPrice mt-3 ms-4">edit price</h6>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                    </div>
+                                </router-link>
 
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="row p-3">
-                            <div class="col-1 text-end">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-gift-fill"></i>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="item-details">
-                                    <h6 class="heading">Item Name</h6>
-                                    <div class="d-flex text-nowrap">
-                                        <p>Price not defined</p>
-                                        <li class="ms-3 text-muted">Cake mukka</li>
-                                    </div>
-                                    <p class="text-muted item-info">
-                                        It features scrambled Latin text, which emphasizes the design
-                                        i....More
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="add-btn shadow-sm rounded-5 bg-white"
-                                    data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                                    aria-controls="offcanvasExample">
-                                    Add
-                                </button>
                                 <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
                                     aria-labelledby="offcanvasExampleLabel">
                                     <div class="offcanvas-header">
@@ -311,105 +217,6 @@
                                         <div class="row">
                                             <div class=" col-sm-12">
                                                 <button type="button" class="border-0 add-item-btn w-100">Add Item</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                    </div>
-
-                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
-                        <div class="row p-3">
-                            <div class="col-1 text-end">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-gift-fill"></i>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="item-details">
-                                    <h6 class="heading">Item Name</h6>
-                                    <div class="d-flex text-nowrap">
-                                        <p>Price not defined</p>
-                                        <li class="ms-3 text-muted">Cake mukka</li>
-                                    </div>
-                                    <p class="text-muted item-info">
-                                        It features scrambled Latin text, which emphasizes the design
-                                        i....More
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="add-btn shadow-sm rounded-5 bg-white"
-                                    data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                                    aria-controls="offcanvasExample">
-                                    Add
-                                </button>
-                                <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
-                                    aria-labelledby="offcanvasExampleLabel">
-                                    <div class="offcanvas-header">
-                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add Item</h5>
-                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body">
-                                        <div class="row">
-                                            <div class="col-sm-10 offcanvas-txt">
-                                                <h6 class="label-heading">Cake mukka</h6>
-                                                <p class="label-name">Item Name</p>
-                                            </div>
-                                            <div class="col-sm-2 offcanvas-txt1">
-                                                <h6 class="label-heading">HGYFg76yy_d7y</h6>
-                                                <p class="label-name">Item Code</p>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3 mt-3">
-                                            <div>
-                                                <h6 class="label-heading">₹ 9,82,82,002.55</h6>
-                                                <p class="label-name">Actual Price 1x</p>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2 m-1">
-                                            <div class="card rounded-2 price-card">
-                                                <div class="p-1">
-                                                    <p class="price">1x Price</p>
-                                                    <span>$<input type="text" placeholder="Enter negotiated value"
-                                                            class="border-0 ms-2 input-price w-75"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4 qty-row">
-                                            <div class="col-sm-9 qty-div">
-                                                <span>Total Qty</span>
-                                            </div>
-                                            <div class="col-sm-3 qty-div1">
-                                                <div class="d-flex align-items-center justify-content-center gap-2">
-                                                    <button type="button" class="border-0"><i
-                                                            class="bi bi-dash"></i></button>
-                                                    <p class="mt-3">6</p>
-                                                    <button type="button" class="border-0"><i
-                                                            class="bi bi-plus"></i></button>
-                                                    <button type="button" class="border-0 add-qty-btn"><i
-                                                            class="bi bi-plus "></i>10</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4 m-1">
-                                            <div class="card rounded-2 total-price-card">
-                                                <div class="p-1">
-                                                    <p class="total-price">Total Price</p>
-                                                    <span class="amount">₹ 9,82,82,00200.55</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-sm-12">
-                                                <router-link to="/ItemEdit">
-                                                    <button type="button" class="border-0 add-item-btn w-100">Add
-                                                        Item</button>
-                                                </router-link>
                                             </div>
                                         </div>
 
@@ -793,10 +600,199 @@
                                         </div>
                                         <div class="row">
                                             <div class=" col-sm-12">
+                                                <button type="button" class="border-0 add-item-btn w-100">Add Item</button>
+                                            </div>
+                                        </div>
 
-                                                <button type="button" class="border-0 add-item-btn w-100">Add
-                                                    Item</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
 
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                        <div class="row p-3">
+                            <div class="col-1 text-end">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-gift-fill"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="item-details">
+                                    <h6 class="heading">Item Name</h6>
+                                    <div class="d-flex text-nowrap">
+                                        <p>Price not defined</p>
+                                        <li class="ms-3 text-muted">Cake mukka</li>
+                                    </div>
+                                    <p class="text-muted item-info">
+                                        It features scrambled Latin text, which emphasizes the design
+                                        i....More
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="add-btn shadow-sm rounded-5 bg-white"
+                                    data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                                    aria-controls="offcanvasExample">
+                                    Add
+                                </button>
+                                <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
+                                    aria-labelledby="offcanvasExampleLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add Item</h5>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <div class="row">
+                                            <div class="col-sm-10 offcanvas-txt">
+                                                <h6 class="label-heading">Cake mukka</h6>
+                                                <p class="label-name">Item Name</p>
+                                            </div>
+                                            <div class="col-sm-2 offcanvas-txt1">
+                                                <h6 class="label-heading">HGYFg76yy_d7y</h6>
+                                                <p class="label-name">Item Code</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 mt-3">
+                                            <div>
+                                                <h6 class="label-heading">₹ 9,82,82,002.55</h6>
+                                                <p class="label-name">Actual Price 1x</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 m-1">
+                                            <div class="card rounded-2 price-card">
+                                                <div class="p-1">
+                                                    <p class="price">1x Price</p>
+                                                    <span>$<input type="text" placeholder="Enter negotiated value"
+                                                            class="border-0 ms-2 input-price w-75"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4 qty-row">
+                                            <div class="col-sm-9 qty-div">
+                                                <span>Total Qty</span>
+                                            </div>
+                                            <div class="col-sm-3 qty-div1">
+                                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                                    <button type="button" class="border-0"><i
+                                                            class="bi bi-dash"></i></button>
+                                                    <p class="mt-3">6</p>
+                                                    <button type="button" class="border-0"><i
+                                                            class="bi bi-plus"></i></button>
+                                                    <button type="button" class="border-0 add-qty-btn"><i
+                                                            class="bi bi-plus "></i>10</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4 m-1">
+                                            <div class="card rounded-2 total-price-card">
+                                                <div class="p-1">
+                                                    <p class="total-price">Total Price</p>
+                                                    <span class="amount">₹ 9,82,82,00200.55</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-sm-12">
+                                                <button type="button" class="border-0 add-item-btn w-100">Add Item</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                        <div class="row p-3">
+                            <div class="col-1 text-end">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-gift-fill"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="item-details">
+                                    <h6 class="heading">Item Name</h6>
+                                    <div class="d-flex text-nowrap">
+                                        <p>Price not defined</p>
+                                        <li class="ms-3 text-muted">Cake mukka</li>
+                                    </div>
+                                    <p class="text-muted item-info">
+                                        It features scrambled Latin text, which emphasizes the design
+                                        i....More
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="add-btn shadow-sm rounded-5 bg-white"
+                                    data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                                    aria-controls="offcanvasExample">
+                                    Add
+                                </button>
+                                <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
+                                    aria-labelledby="offcanvasExampleLabel">
+                                    <div class="offcanvas-header">
+                                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add Item</h5>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="offcanvas-body">
+                                        <div class="row">
+                                            <div class="col-sm-10 offcanvas-txt">
+                                                <h6 class="label-heading">Cake mukka</h6>
+                                                <p class="label-name">Item Name</p>
+                                            </div>
+                                            <div class="col-sm-2 offcanvas-txt1">
+                                                <h6 class="label-heading">HGYFg76yy_d7y</h6>
+                                                <p class="label-name">Item Code</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 mt-3">
+                                            <div>
+                                                <h6 class="label-heading">₹ 9,82,82,002.55</h6>
+                                                <p class="label-name">Actual Price 1x</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2 m-1">
+                                            <div class="card rounded-2 price-card">
+                                                <div class="p-1">
+                                                    <p class="price">1x Price</p>
+                                                    <span>$<input type="text" placeholder="Enter negotiated value"
+                                                            class="border-0 ms-2 input-price w-75"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4 qty-row">
+                                            <div class="col-sm-9 qty-div">
+                                                <span>Total Qty</span>
+                                            </div>
+                                            <div class="col-sm-3 qty-div1">
+                                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                                    <button type="button" class="border-0"><i
+                                                            class="bi bi-dash"></i></button>
+                                                    <p class="mt-3">6</p>
+                                                    <button type="button" class="border-0"><i
+                                                            class="bi bi-plus"></i></button>
+                                                    <button type="button" class="border-0 add-qty-btn"><i
+                                                            class="bi bi-plus "></i>10</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4 m-1">
+                                            <div class="card rounded-2 total-price-card">
+                                                <div class="p-1">
+                                                    <p class="total-price">Total Price</p>
+                                                    <span class="amount">₹ 9,82,82,00200.55</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-sm-12">
+                                                <button type="button" class="border-0 add-item-btn w-100">Add Item</button>
                                             </div>
                                         </div>
 
@@ -826,9 +822,11 @@
                                 </div>
                             </div>
                             <div class="col-sm-2 text-end d-flex align-items-center justify-content-center">
-                                <button class="border-0 bg-transparent p-2 submit-btn">
-                                    Submit
-                                </button>
+                                <router-link to="/finalitems" class="text-decoration-none ">
+                                    <button class="border-0 bg-transparent p-2 submit-btn">
+                                        Submit
+                                    </button>
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -840,6 +838,16 @@
 </template>
 
 <style scoped>
+.editPrice {
+    color: #3B43F9;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
 .heading {
     color: #111;
     font-size: 13px;
@@ -946,8 +954,12 @@ input::placeholder {
 }
 
 .submit-btn {
-    color: #b1b5fd;
-    font-weight: bold;
+    color: #3B43F9;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 
 @media (min-width: 200px) and (max-width: 570px) {
