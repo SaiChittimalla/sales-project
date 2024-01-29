@@ -29,6 +29,7 @@ const routes = [
         component: NewQuate
     },
     {
+        name: "AddItems",
         path: '/AddItems',
         component: AddItems
     },
