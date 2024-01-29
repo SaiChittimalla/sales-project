@@ -4,59 +4,35 @@
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i class="ri-arrow-left-line"
-              ><span class="ps-2 quotationsfs"
-                >Quotations &nbsp;({{ totalQuotations }})</span
-              ></i
-            >
+            <i class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Quotations &nbsp;({{ totalQuotations
+            }})</span></i>
           </div>
         </div>
       </div>
     </nav>
     <div class="container">
       <div class="header2">
-        <div
-          class="d-flex justify-content-between align-items-center buttonsall"
-        >
-          <ul
-            class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row"
-          >
+        <div class="d-flex justify-content-between align-items-center buttonsall">
+          <ul class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row">
             <!-- Add click event handlers to the filter buttons -->
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'All' }"
-              @click="setFilter('All')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
               All
             </li>
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Lead' }"
-              @click="setFilter('Lead')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Lead' }" @click="setFilter('Lead')">
               Lead
             </li>
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Customer' }"
-              @click="setFilter('Customer')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Customer' }"
+              @click="setFilter('Customer')">
               Customer
             </li>
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Ordered' }"
-              @click="setFilter('Ordered')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Ordered' }"
+              @click="setFilter('Ordered')">
               Ordered
             </li>
             <!-- ... other filter buttons ... -->
 
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'This Month' }"
-              @click="setFilter('This Month')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'This Month' }"
+              @click="setFilter('This Month')">
               This Month
             </li>
             <!-- <select class="border-0 selectback">
@@ -68,26 +44,17 @@
       <div class="content">
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-            <div
-              class="card card1 mb-4"
-              v-for="(employee, index) in filteredQuotations"
-              :key="index"
-            >
-              <div
-                class="d-flex justify-content-between p-2 align-items-baseline"
-                style="border-bottom: 1px solid #eeeeee"
-              >
+            <div class="card card1 mb-4" v-for="(employee, index) in filteredQuotations" :key="index">
+              <div class="d-flex justify-content-between p-2 align-items-baseline"
+                style="border-bottom: 1px solid #eeeeee">
                 <div class="d-flex gap-3 align-items-center">
                   <div class="d-flex justify-content-center ri-file-edit-line1">
                     <i class="ri-file-edit-line"></i>
                   </div>
                   <div>
                     <p style="font-size: 13px" class="align-items-center mt-3">
-                      {{ employee.name }}<br /><span
-                        class="text-muted"
-                        style="font-size: 11px"
-                        >{{ employee.transaction_date }}</span
-                      >
+                      {{ employee.name }}<br /><span class="text-muted" style="font-size: 11px">{{
+                        employee.transaction_date }}</span>
                     </p>
                   </div>
                 </div>
@@ -108,30 +75,16 @@
         </div>
       </div>
       <div>
-        <button
-          class="btn btn-primary circle-with-plus"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasBottom"
-          aria-controls="offcanvasBottom"
-        >
+        <button class="btn btn-primary circle-with-plus" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
           +
         </button>
 
-        <div
-          class="offcanvas offcanvas-bottom h-50"
-          tabindex="-1"
-          id="offcanvasBottom"
-          aria-labelledby="offcanvasBottomLabel"
-        >
+        <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom"
+          aria-labelledby="offcanvasBottomLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-            <button
-              type="button"
-              class="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body small">
             <h5 class="offcanvastext text-center">
@@ -154,7 +107,7 @@
     </div>
   </div>
 </template>
- <script>
+<script>
 import axios from "axios";
 export default {
   data() {
@@ -232,10 +185,11 @@ export default {
   },
 };
 </script>
-  <style scoped>
+<style scoped>
 .selectback {
   background: none !important;
 }
+
 .draftbtn {
   border-radius: 4px;
   border: 0.7px solid #999;
@@ -365,6 +319,7 @@ export default {
   padding: 5px 14px;
   margin: 3px 5px;
 }
+
 li {
   margin-top: 10px;
 }
@@ -418,11 +373,13 @@ p {
   font-weight: 600;
   line-height: normal;
 }
+
 @media (min-width: 500px) and (max-width: 2096px) {
   .btncustomer {
     width: 30%;
   }
 }
+
 .list-group-item.active {
   background: #3b43f9 !important;
   color: white !important;
@@ -431,6 +388,7 @@ p {
   margin-top: 0 !important;
   /* border-top-width: 1 !important; */
 }
+
 /* .list-group-item + .list-group-item.active {
   margin-top: 0 !important;
   border-top-width: 0 !important;
