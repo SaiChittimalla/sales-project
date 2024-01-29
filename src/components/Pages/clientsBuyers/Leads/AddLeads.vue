@@ -23,7 +23,7 @@
                             </div>
                             <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
                                 <div class="image-center">
-                                    <img src='../../../../assets/carbondelivery.png' alt="" class=" img-fluid ">
+                                    <img src='../../../../assets/idcardofwomaninglasses.svg' alt="" class=" img-fluid ">
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
                                 <div class="image-center">
-                                    <img src='../../../../assets/www.png' alt="" class=" img-fluid ">
+                                    <img src='../../../../assets/Group 237650.svg' alt="" class=" img-fluid ">
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                             </div>
                             <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
                                 <div class="image-center">
-                                    <img src='../../../../assets/personwrite.png' alt="" class=" img-fluid ">
+                                    <img src='../../../../assets/Friendrequestaccepted.svg' alt="" class=" img-fluid ">
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@ export default {
     width: 100%;
     padding: 5px 0px;
     position: fixed;
-    bottom: 0px;
+    bottom: 10px;
 }
 
 .optional {
