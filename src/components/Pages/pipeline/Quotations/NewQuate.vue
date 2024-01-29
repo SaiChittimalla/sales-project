@@ -24,9 +24,9 @@
                     <option value="9">Facebook LLC</option>    
                 </select> -->
                 
-                <input list="select" placeholder="search or select a customer" class="border-0 mx-2"  />
+                <input list="select" placeholder="search or Select a customer" class="border-0 mx-2"  />
                     <datalist id="select" >
-                         <option v-for="item in data" :key="item">{{ item.customer_name }}</option>
+                         <option v-for="item in data" :key="item">{{ item.customer_name }} </option>
                     </datalist>
                 </div>
                </div>
