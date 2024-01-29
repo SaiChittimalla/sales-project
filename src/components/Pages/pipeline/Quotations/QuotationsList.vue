@@ -11,9 +11,6 @@
             >
           </div>
         </div>
-        <div class="ri-search-line1">
-          <i class="ri-search-line"></i>
-        </div>
       </div>
     </nav>
     <div class="container">
@@ -141,9 +138,11 @@
               <b>Specify the quotation's <br />intended recipient.</b>
             </h5>
             <div class=" ">
-              <div class="mt-3 d-flex justify-content-center">
-                <button class="btn btncustomer">To Customer</button>
-              </div>
+              <router-link to="/NewQuate" class="text-decoration-none">
+                <button class="btn btncustomer w-100">
+                  To Customer
+                </button></router-link
+              >
               <div class="mt-3 d-flex justify-content-center">
                 <button class="btn btncustomer">To Lead</button>
               </div>
@@ -252,12 +251,14 @@ export default {
   font-weight: 500;
   line-height: normal;
 }
+
 .btncustomer {
   border-radius: 30px;
   background: #3b43f9;
   color: white;
   width: 100%;
 }
+
 .offcanvastext {
   color: #111;
   font-family: Montserrat;
@@ -266,6 +267,7 @@ export default {
   font-weight: 600;
   line-height: normal;
 }
+
 .ri-search-line1 {
   width: 32px;
   height: 32px;
@@ -277,6 +279,7 @@ export default {
   color: #ffffff;
   font-size: 21px;
 }
+
 .ri-file-edit-line1 {
   width: 32px;
   height: 32px;
@@ -288,6 +291,7 @@ export default {
   color: #ffffff;
   font-size: 25px;
 }
+
 .circle-with-plus {
   width: 50px;
   height: 50px;
@@ -313,17 +317,20 @@ export default {
   line-height: normal;
   margin-top: 8px;
 }
+
 .ri-arrow-left-line {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
   font-size: 20px;
 }
+
 .ri-search-line {
   font-size: 15px;
   flex-shrink: 0;
   color: #3b43f9;
 }
+
 .header {
   border-bottom: 1px solid #eee;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
@@ -333,12 +340,14 @@ export default {
   top: 0%;
   z-index: 10;
 }
+
 .header2 {
   flex-shrink: 0;
   background: #fff;
   box-shadow: 0px 11px 24px 0px rgba(0, 0, 0, 0.05);
   width: 100%;
 }
+
 .buttonsall {
   padding: 10px 10px;
 }
@@ -365,16 +374,19 @@ li {
   align-items: center;
   gap: 10px;
 }
+
 .card1 {
   border-radius: 4px;
   border: 1px solid #eee;
   background: #fff;
   box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.05);
 }
+
 .ri-file-edit-line {
   font-size: 15px;
   color: white;
 }
+
 .savedbutton {
   border-radius: 4px;
   border: 0.7px solid #3b43f9;
@@ -392,6 +404,7 @@ li {
   align-items: center;
   gap: 10px;
 }
+
 h1,
 h2,
 h3,

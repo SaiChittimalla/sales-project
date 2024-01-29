@@ -85,6 +85,10 @@
               </h6>
               <p style="font-size: 11px; color: #3b43f9">Customer</p>
             </div>
+            <div class="p-3">
+              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
+              <p style="font-size: 11px; color: #3b43f9">Customer</p>
+            </div>
           </div>
         </div>
       </div>
@@ -212,6 +216,7 @@ export default {
   color: #ffffff;
   font-size: 21px;
 }
+
 .ri-file-edit-line1 {
   width: 32px;
   height: 32px;
@@ -223,6 +228,7 @@ export default {
   color: #ffffff;
   font-size: 25px;
 }
+
 .circle-with-plus {
   width: 50px;
   height: 50px;
@@ -250,17 +256,20 @@ export default {
   line-height: normal;
   margin-top: 8px;
 }
+
 .ri-arrow-left-line {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
   font-size: 20px;
 }
+
 .ri-search-line {
   font-size: 15px;
   flex-shrink: 0;
   color: #3b43f9;
 }
+
 .header {
   border-bottom: 1px solid #eee;
 
@@ -269,6 +278,7 @@ export default {
   height: 62px;
   flex-shrink: 0;
 }
+
 .header2 {
   flex-shrink: 0;
   background: #fff;
@@ -285,7 +295,7 @@ export default {
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 18px; /* 150% */
+  line-height: 18px;
   padding: 4px 15px;
   /* margin: 0px 5px; */
 }
@@ -298,7 +308,7 @@ export default {
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 18px; /* 150% */
+  line-height: 18px;
   padding: 4px 15px;
 
   margin: 3px 5px;
@@ -322,16 +332,19 @@ li {
   gap: 10px;
   /* height: 932px; */
 }
+
 .card1 {
   border-radius: 4px;
   border: 1px solid #eee;
   background: #fff;
   box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.05);
 }
+
 .ri-file-edit-line {
   font-size: 15px;
   color: white;
 }
+
 .savedbutton {
   border-radius: 4px;
   border: 0.7px solid #3b43f9;
@@ -349,6 +362,7 @@ li {
   align-items: center;
   gap: 10px;
 }
+
 h1,
 h2,
 h3,
@@ -357,11 +371,11 @@ h5,
 h6,
 p {
   font-family: Montserrat;
-
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 }
+
 @media (min-width: 300px) and (max-width: 420px) {
 }
 </style>
