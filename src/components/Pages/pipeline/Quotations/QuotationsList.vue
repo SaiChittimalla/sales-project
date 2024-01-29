@@ -1,192 +1,142 @@
 <template>
-  <div class="">
-    <nav class="navbar header">
-      <div class="container">
-        <div class="d-flex gap-2 p-2 align-items-center">
-          <div>
-            <i class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Quotations &nbsp;({{ totalQuotations
-            }})</span></i>
-          </div>
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mt-2 header">
+      <div class="d-flex gap-2">
+        <div>
+          <i class="ri-arrow-left-line"></i>
+        </div>
+        <div>
+          <h6 class="quotationsfs">Quotations&nbsp;(199)</h6>
         </div>
       </div>
-    </nav>
-    <div class="container">
-      <div class="header2">
-        <div class="d-flex justify-content-between align-items-center buttonsall">
-          <ul class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row">
-            <!-- Add click event handlers to the filter buttons -->
-            <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
-              All
-            </li>
-            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Lead' }" @click="setFilter('Lead')">
-              Lead
-            </li>
-            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Customer' }"
-              @click="setFilter('Customer')">
-              Customer
-            </li>
-            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Ordered' }"
-              @click="setFilter('Ordered')">
-              Ordered
-            </li>
-            <!-- ... other filter buttons ... -->
-
-            <li class="list-group-item btn2" :class="{ active: activeFilter === 'This Month' }"
-              @click="setFilter('This Month')">
-              This Month
-            </li>
-            <!-- <select class="border-0 selectback">
-                <option class="border-0 bg-none">This Month</option> 
-              </select> -->
-          </ul>
-        </div>
+      <div class="ri-search-line1">
+        <i class="ri-search-line"></i>
       </div>
-      <div class="content">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-            <div class="card card1 mb-4" v-for="(employee, index) in filteredQuotations" :key="index">
-              <div class="d-flex justify-content-between p-2 align-items-baseline"
-                style="border-bottom: 1px solid #eeeeee">
-                <div class="d-flex gap-3 align-items-center">
-                  <div class="d-flex justify-content-center ri-file-edit-line1">
-                    <i class="ri-file-edit-line"></i>
-                  </div>
-                  <div>
-                    <p style="font-size: 13px" class="align-items-center mt-3">
-                      {{ employee.name }}<br /><span class="text-muted" style="font-size: 11px">{{
-                        employee.transaction_date }}</span>
-                    </p>
-                  </div>
+    </div>
+    <div class="header2">
+      <div class="d-flex justify-content-between align-items-center buttonsall">
+        <ul class="d-flex flex-wrap list-unstyled justify-content-between list-group  flex-row gap-1 ">
+          <li class=" list-group-item active btn1">All</li>
+          <li class=" list-group-item btn2">Lead</li>
+          <li class=" list-group-item btn2">Customer</li>
+          <li class=" list-group-item btn2">Saved</li>
+          <li class=" list-group-item btn2">
+            <select class="border-0">
+              <option class="border-0">This Month</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card card1 h-100">
+            <div class="d-flex justify-content-between p-2 align-items-baseline" style="border-bottom: 1px solid #eeeeee">
+              <div class="d-flex gap-3 align-items-center">
+                <div class="d-flex justify-content-center ri-file-edit-line1">
+                  <i class="ri-file-edit-line"></i>
                 </div>
                 <div>
-                  <button class="savedbutton">{{ employee.status }}</button>
+                  <p style="font-size: 13px" class="align-items-center mt-3">
+                    SAL-QTN-2023-00001 <br /><span class="text-muted" style="font-size: 11px">12 Dec</span>
+                  </p>
                 </div>
               </div>
-              <div class="p-3">
-                <h6 class="" style="font-size: 13px">
-                  {{ employee.customer_name }}
-                </h6>
-                <p style="font-size: 11px; color: #3b43f9">
-                  {{ employee.quotation_to }}
-                </p>
+              <div>
+                <button class="savedbutton">Saved</button>
               </div>
+            </div>
+            <div class="p-3">
+              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
+              <p style="font-size: 11px; color: #3b43f9">Customer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card card1 h-100">
+            <div class="d-flex justify-content-between p-3 align-items-baseline" style="border-bottom: 1px solid #eeeeee">
+              <div class="d-flex gap-3 align-items-center">
+                <div class="d-flex justify-content-center ri-file-edit-line1">
+                  <i class="ri-file-edit-line"></i>
+                </div>
+                <div>
+                  <p style="font-size: 13px" class="align-items-center mt-3">
+                    SAL-QTN-2023-00001 <br /><span class="text-muted" style="font-size: 11px">12 Dec</span>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <button class="savedbutton">Saved</button>
+              </div>
+            </div>
+            <div class="p-3">
+              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
+              <p style="font-size: 11px; color: #3b43f9">Lead</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card card1 h-100">
+            <div class="d-flex justify-content-between p-3 align-items-baseline" style="border-bottom: 1px solid #eeeeee">
+              <div class="d-flex gap-3 align-items-center">
+                <div class="d-flex justify-content-center ri-file-edit-line1">
+                  <i class="ri-file-edit-line"></i>
+                </div>
+                <div>
+                  <p style="font-size: 13px" class="align-items-center mt-3">
+                    SAL-QTN-2023-00001 <br /><span class="text-muted" style="font-size: 11px">12 Dec</span>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <button class="draftbtn">Draft</button>
+              </div>
+            </div>
+            <div class="p-3">
+              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
+              <p style="font-size: 11px; color: #3b43f9">Customer</p>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        <button class="btn btn-primary circle-with-plus" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
-          +
-        </button>
+    </div>
+    <div>
+      <button class="btn btn-primary circle-with-plus" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+        +
+      </button>
 
-        <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom"
-          aria-labelledby="offcanvasBottomLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body small">
-            <h5 class="offcanvastext text-center">
-              <b>Specify the quotation's <br />intended recipient.</b>
-            </h5>
-            <div class="d-flex justify-content-center ">
-              <router-link to="/NewQuate" class="text-decoration-none btn btncustomer ">
-                To Customer
+      <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small">
+          <h5 class="offcanvastext text-center">
+            <b>Specify the quotation's <br />intended recipient.</b>
+          </h5>
+          <div>
+            <div class="mt-3">
+              <router-link to="/NewQuate" class="  text-decoration-none "> <button class="btn btncustomer w-100">To
+                  Customer</button></router-link>
+            </div>
+            <div class="mt-3">
+              <router-link to="/LeadNewQuate" class="text-decoration-none ">
+                <button class="btn btncustomer w-100">To Lead</button>
               </router-link>
             </div>
-            <div class="mt-3 d-flex justify-content-center">
-              <button class="btn btncustomer">To Lead</button>
-            </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      data: [],
-      allQuotation: [],
-      filterType: "All",
-      employeeFilterType: "Lead",
-      activeFilter: "All",
-      filterType1: "Customer",
-      filterType2: "Lead",
-      filterType3: "This Month",
-    };
-  },
-  mounted() {
-    this.fetchData();
-  },
-  computed: {
-    totalQuotations() {
-      return this.filteredQuotations.length;
-    },
-    filteredQuotations() {
-      if (this.filterType === "All") {
-        return this.allQuotation;
-      } else if (this.filterType1 === "Customer") {
-        return this.allQuotation.filter(
-          (employee) => employee.quotation_to === this.filterType1
-        );
-      } else if (this.filterType2 === "Lead") {
-        return this.allQuotation.filter(
-          (employee) => employee.quotation_to === this.filterType2
-        );
-      } else if (this.filterType3 === "This Month") {
-        return this.allQuotation.filter(
-          (employee) => employee.transaction_date === this.filterType3
-        );
-      } else {
-        return this.allQuotation.filter(
-          (employee) => employee.status === this.filterType
-        );
-      }
-    },
-  },
-  methods: {
-    setFilter(type) {
-      this.activeFilter = type;
-      this.filterType = type;
-      this.filterType1 = type;
-      this.filterType2 = type;
-      this.filterType3 = type;
-    },
-
-    fetchData() {
-      this.loading = true;
-      axios
-        .get(
-          "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
-          {
-            params: {
-              fields: JSON.stringify(["*"]),
-            },
-          }
-        )
-        .then((response) => {
-          this.allQuotation = JSON.parse(JSON.stringify(response.data.data));
-          console.log(this.allQuotation);
-        })
-        .catch((error) => {
-          console.error(error.message);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
-  },
-};
-</script>
 <style scoped>
-.selectback {
-  background: none !important;
-}
+/* .offcanvas-bottom { 
+  height: 30%;
+} */
 
 .draftbtn {
   border-radius: 4px;
@@ -209,7 +159,6 @@ export default {
   border-radius: 30px;
   background: #3b43f9;
   color: white;
-  width: 100%;
 }
 
 .offcanvastext {
@@ -286,15 +235,15 @@ export default {
 
 .header {
   border-bottom: 1px solid #eee;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+
   background: #fff;
+  /* width: 430px; */
+  height: 62px;
   flex-shrink: 0;
-  position: sticky;
-  top: 0%;
-  z-index: 10;
 }
 
 .header2 {
+
   flex-shrink: 0;
   background: #fff;
   box-shadow: 0px 11px 24px 0px rgba(0, 0, 0, 0.05);
@@ -305,17 +254,34 @@ export default {
   padding: 10px 10px;
 }
 
-.btn2 {
+.active {
   border-radius: 20px;
-  /* background: #f3f3f3;
-  color: #3c3c3c; */
+  background: #3b43f9;
+  color: white;
+  /* color: #3C3C3C; */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
-  padding: 5px 14px;
-  margin: 3px 5px;
+  /* 150% */
+  padding: 4px 15px;
+  /* margin: 0px 5px; */
+}
+
+.btn2 {
+  border-radius: 20px;
+  background: #f3f3f3;
+  color: #3c3c3c;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  /* 150% */
+  padding: 4px 15px;
+
+  /* margin: 0px 5px; */
 }
 
 li {
@@ -324,9 +290,12 @@ li {
 
 .content {
   background: #f9f9f9;
+  /* display: inline-flex; */
   padding: 6px 14px;
+  /* justify-content: center; */
   align-items: center;
   gap: 10px;
+  /* height: 932px; */
 }
 
 .card1 {
@@ -367,30 +336,14 @@ h5,
 h6,
 p {
   font-family: Montserrat;
+
   font-style: normal;
   font-weight: 600;
   line-height: normal;
 }
 
-@media (min-width: 500px) and (max-width: 2096px) {
-  .btncustomer {
-    width: 30%;
-  }
-}
-
-.list-group-item.active {
-  background: #3b43f9 !important;
-  color: white !important;
-  padding: 7px 14px;
-  border: none;
-  margin-top: 0 !important;
-  /* border-top-width: 1 !important; */
-}
-
-/* .list-group-item + .list-group-item.active {
-  margin-top: 0 !important;
-  border-top-width: 0 !important;
-} */
+@media (min-width: 300px) and (max-width: 420px) {}
 </style>
 <script setup>
+
 </script>
