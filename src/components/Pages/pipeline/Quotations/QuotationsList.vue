@@ -137,12 +137,13 @@
             <h5 class="offcanvastext text-center">
               <b>Specify the quotation's <br />intended recipient.</b>
             </h5>
+
             <div class=" ">
-              <router-link to="/NewQuate" class="text-decoration-none">
-                <button class="btn btncustomer w-100">
+              <div class="mt-3 d-flex justify-content-center">
+                <router-link to="/NewQuate" class="btn btncustomer">
                   To Customer
-                </button></router-link
-              >
+                </router-link>
+              </div>
               <div class="mt-3 d-flex justify-content-center">
                 <button class="btn btncustomer">To Lead</button>
               </div>

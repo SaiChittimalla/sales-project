@@ -1,39 +1,41 @@
 <template>
-  <nav class="navbar header">
-    <div class="container">
-      <div class="p-1">
-        <i class="ri-arrow-left-line quotationsfs"
-          ><span class="ps-2">New Quotation - Customer</span></i
-        >
-      </div>
-    </div>
-  </nav>
-  <div class="d-flex justify-content-center">
-    <div class="bg-1">
-      <div class="inputheader mt-3">
-        <div class="p-3">
-          <label for="Companyselect"><p class="text-muted">Customer</p></label
-          ><br />
-          <select
-            class="form-select w-100 border-0"
-            aria-label="Default select example"
-            v-model="selectedCustomer"
-            @change="fetchItemsForCustomer"
+  <div class="">
+    <nav class="navbar header">
+      <div class="container">
+        <div class="p-1">
+          <i class="ri-arrow-left-line quotationsfs"
+            ><span class="ps-2">New Quotation - Customer</span></i
           >
-            <option
-              v-for="(customer, index) in customerList"
-              :key="index"
-              :value="customer.customer_name"
+        </div>
+      </div>
+    </nav>
+    <div class="d-flex justify-content-center">
+      <div class="bg-1">
+        <div class="inputheader mt-3">
+          <div class="p-3">
+            <label for="Companyselect"><p class="text-muted">Customer</p></label
+            ><br />
+            <select
+              class="form-select w-100 border-0"
+              aria-label="Default select example"
+              v-model="selectedCustomer"
+              @change="fetchItemsForCustomer"
             >
-              {{ customer.customer_name }}
-            </option>
-          </select>
+              <option
+                v-for="(customer, index) in customerList"
+                :key="index"
+                :value="customer.customer_name"
+              >
+                {{ customer.customer_name }}
+              </option>
+            </select>
 
-          <!-- <select name="customer" id=" Companyselect" class="border-0 bg-white w-100 dropdown-select">
+            <!-- <select name="customer" id=" Companyselect" class="border-0 bg-white w-100 dropdown-select">
               <option class="bg-light border-0 text-muted " value="caratRed Technologies Pvt Ltd">
                 <h6></h6>
               </option>
             </select> -->
+          </div>
         </div>
         <div class="card card1 mt-4">
           <div class="card-header border-bottom-0">
@@ -61,7 +63,7 @@
               :key="index"
             >
               <div>
-                <h6>{{ item }}</h6>
+                <h6>{{ item.item_name }}</h6>
                 <p>
                   {{ item.description }}
                 </p>
@@ -115,33 +117,29 @@
 
           <div class="d-flex justify-content-between p-1 mt-3">
             <div>
-              <h6>HGYFg76yy d7y</h6>
-              <p>
-                Cake mukka lava<br />
-                choco candy delight
-              </p>
+              <h6>VAT:&nbsp;0</h6>
             </div>
-            <div class="d-flex align-items-center gap-2">
-              <button class="btn border-1 increment">
-                <button class="btn border-0" onclick="decrement()">-</button>
-                <h6><span id="count">0</span></h6>
-                <button class="btn border-0" onclick="increment()">+</button>
-              </button>
-            </div>
-            <div>
-              <h6>₹ 87,236.00</h6>
-              <p class="text-end" style="color: #3b43f9">Edit</p>
-            </div>
+            <div><h6 class="text-muted">₹ 0.00</h6></div>
           </div>
-        </div>
-        <div class="card-body card-body123">
-          <div class="d-flex gap-3">
+          <div class="d-flex justify-content-between p-1 mt-3">
             <div>
-              <h6>HGYFg76yy d7y</h6>
-              <p>
-                Cake mukka lava<br />
-                choco candy delight
-              </p>
+              <h6>SEZ:&nbsp;0</h6>
+            </div>
+            <div><h6 class="text-muted">₹ 0.00</h6></div>
+          </div>
+          <div
+            class="d-flex justify-content-between p-1 mt-3"
+            style="border-bottom: 1px dashed LIGHTGREY"
+          >
+            <div>
+              <h6>Total:</h6>
+            </div>
+            <div><h6>₹ 11,614.00</h6></div>
+          </div>
+          <div class="d-flex justify-content-between p-1 mt-3">
+            <div>
+              <h6>Discount</h6>
+              <p class="text-muted">Give additional discount before tax</p>
             </div>
             <div class="d-flex gap-2">
               <div class="circle-with-plus">+</div>
@@ -225,7 +223,7 @@ export default {
           .get(`http://192.168.1.177:8000/api/resource/Quotation`, {
             params: {
               fields: JSON.stringify(["*"]),
-              items: this.selectedCustomer, // Pass the selected customer to the API
+              customer_name: this.selectedCustomer, // Pass the selected customer to the API
             },
           })
           .then((response) => {
@@ -269,21 +267,18 @@ select option {
   font-size: 15px;
   border: 1px solid;
 }
-
 .btndraft {
   border-radius: 40px;
   background: #f8f8ff;
   color: #3b43f9;
   padding: 10px 10px;
 }
-
 .btn-quot {
   border-radius: 40px;
   background: #3b43f9;
   color: white;
   padding: 10px 10px;
 }
-
 .increment {
   display: inline-flex;
 
@@ -298,7 +293,6 @@ select option {
 
   gap: 15px;
 }
-
 .circle-with-plus1 {
   width: 15px;
   height: 15px;
@@ -310,23 +304,19 @@ select option {
   font-size: 13px;
   border: 1px solid;
 }
-
 .bg-1 {
   background-color: #f9f9f9;
 }
-
 .ri-arrow-left-line {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
   font-size: 20px;
 }
-
 .select {
   border: none !important;
   background: white;
 }
-
 .quotationsfs {
   color: #111;
   font-family: Montserrat;
@@ -335,7 +325,6 @@ select option {
   font-weight: 600;
   line-height: normal;
 }
-
 .header {
   border-bottom: 1px solid #eee;
   background: #fff;
@@ -346,23 +335,19 @@ select option {
   background: white;
   z-index: 10;
 }
-
 .inputheader {
   border-radius: 10px;
   border: 1px solid #eee;
   background: #fff;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.05);
 }
-
 .card1 {
   border-radius: 10px 10px 0px 0px;
   background: #fafafa;
 }
-
 .card-body123 {
   border-bottom: 1px solid #eeeeee;
 }
-
 h6 {
   color: #111;
   font-family: Montserrat;
@@ -371,7 +356,6 @@ h6 {
   font-weight: 600;
   line-height: normal;
 }
-
 p {
   color: #444;
   font-family: Montserrat;
