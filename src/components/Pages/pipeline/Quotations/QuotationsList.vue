@@ -399,11 +399,11 @@ li {
   font-weight: 500;
   line-height: normal;
   margin-top: 10px;
+  align-items: center;
+  gap: 10px;
   display: inline-flex;
   padding: 6px 14px;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
 }
 
 h1,
