@@ -12,6 +12,11 @@
       <form @submit.prevent="submitForm()">
         <h4 class="login-tag">Login</h4>
         <p class="credential-tag ">Enter valid credentials</p>
+        <div class="mb-1">
+          <label for="ipPort" class="form-label ">IP Address :</label>
+          <input type="text" id="ipPort" class="form-control" placeholder="192.168.1.177:8000" v-model="ipPort"
+            @input="parseIpPort">
+        </div>
         <div class="mb-2 position-relative ">
           <label for="Email" class="form-label ">Username </label>
           <input type="text" class="form-control input-radius " name="Email" :class="{ 'is-invalid': errors.email }"
@@ -38,12 +43,6 @@
         <div class="text-danger errsize my-1" v-if="errors.password">
           {{ errors.password }}
         </div>
-        <div>
-          <label for="ipAddress">IP Address:</label>
-          <input type="text" id="ipAddress" class="form-control" v-model="ipAddress" @input="formatIpAddress">
-        </div>
-        <label for="port">Port:</label>
-        <input type="text" id="port" class="form-control" v-model="port">
 
         <div class=" text-end mt-3">
 
@@ -53,7 +52,7 @@
         <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
-        <button type="submit" class=" btn btn-white login" :disabled="!formData.email || !formData.password">
+        <button type="submit" class=" btn btn-white login" :disabled="!formData.email || !formData.password || !ipPort">
           <div v-if="loading" class=" spinner-border  spinner-border-sm ">
           </div>
           <span v-if="!loading"> LOGIN
@@ -84,8 +83,7 @@ export default {
       errors: {},
       showPassword: false,
       loading: false,
-      ipAddress: '',
-      port: ''
+      ipPort: ''
     }
   },
   mounted() {
@@ -94,6 +92,7 @@ export default {
       this.$router.push({ name: 'HomePage' })
     }
   },
+
   methods: {
 
     submitForm() {
@@ -182,12 +181,10 @@ export default {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
-    formatIpAddress() {
-      this.ipAddress = this.ipAddress.replace(/[^\d.]/g, '');
-      let parts = this.ipAddress.split('.');
-      parts = parts.map(part => part.slice(0, 3));
-      parts = parts.slice(0, 4);
-      this.ipAddress = parts.join('.');
+    parseIpPort() {
+      const parts = this.ipPort.split(':');
+      this.ipAddress = parts[0] || '';
+      this.port = parts[1] || '';
     }
 
   }

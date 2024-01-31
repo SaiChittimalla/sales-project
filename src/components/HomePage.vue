@@ -65,7 +65,7 @@
             <div>
               <div>
                 <h4 class="collect-amt"><span>₹</span> 23,54,345.09</h4>
-                <p class="amount-collected">Amount collected</p>
+                <p class="amount-collected">Amount collect</p>
 
               </div>
             </div>
@@ -120,7 +120,7 @@
               <div class=" card-body d-flex  justify-content-evenly status-pad  ">
                 <div><img src="../assets/solar_delivery-bold.svg" alt="" class=" img-fluid status-img"></div>
                 <div>
-                  <h4 class=" num-status m-0">345</h4>
+                  <h4 class=" num-status m-0">{{ this.delivery.length }}</h4>
                   <span class=" num-titles"> Total Delivery Notes</span>
                 </div>
               </div>
@@ -294,6 +294,7 @@ export default {
   mounted() {
     console.log(localStorage.getItem("user"));
     this.SalesOrder();
+    this.DeliveryOrder();
     let user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       this.$router.push({ name: 'LoginPage' })
@@ -345,39 +346,41 @@ export default {
       this.$router.push({ name: 'LoginPage' })
 
     },
-    async SalesOrder() {
-
-      try {
-        let queryParams = { filters: [] };
-        queryParams.fields = JSON.stringify(['*']);
-        queryParams.limit_page_length = null;
-        if (queryParams.filters) {
-          queryParams.filters = JSON.stringify(queryParams.filters);
-        }
-        const response = await axios.get('http://192.168.1.177:8000/api/resource/Sales Order', {
-          params: queryParams
-        });
-        this.data = response.data.data;
-        console.log(this.data);
-        console.log(this.data.length, 'sales orders======');
-      } catch (error) {
-        console.error(error);
+    SalesOrder() {
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(['*']);
+      queryParams.limit_page_length = null;
+      if (queryParams.filters) {
+        queryParams.filters = JSON.stringify(queryParams.filters);
       }
+      axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order', {
+        params: queryParams
+      })
+        .then((response) => {
+          this.data = response.data.data;
+          console.log(this.data.length, 'sales orders======');
+        }).catch((error) => {
+          console.error(error);
+        });
     },
     DeliveryOrder() {
-      // Make an HTTP GET request to the API endpoint
-
-      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]')
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(['*']);
+      queryParams.limit_page_length = null;
+      if (queryParams.filters) {
+        queryParams.filters = JSON.stringify(queryParams.filters);
+      }
+      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]', {
+        params: queryParams
+      })
         .then((response) => {
-          this.delivery = response.data;
-          console.log(this.delivery, 'delivery');
+          this.delivery = response.data.data;
+          console.log(this.delivery.length, 'delivery Notes======');
         })
         .catch((error) => {
           console.error(error);
         });
-    },
-
-
+    }
   }
 
 }
