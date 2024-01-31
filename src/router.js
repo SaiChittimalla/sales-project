@@ -14,6 +14,7 @@ import LeadForm from './components/Pages/clientsBuyers/Leads/LeadForm.vue';
 
 const routes = [
     {
+        name: 'LoginPage',
         path: '/',
         component: LoginPage
     },

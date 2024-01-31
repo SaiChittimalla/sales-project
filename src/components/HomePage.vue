@@ -1,37 +1,35 @@
 <template>
   <div>
-
-
     <nav class="navbar navigation-main">
       <div class="container">
         <a class="navbar-brand" href="#">
           <img src="../assets/MorganLogo.svg" alt="Morgan" class="logo">
         </a>
         <div>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary profile-modal " data-bs-toggle="modal"
-            data-bs-target="#exampleModal">
-            A
-          </button>
-
-
+          <div class="dropdown dropstart">
+            <button class="btn btn-primary  profile-modal" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              {{ usrName }}
+            </button>
+            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+              <div class="d-flex  justify-content-center  align-items-center p-4">
+                <div class=" text-center">
+                  <button class="btn btn-primary  mb-3  inside-profile" type="button">
+                    {{ usrName }}
+                  </button>
+                  <router-link to="/" class="text-decoration-none logout border-0    " @click="logout()">
+                    <button type="button" class="btn btn-primary logout ">
+                      LOGOUT
+                    </button>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Morgan</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">LOGOUT</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="total-amount">
       <div>
         <div class="text-center month-tag pt-3">
@@ -86,7 +84,7 @@
                   <img src="../assets/totalorder.svg" alt="" class=" img-fluid status-img">
                 </div>
                 <div>
-                  <h4 class=" num-status m-0">345
+                  <h4 class=" num-status m-0"> {{ this.data.length }}
                   </h4>
                   <span class=" num-titles"> Total Sales Orders</span>
                 </div>
@@ -100,7 +98,7 @@
                   <img src="../assets/dollar.svg" alt="" class=" img-fluid status-img">
                 </div>
                 <div>
-                  <h4 class=" num-status m-0">345</h4>
+                  <h4 class=" num-status m-0">{{ this.data.length }}</h4>
                   <span class=" num-titles"> Total Sales Invoices</span>
                 </div>
               </div>
@@ -288,31 +286,110 @@ export default {
   name: 'HomePage',
   data() {
     return {
-      data: []
-
+      data: [],
+      usrName: '',
+      delivery: [],
     }
   },
   mounted() {
-    this.SalesOrder()
+    console.log(localStorage.getItem("user"));
+    this.SalesOrder();
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      this.$router.push({ name: 'LoginPage' })
+    } else {
+      this.usrName = user.usr.charAt(0).toUpperCase();
+    }
+
+
   },
   methods: {
-    SalesOrder() {
+
+    // SalesOrder() {
+    //   // Make an HTTP GET request to the API endpoint
+    //   let queryParams = { filters: [] };
+    //   let user = JSON.parse(localStorage.getItem('user'));
+    //   let ownerFilter = ['owner', '=', user.usr];
+    //   queryParams.filters.push(ownerFilter);
+    //   queryParams.filters = JSON.stringify(queryParams.filters);
+    //   axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]', {
+    //     params: queryParams
+    //   })
+    //     .then((response) => {
+    //       this.data = response.data;
+    //       console.log(this.data);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // },
+    // SalesOrder() {
+    //   // Make an HTTP GET request to the API endpoint
+    //   let queryParams = { filters: [] }
+    //   queryParams.fields = JSON.stringify(['*'])
+    //   queryParams.limit_page_length = "None"
+    //   queryParams.filters = JSON.stringify(queryParams?.filters);
+    //   axios.get('http://192.168.1.177:8000/api/resource/SalesOrder', {
+    //     params: queryParams
+    //   })
+    //     .then((response) => {
+    //       this.data = JSON.parse(JSON.stringify(response.data));
+    //       console.log(this.data);
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // },
+    logout() {
+      localStorage.clear()
+      this.$router.push({ name: 'LoginPage' })
+
+    },
+    async SalesOrder() {
+
+      try {
+        let queryParams = { filters: [] };
+        queryParams.fields = JSON.stringify(['*']);
+        queryParams.limit_page_length = null;
+        if (queryParams.filters) {
+          queryParams.filters = JSON.stringify(queryParams.filters);
+        }
+        const response = await axios.get('http://192.168.1.177:8000/api/resource/Sales Order', {
+          params: queryParams
+        });
+        this.data = response.data.data;
+        console.log(this.data);
+        console.log(this.data.length, 'sales orders======');
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    DeliveryOrder() {
       // Make an HTTP GET request to the API endpoint
-      axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]')
+
+      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]')
         .then((response) => {
-          this.data = response.data;
-          console.log(this.data);
+          this.delivery = response.data;
+          console.log(this.delivery, 'delivery');
         })
         .catch((error) => {
           console.error(error);
         });
-    }
+    },
+
+
   }
 
 }
 
 </script>
 <style scoped>
+.logout {
+  background: #3B43F9 !important;
+  font-size: 12px !important;
+
+}
+
 .main-button {
   width: 62px;
   height: 62px;
@@ -424,6 +501,18 @@ export default {
   border-radius: 24px;
   background: #3B43F9 !important;
   transition: all 0.3ms ease;
+
+}
+
+.inside-profile {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: white;
+  transition: all 0.3ms ease;
+  border: 1px solid black;
+  color: black;
 
 }
 

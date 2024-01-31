@@ -496,7 +496,7 @@
                             </div>
                         </div>
                         <div class="d-flex  justify-content-between my-2 ">
-                            <div> <button type="button" class=" btn btn-white text-decoration-underline  "
+                            <div> <button type="button" class=" btn btn-white text-decoration-underline  back-btn "
                                     @click="back()">Back</button></div>
                             <div>
                                 <div v-if="currentStep !== totalSteps">
@@ -566,6 +566,20 @@ export default {
     }
 }
 
+.back-btn {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.back-btn:focus {
+    box-shadow: none;
+}
+
 .data-height {
     height: 100vh;
 }
@@ -598,6 +612,11 @@ export default {
     flex-shrink: 0;
     border-radius: 24px;
     background: #3B43F9;
+    border: transparent;
+}
+
+.next-btn:focus {
+    box-shadow: none;
 }
 
 .bottom-div {
