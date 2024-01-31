@@ -76,7 +76,17 @@
 
 <script>
 export default {
+    data() {
+        return {
 
+        }
+    },
+    mounted() {
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            this.$router.push({ name: 'LoginPage' })
+        }
+    }
 }
 </script>
 
@@ -156,9 +166,9 @@ export default {
 .started-div {
     background-color: #fff;
     width: 100%;
-    padding: 5px 0px;
+    padding: 20px 0px;
     position: fixed;
-    bottom: 10px;
+    bottom: 0px;
 }
 
 .optional {

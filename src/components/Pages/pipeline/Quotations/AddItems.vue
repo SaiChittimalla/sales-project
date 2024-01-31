@@ -141,6 +141,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class=" col-sm-12">
+                                        <button type="button" class="border-0 add-item-btn w-100">
+                                            Add Item</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -170,6 +177,11 @@
                                     Submit
                                 </button>
                             </div>
+                        </div>
+                        <div class="col-sm-2 text-end d-flex align-items-center justify-content-center">
+                            <button class="border-0 bg-transparent p-2 submit-btn">
+                                Submit
+                            </button>
                         </div>
                     </div>
                 </div>

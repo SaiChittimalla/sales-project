@@ -3,11 +3,8 @@
     <div class="container">
       <div class="d-flex gap-2 p-2 align-items-center">
         <div>
-          <i class="ri-arrow-left-line"
-            ><span class="ps-2 quotationsfs"
-              >SalesOrders &nbsp;({{ totalQuotations }})</span
-            ></i
-          >
+          <i class="ri-arrow-left-line"><span class="ps-2 quotationsfs">SalesOrders &nbsp;({{ totalQuotations
+          }})</span></i>
         </div>
       </div>
       <div class="ri-search-line1">
@@ -20,25 +17,14 @@
       <div class="d-flex justify-content-between align-items-center buttonsall">
         <ul class="d-flex flex-wrap list-unstyled list-group flex-row gap-1">
           <div></div>
-          <li
-            class="list-group-item btn2"
-            :class="{ active: activeFilter === 'All' }"
-            @click="setFilter('All')"
-          >
+          <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
             All
           </li>
-          <li
-            class="list-group-item btn2"
-            :class="{ active: activeFilter === 'Draft' }"
-            @click="setFilter('Draft')"
-          >
+          <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }" @click="setFilter('Draft')">
             Draft
           </li>
-          <li
-            class="list-group-item btn2"
-            :class="{ active: activeFilter === 'Completed' }"
-            @click="setFilter('Completed')"
-          >
+          <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
+            @click="setFilter('Completed')">
             Completed
           </li>
           <li class="list-group-item btn2" @click="setFilter('This Month')">
@@ -52,26 +38,16 @@
     <div class="content">
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-          <div
-            class="card card1 mb-4"
-            v-for="(sales, index) in filteredQuotations"
-            :key="index"
-          >
-            <div
-              class="d-flex justify-content-between p-2 align-items-baseline"
-              style="border-bottom: 1px solid #eeeeee"
-            >
+          <div class="card card1 mb-4" v-for="(sales, index) in filteredQuotations" :key="index">
+            <div class="d-flex justify-content-between p-2 align-items-baseline" style="border-bottom: 1px solid #eeeeee">
               <div class="d-flex gap-3 align-items-center">
                 <div class="d-flex justify-content-center ri-file-edit-line1">
                   <i class="ri-file-edit-line"></i>
                 </div>
                 <div>
                   <p style="font-size: 13px" class="align-items-center mt-3">
-                    {{ sales.name }}<br /><span
-                      class="text-muted"
-                      style="font-size: 11px"
-                      >{{ sales.transaction_date }}</span
-                    >
+                    {{ sales.name }}<br /><span class="text-muted" style="font-size: 11px">{{ sales.transaction_date
+                    }}</span>
                   </p>
                 </div>
               </div>
@@ -85,28 +61,19 @@
               </h6>
               <p style="font-size: 11px; color: #3b43f9">Customer</p>
             </div>
-            <div class="p-3">
-              <h6 class="" style="font-size: 13px">Anasuya karthula</h6>
-              <p style="font-size: 11px; color: #3b43f9">Customer</p>
-            </div>
           </div>
         </div>
       </div>
     </div>
     <div>
-      <button
-        class="btn btn-primary circle-with-plus"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasBottom"
-        aria-controls="offcanvasBottom"
-      >
+      <button class="btn btn-primary circle-with-plus" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
         +
       </button>
     </div>
   </div>
 </template>
-  <script>
+<script>
 import axios from "axios";
 export default {
   data() {
@@ -187,7 +154,7 @@ export default {
   },
 };
 </script>
-  <style scoped>
+<style scoped>
 .draftbtn {
   border-radius: 4px;
   border: 0.7px solid #999;
@@ -244,9 +211,11 @@ export default {
   bottom: 10%;
   right: 17%;
 }
+
 .buttonsall {
   padding: 10px 10px;
 }
+
 .quotationsfs {
   color: #111;
   font-family: Montserrat;
@@ -313,12 +282,14 @@ export default {
 
   margin: 3px 5px;
 }
-.list-group-item + .list-group-item.active {
+
+.list-group-item+.list-group-item.active {
   border-top-width: 1px !important;
   background: #3b43f9;
   color: white;
   padding: 5px 14px;
 }
+
 li {
   margin-top: 10px;
 }
@@ -376,8 +347,7 @@ p {
   line-height: normal;
 }
 
-@media (min-width: 300px) and (max-width: 420px) {
-}
+@media (min-width: 300px) and (max-width: 420px) {}
 </style>
 <script setup>
 </script>
