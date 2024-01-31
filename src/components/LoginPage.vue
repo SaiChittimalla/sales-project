@@ -12,17 +12,17 @@
       <form @submit.prevent="submitForm()">
         <h4 class="login-tag">Login</h4>
         <p class="credential-tag ">Enter valid credentials</p>
-        <div class="mb-3 position-relative ">
+        <div class="mb-2 position-relative ">
           <label for="Email" class="form-label ">Username </label>
-          <input type="email" class="form-control input-radius mb-3 " name="Email" :class="{ 'is-invalid': errors.email }"
+          <input type="text" class="form-control input-radius " name="Email" :class="{ 'is-invalid': errors.email }"
             id="Email" aria-describedby="emailHelpId" placeholder="Enter your username" v-model="formData.email"
             @input="validatemail">
           <i class="bi bi-person"></i>
         </div>
-        <div class="text-danger errsize" v-if="errors.email">
+        <div class="text-danger errsize my-1 " v-if="errors.email">
           {{ errors.email }}
         </div>
-        <div class="mb-3 position-relative">
+        <div class="mb-2 position-relative">
           <label for="password" class="form-label ">Password </label>
           <input :type="showPassword ? 'text' : 'password'" class="form-control input-radius" name="password"
             :class="{ 'is-invalid': errors.password }" id="password" placeholder="Enter your password"
@@ -35,12 +35,21 @@
             <i v-show="showPassword" class="bi bi-eye-fill" @click="togglePasswordVisibility"></i>
           </div>
         </div>
-        <div class="text-danger" v-if="errors.password">
+        <div class="text-danger errsize my-1" v-if="errors.password">
           {{ errors.password }}
         </div>
+        <div>
+          <label for="ipAddress">IP Address:</label>
+          <input type="text" id="ipAddress" class="form-control" v-model="ipAddress" @input="formatIpAddress">
+        </div>
+        <label for="port">Port:</label>
+        <input type="text" id="port" class="form-control" v-model="port">
 
-        <a href="" class="forget-pass text-decoration-none d-flex justify-content-end mt-3">Forget
-          Password?</a>
+        <div class=" text-end mt-3">
+
+          <a href="" class="forget-pass text-decoration-none  ">Forget
+            Password?</a>
+        </div>
         <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
@@ -64,6 +73,8 @@ import 'vue3-toastify/dist/index.css';
 import axios from 'axios';
 
 export default {
+  name: 'LoginPage',
+
   data() {
     return {
       formData: {
@@ -73,40 +84,77 @@ export default {
       errors: {},
       showPassword: false,
       loading: false,
-
-
-
+      ipAddress: '',
+      port: ''
     }
-  }
-  , methods: {
+  },
+  mounted() {
+    let user = localStorage.getItem('user');
+    if (user) {
+      this.$router.push({ name: 'HomePage' })
+    }
+  },
+  methods: {
+
     submitForm() {
-      this.loading = true;  // Update to set loading to true
+      this.loading = true;
       const data = {
         usr: this.formData.email,
         pwd: this.formData.password,
       };
-      axios.post('http://192.168.1.177:8000/api/method/login', { ...data })
+      const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
+
+      axios.post(url, data)
         .then((response) => {
           console.log(response);
-          toast.success("Login Successfull"), {
+          toast.success("Login Successful", {
             position: "top-right",
-          };
-          if (response.status == 200) {
-            this.loading = false;
-            localStorage.setItem("user", JSON.stringify(data))
-            setTimeout(() => {
-              this.$router.push({ name: 'HomePage' })
-            }, 1000)
+          });
 
+          if (response.status === 200) {
+            this.loading = false;
+            localStorage.setItem("user", JSON.stringify(data));
+            setTimeout(() => {
+              this.$router.push({ name: 'HomePage' });
+            }, 1000);
           }
         })
         .catch((error) => {
-          this.loading = false;  // Set loading to false on error
+          this.loading = false;
           toast.error("Invalid Credentials");
           console.error(error);
         });
 
     },
+
+    // submitForm() {
+    //   this.loading = true;  // Update to set loading to true
+    //   const data = {
+    //     usr: this.formData.email,
+    //     pwd: this.formData.password,
+    //   };
+    //   axios.post('http://192.168.1.177:8000/api/method/login', { ...data })
+    //     .then((response) => {
+    //       console.log(response);
+    //       toast.success("Login Successfull"), {
+    //         position: "top-right",
+    //       };
+    //       if (response.status == 200) {
+    //         this.loading = false;
+    //         localStorage.setItem("user", JSON.stringify(data))
+    //         setTimeout(() => {
+    //           this.$router.push({ name: 'HomePage' })
+    //         }, 1000)
+
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       this.loading = false;  // Set loading to false on error
+    //       toast.error("Invalid Credentials");
+    //       console.error(error);
+    //     });
+
+    // },
     validatemail() {
       if (!this.formData.email) {
         this.errors.email = "Email requried"
@@ -121,7 +169,6 @@ export default {
     }
     ,
     vaildatePassword() {
-      // console.log(this.FormData.password);
       if (!this.formData.password) {
         this.errors.password = "requried";
 
@@ -135,15 +182,18 @@ export default {
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
+    formatIpAddress() {
+      this.ipAddress = this.ipAddress.replace(/[^\d.]/g, '');
+      let parts = this.ipAddress.split('.');
+      parts = parts.map(part => part.slice(0, 3));
+      parts = parts.slice(0, 4);
+      this.ipAddress = parts.join('.');
+    }
 
   }
 }
 
-
-
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 * {
   font-family: 'Montserrat' !important;
@@ -178,7 +228,7 @@ export default {
 }
 
 .errsize {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .is-invalid {

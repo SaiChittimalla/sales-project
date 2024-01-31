@@ -29,13 +29,7 @@
                                 <option v-for="item in data" :key="item">{{ item.customer_name }} </option>
                             </datalist>
                         </div>
-
-                        <input list="select" placeholder="search or Select a customer" class="border-0 mx-2" />
-                        <datalist id="select">
-                            <option v-for="item in data" :key="item">{{ item.customer_name }} </option>
-                        </datalist>
                     </div>
-
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="mt-4 mx-2">
                             <div class="card p-2 rounded-3 shadow-sm dropdown-card">
