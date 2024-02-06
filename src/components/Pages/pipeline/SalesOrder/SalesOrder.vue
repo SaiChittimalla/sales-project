@@ -116,6 +116,10 @@ export default {
             params: {
               fields: JSON.stringify(["*"]),
             },
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }, withCredentials: true
           }
         )
         .then((response) => {
