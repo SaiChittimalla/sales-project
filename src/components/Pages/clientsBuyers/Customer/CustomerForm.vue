@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navigated">
             <div class=" container ">
-                <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backstep()"></i> New Lead</h4>
+                <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backstep()"></i> New Customer</h4>
             </div>
         </nav>
         <div>
@@ -14,28 +14,28 @@
                                 <div class=" data-height">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
-                                            Specify the particulars of the lead.
+                                            Specify the particulars of the Customer.
                                         </h2>
                                     </div>
                                     <div>
                                         <div class="card input-cards ">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">First Name <span
+                                                    <label for="Name" class="form-label text-muted">Customer Name <span
                                                             class=" required">
                                                             (required)</span></label>
                                                     <input type="text" class="form-control " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.first_name" required />
+                                                        v-model="this.formData.customer_name" />
                                                 </div>
                                             </div>
 
                                             <div class="padding-div">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">Name</label>
+                                                    <label for="Name" class="form-label text-muted">Gender</label>
                                                     <input type="text" class="form-control  " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.lead_name" />
+                                                        v-model="this.formData.gender" />
                                                 </div>
                                             </div>
                                         </div>
@@ -93,18 +93,18 @@
                                         </h2>
                                     </div>
                                     <div>
-                                        <div class=" card input-cards">
+                                        <!-- <div class=" card input-cards">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="" class="form-label">Organization</label>
+                                                    <label for="" class="form-label">Represents Company</label>
                                                     <input type="text" class="form-control" name="" id=""
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.company_name" />
+                                                        v-model="this.formData.customer_type" />
 
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <div class=" card input-cards">
                                             <div class="padding-div  border-top-0  ">
                                                 <div class="">
@@ -135,22 +135,6 @@
                                             </div>
 
                                         </div>
-                                        <div class="card input-cards">
-                                            <div class="padding-div border-top-0">
-                                                <div class="">
-                                                    <label for="" class="form-label">Status</label>
-                                                    <input type="text" class="form-control status" name="" id=""
-                                                        aria-describedby="helpId" placeholder=""
-                                                        v-model="formData.status" />
-                                                    <select id="showDatalist " class=" w-100  border-0 bg-white ">
-                                                        <option v-bind:value="'Lead'">Lead</option>
-                                                        <option v-bind:value="'Open'">Open</option>
-                                                        <option v-bind:value="'Replied'">Replied</option>
-                                                        <option v-bind:value="'Opportunity'">Opportunity</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -168,10 +152,11 @@
                                         <div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check " name="btnradio-1" id="btnradio1"
-                                                    v-model="this.formData.type" v-bind:value="'Client'" autocomplete="off">
+                                                    v-model="this.formData.customer_type" v-bind:value="'Company'"
+                                                    autocomplete="off">
                                                 <label class="btn btn-primary checking-box  " for="btnradio1">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Client</h4>
+                                                        <h4 class="lead-type text-start ">Company</h4>
                                                         <p class="lead-discription text-start  text-muted">A client receives
                                                             services or
                                                             products
@@ -183,11 +168,11 @@
                                             </div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check" name="btnradio-1" id="btnradio2"
-                                                    v-model="this.formData.type" v-bind:value="'Channel Partner'"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Individual'"
                                                     autocomplete="off">
                                                 <label class="btn btn-primary checking-box " for="btnradio2">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Channel Partner</h4>
+                                                        <h4 class="lead-type text-start ">Individual</h4>
                                                         <p class="lead-discription text-start  text-muted">A channel partner
                                                             collaborates with a company to market and distribute its
                                                             products.
@@ -197,11 +182,24 @@
                                             </div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check" name="btnradio-1" id="btnradio3"
-                                                    v-model="this.formData.type" v-bind:value="'Consultant'"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Proprietorship'"
                                                     autocomplete="off">
                                                 <label class="btn btn-primary checking-box " for="btnradio3">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Consultant</h4>
+                                                        <h4 class="lead-type text-start ">Proprietorship</h4>
+                                                        <p class="lead-discription text-start  text-muted">A consultant
+                                                            offers
+                                                            expert advice and solutions to address specific challenges.</p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="my-2">
+                                                <input type="radio" class="btn-check" name="btnradio-1" id="btnradio3"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Partnership'"
+                                                    autocomplete="off">
+                                                <label class="btn btn-primary checking-box " for="btnradio3">
+                                                    <div class="padding-div border-top-0 ">
+                                                        <h4 class="lead-type text-start ">Partnership</h4>
                                                         <p class="lead-discription text-start  text-muted">A consultant
                                                             offers
                                                             expert advice and solutions to address specific challenges.</p>
@@ -425,7 +423,7 @@
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
                                                         v-model="this.formData.request_type"
-                                                        v-bind:value="'Product Enquiry'" id="btnradio22" autocomplete="off">
+                                                        v-bind:value="'Product_Enquiry'" id="btnradio22" autocomplete="off">
                                                     <label class="btn h-100 btn-primary bg-check-none " for="btnradio22">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
@@ -442,9 +440,8 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 mb-3 cat-div">
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
-                                                        v-model="this.formData.request_type"
-                                                        v-bind:value="'Request for Information'" id="btnradio23"
-                                                        autocomplete="off">
+                                                        v-model="this.formData.request_type" v-bind:value="'Information'"
+                                                        id="btnradio23" autocomplete="off">
                                                     <label class="btn h-100 btn-primary bg-check-none " for="btnradio23">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
@@ -534,18 +531,14 @@ import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
 
 export default {
-    name: 'LeadForm',
-
+    name: 'CustomerForm',
     data() {
         return {
             // tempShow: false
             currentStep: 1,
             totalSteps: 5,
             completedSteps: [],
-            formData: {
-                status: '',
-            },
-
+            formData: {}
         }
     },
     methods: {
@@ -561,19 +554,19 @@ export default {
         },
         submitForm() {
             console.log(this.formData);
-            axios.post('http://192.168.1.177:8000/api/resource/Lead', this.formData, {
+            axios.post('http://192.168.1.177:8000/api/resource/Customer', this.formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }, withCredentials: true
-            })
+            },)
                 .then((response) => {
                     console.log(response);
                     this.formData = {};
                     this.currentStep = 1
-                    this.$router.push({ name: 'AddLeads' })
+                    this.$router.push({ name: 'AddCustomers' })
                 });
-            toast.success("Successfully Lead Added ", {
+            toast.success("Successfully Customer Added ", {
                 // toast options here
             });
         },
@@ -584,10 +577,10 @@ export default {
                 'active-step': this.currentStep >= step || this.completedSteps.includes(step)
             };
         },
-        backstep() {
-            this.$router.push({ name: 'AddLeads' })
-        },
 
+        backstep() {
+            this.$router.push({ name: 'AddCustomers' })
+        },
     }
 }
 
