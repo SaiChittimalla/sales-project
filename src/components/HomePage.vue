@@ -313,9 +313,6 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(['*']);
       queryParams.limit_page_length = null;
-      // let user = JSON.parse(localStorage.getItem('user'));
-      // let ownerFilter = ['owner', '=', user.usr];
-      // queryParams.filters.push(ownerFilter);
       queryParams.filters = JSON.stringify(queryParams?.filters);
       axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order', {
         params: queryParams,
@@ -364,6 +361,11 @@ export default {
 
 </script>
 <style scoped>
+.card {
+  cursor: pointer;
+}
+
+
 .logout {
   background: #3B43F9 !important;
   font-size: 12px !important;
@@ -379,9 +381,17 @@ export default {
   position: fixed;
   bottom: 10%;
   right: 5%;
+  animation: bounce infinite;
+}
 
+@keyframes bounce {
+  0% {
+    transform: translateY(20px);
+  }
 
-
+  100% {
+    transform: translateY(10px);
+  }
 }
 
 .main-button span {
@@ -591,9 +601,8 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
 }
-
-
 
 
 @media (max-width:575px) {

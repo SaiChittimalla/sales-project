@@ -10,7 +10,7 @@
                 <form @submit.prevent="submitForm()" class=" ">
                     <div class=" d-flex  justify-content-center ">
                         <div class="">
-                            <template v-if="currentStep === 1">
+                            <template v-if="currentStep == 1">
                                 <div class=" data-height">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -18,15 +18,19 @@
                                         </h2>
                                     </div>
                                     <div>
-                                        <div class="card input-cards ">
+                                        <div class="card input-cards  " :class="{ 'border-danger': error.customer_name }">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">Customer Name <span
-                                                            class=" required">
-                                                            (required)</span></label>
+                                                    <label for="Name" class="form-label text-muted">Customer Name
+                                                        <span v-if="!error.customer_name"
+                                                            class=" required">(required)</span>
+                                                        <span class="text-danger required "
+                                                            v-if="error.customer_name">(required)
+                                                        </span>
+                                                    </label>
                                                     <input type="text" class="form-control " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.customer_name" />
+                                                        v-model="this.formData.customer_name" @input="isInputEmpty" />
                                                 </div>
                                             </div>
 
@@ -39,15 +43,18 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card input-cards ">
+                                        <div class="card input-cards " :class="{ 'border-danger': error.mobile_no }">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">Mobile <span
-                                                            class=" required">
-                                                            (required)</span></label>
+                                                    <label for="Name" class="form-label text-muted">Mobile
+                                                        <span v-if="!error.mobile_no" class=" required">(required)</span>
+                                                        <span class="text-danger required "
+                                                            v-if="error.mobile_no">(required)
+                                                        </span>
+                                                    </label>
                                                     <input type="text" class="form-control  " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.mobile_no" required />
+                                                        v-model="this.formData.mobile_no" @input="isNumberEmpty" />
                                                 </div>
                                             </div>
 
@@ -83,9 +90,9 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 2">
+                            <template v-if="currentStep == 2">
                                 <div class=" data-height">
-                                    <div class=" text-end "><span class="text-muted">Skip <span><i
+                                    <div class=" text-end mt-3  "><span class="text-muted" @click="next()">Skip <span><i
                                                     class="ri-skip-forward-fill"></i></span></span></div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -139,9 +146,9 @@
 
                                 </div>
                             </template>
-                            <template v-if="currentStep === 3">
+                            <template v-if="currentStep == 3">
                                 <div class="lead-org data-height">
-                                    <div class=" text-end "><span class="text-muted">Skip <span><i
+                                    <div class=" text-end   "><span class="text-muted" @click="next()">Skip <span><i
                                                     class="ri-skip-forward-fill"></i></span></span></div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -210,11 +217,11 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 4">
+                            <template v-if="currentStep == 4">
                                 <div class=" d-flex justify-content-center ">
                                     <div class="m-2 organization data-height">
                                         <div class="">
-                                            <div class=" text-end "><span class="text-muted">Skip <span><i
+                                            <div class=" text-end "><span class="text-muted" @click="next()">Skip <span><i
                                                             class="ri-skip-forward-fill"></i></span></span></div>
                                             <div>
                                                 <h2 class="lead-heading mt-3 ">
@@ -410,7 +417,7 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 5">
+                            <template v-if="currentStep == 5">
                                 <div class="m-2 data-height ">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -499,23 +506,27 @@
                     </div>
 
                     <div class=" bottom-div">
-                        <div class="  d-flex  justify-content-evenly ">
-                            <div v-for="step in totalSteps" :key="step" class="step-bar">
-                                <div :class="getStepClasses(step)"></div>
+                        <div class=" container ">
+                            <div class="  d-flex  justify-content-evenly ">
+                                <div v-for="step in totalSteps" :key="step" class="step-bar">
+                                    <div :class="getStepClasses(step)"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex  justify-content-between my-2 ">
-                            <div> <button type="button" class=" btn btn-white text-decoration-underline  back-btn "
-                                    @click="back()">Back</button></div>
-                            <div>
-                                <div v-if="currentStep !== totalSteps">
-                                    <button type="button" class="btn btn-primary next-btn" @click="next()">Next</button>
-                                </div>
-                                <!-- Submit button appears only on the last step -->
-                                <div v-else>
-                                    <button type="submit" class="btn btn-primary next-btn">Submit</button>
-                                </div>
+                            <div class="d-flex  justify-content-between my-2 ">
+                                <div> <button type="button" class=" btn btn-white text-decoration-underline  back-btn "
+                                        @click="back()">Back</button></div>
+                                <div>
+                                    <div v-if="currentStep !== totalSteps">
+                                        <button type="button"
+                                            :disabled="!this.formData.customer_name || !this.formData.mobile_no"
+                                            class="btn btn-primary next-btn" @click="next()">Next</button>
+                                    </div>
+                                    <!-- Submit button appears only on the last step -->
+                                    <div v-else>
+                                        <button type="submit" class="btn btn-primary next-btn">Submit</button>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -534,22 +545,32 @@ export default {
     name: 'CustomerForm',
     data() {
         return {
-            // tempShow: false
             currentStep: 1,
             totalSteps: 5,
             completedSteps: [],
-            formData: {}
+            formData: {
+
+            },
+            error: {}
         }
+    },
+    mounted() {
+        this.currentStep = this.$route.params.id
+        console.log(this.currentStep);
     },
     methods: {
         next() {
             if (this.currentStep < this.totalSteps) {
                 this.currentStep++;
+                let id = this.currentStep
+                this.$router.push({ path: `/CustomerForm/${id}` })
             }
         },
         back() {
             if (this.currentStep > 1) {
                 this.currentStep--;
+                let id = this.currentStep
+                this.$router.push({ path: `/CustomerForm/${id}` })
             }
         },
         submitForm() {
@@ -581,6 +602,26 @@ export default {
         backstep() {
             this.$router.push({ name: 'AddCustomers' })
         },
+        isInputEmpty() {
+            if (!this.formData.customer_name) {
+                this.error.customer_name = "First Name"
+            }
+            else {
+                delete this.error.customer_name;
+
+
+            }
+        },
+        isNumberEmpty() {
+            if (!this.formData.mobile_no) {
+                this.error.mobile_no = "First Name"
+            }
+            else {
+                delete this.error.mobile_no;
+
+
+            }
+        }
     }
 }
 
@@ -588,6 +629,10 @@ export default {
 </script>
 
 <style scoped>
+.border-danger {
+    border: 1px solid red;
+}
+
 @media (max-width: 575px) {
     .cat-div {
         width: 50% !important;
@@ -743,7 +788,7 @@ export default {
 .required {
     color: #999;
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: 11px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

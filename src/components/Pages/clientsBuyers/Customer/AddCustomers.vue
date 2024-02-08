@@ -9,32 +9,39 @@
                     </router-link>
                 </div>
             </nav>
-            <div class=" d-flex  justify-content-center ">
-                <table class="m-3">
-                    <thead>
-                        <tr>
-                            <th>S.no</th>
-                            <th>Names</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for=" (item, index) in  Customer " :key="index">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ item.name }}
-                                <div>
-                                    <span class="idNumbers">ID : {{ item.customer_name }}</span>
-                                    <span class="idStatus mx-2 ">{{ item.customer_type }}</span>
-                                </div>
-                            </td>
-                            <td><span><i class="ri-pencil-fill"></i></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class=" d-flex started-div   justify-content-center ">
-                    <button type="button" class=" btn btn-outline-primary  Getstart" @click="AddCustomers()">
-                        ADD CUSTOMERS
-                    </button>
+            <div class=" container ">
+                <div class=" d-flex  justify-content-center ">
+                    <div class=" position-relative ">
+                        <table class="mt-3 w-100 ">
+                            <thead>
+                                <tr>
+                                    <th>S.no</th>
+                                    <th>Names</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for=" (item, index) in  Customer " :key="index">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>
+                                        <div>{{ item.name }}</div>
+                                        <div>
+                                            <span class="idNumbers">ID : {{ item.customer_name }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="idStatus">Customer Type : {{ item.customer_type }}</span>
+                                        </div>
+                                    </td>
+                                    <td><span><i class="ri-pencil-fill"></i></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class=" d-flex started-div   justify-content-center w-100  ">
+                            <button type="button" class=" btn btn-outline-primary  Getstart" @click="AddCustomers()">
+                                ADD CUSTOMERS
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </template>
@@ -45,69 +52,76 @@
                 </div>
             </nav>
             <div class=" d-flex  justify-content-center ">
-                <div class="p-4">
-                    <h2 class="lead-heading mt-3 ">
-                        It’s easy to create Customer with very few steps.
-                    </h2>
-                    <div class="card mt-5  all-cards">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-10 title-div">
-                                    <h3><span>1</span>&nbsp;Enter Customer’s personal details</h3>
-                                    <p class="card-para">These particulars are indispensable for the ease of identifying
-                                        Customers
-                                        during later stages
-                                        of sales.</p>
+                <div>
+                    <div class="p-4">
+                        <h2 class="lead-heading mt-3 ">
+                            It’s easy to create Customer with very few steps.
+                        </h2>
+                        <div class="card mt-5  all-cards">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 title-div">
+                                        <h3><span>1</span>&nbsp;Enter Customer’s personal details</h3>
+                                        <p class="card-para">These particulars are indispensable for the ease of identifying
+                                            Customers
+                                            during later stages
+                                            of sales.</p>
+                                    </div>
+                                    <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
+                                        <div class="image-center">
+                                            <img src='../../../../assets/idcardofwomaninglasses.svg' alt=""
+                                                class=" img-fluid ">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
-                                    <div class="image-center">
-                                        <img src='../../../../assets/idcardofwomaninglasses.svg' alt="" class=" img-fluid ">
+                            </div>
+                        </div>
+                        <div class="card mt-5  all-cards">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 title-div">
+                                        <h3><span>2</span>&nbsp;Customer Source
+                                            <span class=" optional"> (optional)</span>
+                                        </h3>
+                                        <p class="card-para">Define the Customer Type (Client, Partner, Consultant) and
+                                            Disclose
+                                            the
+                                            Source (Mail, Advertisement,Call)</p>
+                                    </div>
+                                    <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
+                                        <div class="image-center">
+                                            <img src='../../../../assets/Group 237650.svg' alt="" class=" img-fluid ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-5  all-cards">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-10 col-sm-10 title-div">
+                                        <h3><span>3</span>&nbsp;Request
+                                            <span class="optional"> (optional)</span>
+                                        </h3>
+                                        <p class="card-para">Defines the underlying purpose driving the Customer's request.
+                                        </p>
+                                    </div>
+                                    <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
+                                        <div class="image-center">
+                                            <img src='../../../../assets/Friendrequestaccepted.svg' alt=""
+                                                class=" img-fluid ">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card mt-5  all-cards">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-10 title-div">
-                                    <h3><span>2</span>&nbsp;Customer Source
-                                        <span class=" optional"> (optional)</span>
-                                    </h3>
-                                    <p class="card-para">Define the Customer Type (Client, Partner, Consultant) and Disclose
-                                        the
-                                        Source (Mail, Advertisement,Call)</p>
-                                </div>
-                                <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
-                                    <div class="image-center">
-                                        <img src='../../../../assets/Group 237650.svg' alt="" class=" img-fluid ">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class=" d-flex started-div   justify-content-center ">
+                        <router-link to="/CustomerForm/1" class=" text-decoration-none "> <button type="button"
+                                class="Getstart">
+                                Get started
+                            </button></router-link>
                     </div>
-                    <div class="card mt-5  all-cards">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10 col-sm-10 title-div">
-                                    <h3><span>3</span>&nbsp;Request
-                                        <span class="optional"> (optional)</span>
-                                    </h3>
-                                    <p class="card-para">Defines the underlying purpose driving the Customer's request.</p>
-                                </div>
-                                <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
-                                    <div class="image-center">
-                                        <img src='../../../../assets/Friendrequestaccepted.svg' alt="" class=" img-fluid ">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class=" d-flex started-div   justify-content-center ">
-                    <router-link to="/CustomerForm" class=" text-decoration-none "> <button type="button" class="Getstart">
-                            Get started
-                        </button></router-link>
                 </div>
             </div>
         </template>
@@ -173,6 +187,14 @@ table tr {
     vertical-align: middle !important;
 }
 
+table thead {
+    position: sticky;
+    top: 40px;
+    z-index: 1;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
 thead th {
     padding: 10px;
 }
@@ -183,10 +205,17 @@ tbody td {
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
-    line-height: 30px;
+    line-height: 25px;
     padding: 0px 10px;
+}
 
+tbody tr {
+    transition: all 0.5s ease;
+}
 
+tbody tr:hover {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
 .idNumbers {
@@ -195,7 +224,6 @@ tbody td {
     font-size: 11px;
     font-style: normal;
     font-weight: 400;
-    line-height: 30px;
     margin: 0;
 }
 
@@ -205,7 +233,6 @@ tbody td {
     font-size: 11px;
     font-style: normal;
     font-weight: 600;
-    line-height: 30px;
     margin: 0;
 }
 
@@ -269,8 +296,10 @@ tbody td {
     gap: 10px;
     flex-shrink: 0;
     border-radius: 24px;
-    background-color: #fff;
-    color: #3B43F9;
+    /* background-color: #fff;
+    color: #3B43F9; */
+    color: #fff;
+    background-color: #3B43F9;
     font-family: Montserrat;
     font-size: 15px;
     font-style: normal;
@@ -286,9 +315,8 @@ tbody td {
 
 .started-div {
     background-color: #fff;
-    width: 100%;
-    padding: 20px 0px;
-    position: fixed;
+    padding: 20px 5px;
+    position: sticky;
     bottom: 0px;
 }
 

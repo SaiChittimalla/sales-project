@@ -10,7 +10,7 @@
                 <form @submit.prevent="submitForm()" class=" ">
                     <div class=" d-flex  justify-content-center ">
                         <div class="">
-                            <template v-if="currentStep === 1">
+                            <template v-if="currentStep == 1">
                                 <div class=" data-height">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -18,15 +18,18 @@
                                         </h2>
                                     </div>
                                     <div>
-                                        <div class="card input-cards ">
+                                        <div class="card input-cards " :class="{ 'border-danger': error.first_name }">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">First Name <span
-                                                            class=" required">
-                                                            (required)</span></label>
+                                                    <label for="Name" class="form-label text-muted">First Name
+                                                        <span v-if="!error.first_name" class=" required">(required)</span>
+                                                        <span class="text-danger required "
+                                                            v-if="error.first_name">(required)
+                                                        </span>
+                                                    </label>
                                                     <input type="text" class="form-control " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.first_name" required />
+                                                        v-model="this.formData.first_name" @input="isInputEmpty" />
                                                 </div>
                                             </div>
 
@@ -38,16 +41,21 @@
                                                         v-model="this.formData.lead_name" />
                                                 </div>
                                             </div>
+
+
                                         </div>
-                                        <div class="card input-cards ">
+                                        <div class="card input-cards " :class="{ 'border-danger': error.mobile_no }">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">Mobile <span
-                                                            class=" required">
-                                                            (required)</span></label>
+                                                    <label for="Name" class="form-label text-muted">Mobile
+                                                        <span v-if="!error.mobile_no" class=" required">(required)</span>
+                                                        <span class="text-danger required "
+                                                            v-if="error.mobile_no">(required)
+                                                        </span>
+                                                    </label>
                                                     <input type="text" class="form-control  " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.mobile_no" required />
+                                                        v-model="this.formData.mobile_no" @input="isNumberEmpty" />
                                                 </div>
                                             </div>
 
@@ -83,10 +91,12 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 2">
+                            <template v-if="currentStep == 2">
                                 <div class=" data-height">
-                                    <div class=" text-end "><span class="text-muted">Skip <span><i
-                                                    class="ri-skip-forward-fill"></i></span></span></div>
+                                    <div class=" text-end mt-3  ">
+                                        <span class="text-muted" @click="next()">Skip <span><i
+                                                    class="ri-skip-forward-fill"></i></span></span>
+                                    </div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
                                             Does the lead belong to any organization?
@@ -133,31 +143,13 @@
 
                                                 </div>
                                             </div>
-
-                                        </div>
-                                        <div class="card input-cards">
-                                            <div class="padding-div border-top-0">
-                                                <div class="">
-                                                    <label for="" class="form-label">Status</label>
-                                                    <input type="text" class="form-control status" name="" id=""
-                                                        aria-describedby="helpId" placeholder=""
-                                                        v-model="formData.status" />
-                                                    <select id="showDatalist " class=" w-100  border-0 bg-white ">
-                                                        <option v-bind:value="'Lead'">Lead</option>
-                                                        <option v-bind:value="'Open'">Open</option>
-                                                        <option v-bind:value="'Replied'">Replied</option>
-                                                        <option v-bind:value="'Opportunity'">Opportunity</option>
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </template>
-                            <template v-if="currentStep === 3">
+                            <template v-if="currentStep == 3">
                                 <div class="lead-org data-height">
-                                    <div class=" text-end "><span class="text-muted">Skip <span><i
+                                    <div class=" text-end "><span class="text-muted" @click="next()">Skip <span><i
                                                     class="ri-skip-forward-fill"></i></span></span></div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -212,11 +204,11 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 4">
+                            <template v-if="currentStep == 4">
                                 <div class=" d-flex justify-content-center ">
                                     <div class="m-2 organization data-height">
                                         <div class="">
-                                            <div class=" text-end "><span class="text-muted">Skip <span><i
+                                            <div class=" text-end "><span class="text-muted" @click="next()">Skip <span><i
                                                             class="ri-skip-forward-fill"></i></span></span></div>
                                             <div>
                                                 <h2 class="lead-heading mt-3 ">
@@ -412,7 +404,7 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-if="currentStep === 5">
+                            <template v-if="currentStep == 5">
                                 <div class="m-2 data-height ">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -500,25 +492,28 @@
                             </template>
                         </div>
                     </div>
-
                     <div class=" bottom-div">
-                        <div class="  d-flex  justify-content-evenly ">
-                            <div v-for="step in totalSteps" :key="step" class="step-bar">
-                                <div :class="getStepClasses(step)"></div>
+                        <div class=" container ">
+                            <div class="  d-flex  justify-content-evenly ">
+                                <div v-for="step in totalSteps" :key="step" class="step-bar">
+                                    <div :class="getStepClasses(step)"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex  justify-content-between my-2 ">
-                            <div> <button type="button" class=" btn btn-white text-decoration-underline  back-btn "
-                                    @click="back()">Back</button></div>
-                            <div>
-                                <div v-if="currentStep !== totalSteps">
-                                    <button type="button" class="btn btn-primary next-btn" @click="next()">Next</button>
-                                </div>
-                                <!-- Submit button appears only on the last step -->
-                                <div v-else>
-                                    <button type="submit" class="btn btn-primary next-btn">Submit</button>
-                                </div>
+                            <div class="d-flex  justify-content-between my-2 ">
+                                <div> <button type="button" class=" btn btn-white text-decoration-underline  back-btn "
+                                        @click="back()">Back</button></div>
+                                <div>
+                                    <div v-if="currentStep !== totalSteps">
+                                        <button type="button"
+                                            :disabled="!this.formData.first_name || !this.formData.mobile_no"
+                                            class="btn btn-primary next-btn" @click="next()">Next</button>
+                                    </div>
+                                    <!-- Submit button appears only on the last step -->
+                                    <div v-else>
+                                        <button type="submit" class="btn btn-primary next-btn">Submit</button>
+                                    </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -538,25 +533,37 @@ export default {
 
     data() {
         return {
-            // tempShow: false
             currentStep: 1,
             totalSteps: 5,
             completedSteps: [],
             formData: {
-                status: '',
-            },
 
+            },
+            error: {}
         }
     },
+    mounted() {
+        this.currentStep = this.$route.params.id
+        console.log(this.currentStep);
+
+    },
+
+
     methods: {
         next() {
+
             if (this.currentStep < this.totalSteps) {
                 this.currentStep++;
+                let id = this.currentStep
+                this.$router.push({ path: `/leadform/${id}` })
             }
+
         },
         back() {
             if (this.currentStep > 1) {
                 this.currentStep--;
+                let id = this.currentStep
+                this.$router.push({ path: `/leadform/${id}` })
             }
         },
         submitForm() {
@@ -581,13 +588,35 @@ export default {
             return {
                 'move': this.currentStep !== step,
                 'move Active': this.currentStep === step,
-                'active-step': this.currentStep >= step || this.completedSteps.includes(step)
+                'active-step': this.currentStep >= step || this.completedSteps.includes(step),
+
             };
         },
         backstep() {
-            this.$router.push({ name: 'AddLeads' })
+            this.$router.push({
+                name: 'AddLeads',
+            });
         },
+        isInputEmpty() {
+            if (!this.formData.first_name) {
+                this.error.first_name = "First Name"
+            }
+            else {
+                delete this.error.first_name;
 
+
+            }
+        },
+        isNumberEmpty() {
+            if (!this.formData.mobile_no) {
+                this.error.mobile_no = "First Name"
+            }
+            else {
+                delete this.error.mobile_no;
+
+
+            }
+        }
     }
 }
 
@@ -595,6 +624,30 @@ export default {
 </script>
 
 <style scoped>
+.border-danger {
+    border: 1px solid red;
+}
+
+.errsize {
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 10px;
+}
+
+.select-options {
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+    padding: 3px 0px 3px 5px !important;
+}
+
 @media (max-width: 575px) {
     .cat-div {
         width: 50% !important;
@@ -659,6 +712,7 @@ export default {
     bottom: 0;
     background-color: white !important;
     padding: 15px 5px;
+
 }
 
 .step-bar {
@@ -750,7 +804,7 @@ export default {
 .required {
     color: #999;
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: 11px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -800,6 +854,7 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+
 }
 
 .navigated {
