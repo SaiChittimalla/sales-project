@@ -93,7 +93,7 @@
 
             <div class=" ">
               <div class="mt-3 d-flex justify-content-center">
-                <router-link to="/NewQuate" class="btn btncustomer">
+                <router-link to="/AddItems" class="btn btncustomer">
                   To Customer
                 </router-link>
               </div>
