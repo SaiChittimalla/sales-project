@@ -13,7 +13,7 @@
                         <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                             <h6 class="m-2 label-name">Customer</h6>
                             <div class="custom-select">
-                                <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer"
+                                <input class="input-search form-control  w-100 border-0 ms-2" placeholder="search or select a customer"
                                     type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions">
                                 <ul v-show="isOpen" class="ul-tag w-100 ms-2">
                                     <li class="list-items" v-for="item in data" :key="item.id" @click="selectOption(item)">
@@ -57,7 +57,7 @@
                                                     <div>
                                                         <p class="lead">Purchase Order Number</p>
                                                         <input type="text" placeholder="Enter Purchase order number"
-                                                            class="border-0 input-date p-1 w-100"
+                                                            class="border-0 input-date form-control p-1 w-100"
                                                             v-model="formdata.OrderNumber" />
                                                     </div>
                                                 </div>
@@ -67,7 +67,7 @@
                                                 <div class="card lead-card">
                                                     <div>
                                                         <p class="lead">Purchase Order Date</p>
-                                                        <input type="date" class="border-0 input-date p-1 w-100"
+                                                        <input type="date" class="border-0 form-control input-date p-1 w-100"
                                                             v-model="formdata.OrderDate" />
                                                     </div>
                                                 </div>
@@ -126,7 +126,7 @@
                                                 <div class="card lead-card">
                                                     <div>
                                                         <p class="lead">Delivery Date</p>
-                                                        <input type="date" class="border-0 input-date p-1 w-100"
+                                                        <input type="date" class="border-0 form-control input-date p-1 w-100"
                                                             v-model="DeliveryData.DeliveryDate" />
                                                     </div>
                                                 </div>
@@ -327,7 +327,9 @@ input {
     font-size: 14px;
     font-weight: 500;
 }
-
+.form-control:focus{
+    box-shadow: none;
+}
 .ul-tag {
     position: absolute;
     z-index: 1;
