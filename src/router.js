@@ -66,8 +66,9 @@ const routes = [
     },
     {
         name: 'LeadForm',
-        path: '/leadform',
-        component: LeadForm
+        path: '/leadform/:id',
+        component: LeadForm,
+        props: true
     },
     {
         name: 'AddCustomers',
@@ -76,8 +77,10 @@ const routes = [
     },
     {
         name: 'CustomerForm',
-        path: '/CustomerForm',
-        component: CustomerForm
+        path: '/CustomerForm/:id',
+        component: CustomerForm,
+        props: true
+
     }
 
 ]
