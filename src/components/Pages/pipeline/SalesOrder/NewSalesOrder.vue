@@ -217,7 +217,7 @@ export default {
                 this.duplicateArr = res.data;
 
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error  data:", error);
             }
         },
         filterOptions() {
