@@ -86,7 +86,7 @@ export default {
                     (item) => item.quotation_to === "Customer"
                 );
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetch data:", error);
             }
         },
         filterOptions() {
