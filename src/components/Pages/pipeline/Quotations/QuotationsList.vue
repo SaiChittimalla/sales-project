@@ -4,7 +4,7 @@
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i class="ri-arrow-left-line"
+            <i @click="backgo()" class="ri-arrow-left-line"
               ><span class="ps-2 quotationsfs"
                 >Quotations &nbsp;({{ totalQuotations }})</span
               ></i
@@ -297,7 +297,7 @@
 
             <div class=" ">
               <div class="mt-3 d-flex justify-content-center">
-                <router-link to="/NewQuate" class="btn btncustomer">
+                <router-link to="/AddItems" class="btn btncustomer">
                   To Customer
                 </router-link>
               </div>
@@ -335,7 +335,10 @@
 
                 <div class=" ">
                   <div class="mt-3 d-flex justify-content-center">
-                    <router-link to="/NewQuate" class="btn btncustomer w-100">
+                    <router-link
+                      to="/completedata"
+                      class="btn btncustomer w-100"
+                    >
                       To Customer
                     </router-link>
                   </div>
@@ -353,6 +356,7 @@
 </template>
 <script>
 import axios from "axios";
+// import HomePageVue from "@/components/HomePage.vue";
 export default {
   data() {
     return {
@@ -417,7 +421,9 @@ export default {
       // if (this.show == true) this.$router.push();
       this.show = !this.show;
     },
-
+    backgo() {
+      this.$router.push("HomePage");
+    },
     fetchData() {
       this.loading = true;
       axios
@@ -464,7 +470,10 @@ export default {
 .selectback {
   background: none !important;
 }
-
+.btn-clicked {
+  background-color: #ff0000; /* Change to the desired color */
+  color: #ffffff; /* Change to the desired text color */
+}
 .draftbtn {
   border-radius: 4px;
   border: 0.7px solid #999;

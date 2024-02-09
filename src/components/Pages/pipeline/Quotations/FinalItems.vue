@@ -205,6 +205,9 @@
 </template>
 <script>
 import axios from "axios";
+// import AddItems from "./AddItems.vue";
+// import ItemEdit from "./ItemEdit.vue";
+
 export default {
   data() {
     return {
@@ -239,7 +242,6 @@ export default {
     // ...
 
     fetchData() {
-      this.loading = true;
       axios
         .get("http://192.168.1.177:8000/api/resource/Quotation", {
           params: {
@@ -259,17 +261,22 @@ export default {
         });
     },
     fetchItemsForCustomer() {
+      let queryParams = { filters: [] };
+      queryParams.filters.push(["name", "=", this.$route.query.name]);
+
+      queryParams.filters = JSON.stringify(queryParams.filters);
+      queryParams.fields = JSON.stringify(["*"]);
+      console.log("name:", this.$route.query.id);
+      console.log("tab name :" + this.firstData);
       if (this.selectedCustomer) {
         axios
-          .get(
-            `http://192.168.1.177:8000/api/resource/Quotation/SAL-QTN-2024-00003?fields=[%22*%22]`,
-            {
-              params: {
-                fields: JSON.stringify(["*"]),
-                customer_name: this.selectedCustomer,
-              },
-            }
-          )
+          .get(`http://192.168.1.177:8000/api/resource/Quotation`, {
+            params: {
+              fields: JSON.stringify(["*"]),
+              customer_name: this.selectedCustomer,
+              queryParams,
+            },
+          })
           .then((response) => {
             this.selectedCustomerItems = response.data.data.items;
           })
@@ -438,15 +445,15 @@ p {
 
 @media (min-width: 500px) and (max-width: 2096px) {
   .card {
-    width: 500px;
+    width: 450px !important;
   }
 
   .positionbtn {
-    width: 500px;
+    width: 450px !important;
   }
 
   .inputheader {
-    width: 500px;
+    width: 450px !important;
   }
 }
 </style>
