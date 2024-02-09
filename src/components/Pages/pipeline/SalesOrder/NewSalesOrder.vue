@@ -13,14 +13,15 @@
                         <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                             <h6 class="m-2 label-name">Customer</h6>
                             <div class="custom-select">
-                                <input class="input-search form-control  w-100 border-0 " placeholder="search or select a customer"
-                                    type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions">
+                                <input class="input-search form-control  w-100 border-0 "
+                                    placeholder="search or select a customer" type="text" v-model="searchQuery"
+                                    @click="isOpen = true" @input="filterOptions">
                                 <ul v-show="isOpen" class="ul-tag w-100 ms-2">
-                                    <li class="list-items" v-for="item in data" :key="item.id" @click="selectOption(item)">
+                                    <li class="list-items" v-for="item in filteredData" :key="item.id" @click="selectOption(item)">
                                         {{ item.customer_name }}
                                     </li>
                                 </ul>
-                             
+
                             </div>
                         </div>
                     </div>
@@ -37,8 +38,8 @@
                                 <div v-show="!showdata">
                                     <div class="d-flex justify-content-between">
                                         <h6 class=" m-2 label-name">Purchase Order Number</h6>
-                                    <span><i class="bi bi-pencil-fill me-2 " data-bs-toggle="offcanvas"
-                                        data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i></span>
+                                        <span><i class="bi bi-pencil-fill me-2 " data-bs-toggle="offcanvas"
+                                                data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i></span>
                                     </div>
                                     <P class="formdata ms-2 mb-4">{{ formdata.OrderNumber }}</P>
                                     <h6 class="m-2 label-name">Purchase Order Date</h6>
@@ -71,7 +72,8 @@
                                                 <div class="card lead-card">
                                                     <div>
                                                         <p class="lead">Purchase Order Date</p>
-                                                        <input type="date" class="border-0 form-control input-date p-1 w-100"
+                                                        <input type="date"
+                                                            class="border-0 form-control input-date p-1 w-100"
                                                             v-model="formdata.OrderDate" />
                                                     </div>
                                                 </div>
@@ -79,14 +81,16 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     <div class="text-end">
-                                                        <button type="button" class="btn border-0 cancel-btn mt-2 shadow-none ">
+                                                        <button type="button"
+                                                            class="btn border-0 cancel-btn mt-2 shadow-none ">
                                                             Cancel
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="text-end">
-                                                        <button type="submit" :disabled="!formdata.OrderNumber||!formdata.OrderDate"
+                                                        <button type="submit"
+                                                            :disabled="!formdata.OrderNumber || !formdata.OrderDate"
                                                             data-bs-dismiss="offcanvas" @click="SubmitPurchaseData"
                                                             class="btn border-0 save-btn text-white">
                                                             Save
@@ -96,7 +100,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -109,13 +112,13 @@
                             <div class="row">
                                 <div class="col-6  ">
                                     <h6 class="m-2 label-name">Delivery date</h6>
-                                        <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.DeliveryDate }}</p>
+                                    <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.DeliveryDate }}</p>
                                 </div>
 
                                 <div class="col-6 d-flex align-items-center justify-content-center text-nowrap ">
                                     <button v-show="date" type="button" class="border-0 ms-3 bg-white add-item-btn"
                                         data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                                        aria-controls="offcanvasRight" >
+                                        aria-controls="offcanvasRight">
                                         <i class="bi bi-plus-circle me-2"></i>Add Delivery date</button>
 
                                     <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasRight"
@@ -130,7 +133,8 @@
                                                 <div class="card lead-card">
                                                     <div>
                                                         <p class="lead">Delivery Date</p>
-                                                        <input type="date" class="border-0 form-control input-date p-1 w-100"
+                                                        <input type="date"
+                                                            class="border-0 form-control input-date p-1 w-100"
                                                             v-model="DeliveryData.DeliveryDate" />
                                                     </div>
                                                 </div>
@@ -139,14 +143,16 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     <div class="text-end">
-                                                        <button type="reset" class="btn border-0 cancel-btn mt-2 shadow-none ">
+                                                        <button type="reset"
+                                                            class="btn border-0 cancel-btn mt-2 shadow-none ">
                                                             Cancel
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="text-end">
-                                                        <button type="submit" @click="SubmitDeliveryDate" :disabled="!DeliveryData.DeliveryDate"
+                                                        <button type="submit" @click="SubmitDeliveryDate"
+                                                            :disabled="!DeliveryData.DeliveryDate"
                                                             data-bs-dismiss="offcanvas"
                                                             class="btn border-0 save-btn text-white">
                                                             Save
@@ -160,7 +166,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>NewSalesOrder12">
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="mt-4 mx-2">
                         <div class="card rounded-3 shadow-sm product-card">
                             <div class="row">
@@ -170,6 +179,7 @@
                                         Add items to your quotation.
                                     </p>
                                 </div>
+
                                 <div class="col-4 d-flex align-items-center justify-content-center text-nowrap">
                                     <router-link to="/AddItems" class=" text-decoration-none "><button type="button"
                                             class="border-0 bg-white add-item-btn">
@@ -189,13 +199,14 @@ export default {
     data() {
         return {
             data: [],
+            filteredData:[],
             searchQuery: '',
             isOpen: false,
             showdata: true,
             selectedCustomer: null,
             date: true,
             formdata: {
-              OrderNumber: '',
+                OrderNumber: '',
                 OrderDate: '',
             },
             DeliveryData: {
@@ -221,7 +232,7 @@ export default {
             }
         },
         filterOptions() {
-            this.data = this.duplicateArr.filter(item =>
+            this.filteredData = this.duplicateArr.filter(item =>
                 item.customer_name.toLowerCase().includes(this.searchQuery.toLowerCase())
             );
         },
@@ -328,9 +339,10 @@ select,
     font-size: 14px;
     font-weight: 500;
 } */
-.form-control:focus{
+.form-control:focus {
     box-shadow: none;
 }
+
 .ul-tag {
     position: absolute;
     z-index: 1;
@@ -391,7 +403,7 @@ select,
     line-height: normal;
 }
 
-.input-date{
+.input-date {
     color: black !important;
     font-size: 15px;
     font-style: normal;
@@ -424,4 +436,5 @@ select,
 
 .offcanvas {
     border-radius: 10px;
-}</style>
+}
+</style>

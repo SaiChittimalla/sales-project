@@ -90,15 +90,13 @@
       </div>
     </div>
     <div>
-      <button
+      <router-link to="/NewSalesOrder" class=" text-decoration-none ">
+        <button
         class="btn btn-primary circle-with-plus"
         type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasBottom"
-        aria-controls="offcanvasBottom"
       >
         +
-      </button>
+      </button></router-link>
     </div>
   </div>
 </template>
