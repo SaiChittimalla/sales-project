@@ -36,11 +36,11 @@
                                 </div>
                                 <div v-show="!showdata">
                                     <div class="d-flex justify-content-between">
-                                        <h6 class="m-2 label-name">Purchase Order Number</h6>
+                                        <h6 class=" m-2 label-name">Purchase Order Number</h6>
                                     <span><i class="bi bi-pencil-fill me-2 " data-bs-toggle="offcanvas"
                                         data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i></span>
                                     </div>
-                                    <P class="formdata mt-2 ms-2 mb-4">{{ formdata.OrderNumber }}</P>
+                                    <P class="formdata ms-2 mb-4">{{ formdata.OrderNumber }}</P>
                                     <h6 class="m-2 label-name">Purchase Order Date</h6>
                                     <P class="formdata mt-2 ms-2">{{ formdata.OrderDate }}</P>
                                 </div>
@@ -107,17 +107,16 @@
                     <div class="mt-4 mx-2">
                         <div class="card rounded-3 shadow-sm product-card1">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-6  ">
                                     <h6 class="m-2 label-name">Delivery date</h6>
                                         <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.DeliveryDate }}</p>
                                 </div>
 
-                                <div class="col-6 d-flex align-items-center justify-content-center text-nowrap">
-                                    <button type="button" class="border-0 ms-3 bg-white add-item-btn"
+                                <div class="col-6 d-flex align-items-center justify-content-center text-nowrap ">
+                                    <button v-show="date" type="button" class="border-0 ms-3 bg-white add-item-btn"
                                         data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                                        aria-controls="offcanvasRight" v-show="date">
+                                        aria-controls="offcanvasRight" >
                                         <i class="bi bi-plus-circle me-2"></i>Add Delivery date</button>
-                                        <span v-show="!date"><i class="bi bi-x"></i></span>
 
                                     <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasRight"
                                         aria-labelledby="offcanvasRightLabel">
@@ -161,10 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    </div>NewSalesOrder12">
                     <div class="mt-4 mx-2">
                         <div class="card rounded-3 shadow-sm product-card">
                             <div class="row">
@@ -221,7 +217,7 @@ export default {
                 this.duplicateArr = res.data;
 
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error  data:", error);
             }
         },
         filterOptions() {
