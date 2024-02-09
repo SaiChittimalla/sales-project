@@ -17,7 +17,7 @@
                   <button class="btn btn-primary  mb-3  inside-profile" type="button">
                     {{ usrName }}
                   </button>
-                  <router-link to="/" class="text-decoration-none logout border-0    " @click="logout()">
+                  <router-link to="/" class="text-decoration-none logout border-0" @click="logout()">
                     <button type="button" class="btn btn-primary logout ">
                       LOGOUT
                     </button>
@@ -200,18 +200,18 @@
           </div>
           <div class="d-flex justify-content-evenly my-4  g-0  ">
             <div class="">
-              <router-link to="/addleads" class=" text-decoration-none ">
-                <div class="card border-0 ">
-                  <div class="icon-quotations">
-                    <div class=" text-center ">
-                      <img src="../assets/Group 237656.svg" alt="icon">
-                    </div>
-                  </div>
-                  <div class="card-body px-2">
-                    <h5 class="card-text cards-headings">Leads</h5>
+
+              <div class="card border-0 " @click="ToLead()">
+                <div class="icon-quotations">
+                  <div class=" text-center ">
+                    <img src="../assets/Group 237656.svg" alt="icon">
                   </div>
                 </div>
-              </router-link>
+                <div class="card-body px-2">
+                  <h5 class="card-text cards-headings">Leads</h5>
+                </div>
+              </div>
+
             </div>
             <div class="">
               <div class="card border-0  ">
@@ -226,7 +226,7 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0  " @click="ToCustomers()">
                 <div class="icon-quotations">
                   <div class=" text-center position-relative">
                     <img src="../assets/Group 237658.svg" alt="">
@@ -282,7 +282,6 @@
 <script>
 import axios from 'axios';
 export default {
-
   name: 'HomePage',
   data() {
     return {
@@ -305,42 +304,6 @@ export default {
 
   },
   methods: {
-
-    // SalesOrder() {
-    //   // Make an HTTP GET request to the API endpoint
-    //   let queryParams = { filters: [] };
-    //   let user = JSON.parse(localStorage.getItem('user'));
-    //   let ownerFilter = ['owner', '=', user.usr];
-    //   queryParams.filters.push(ownerFilter);
-    //   queryParams.filters = JSON.stringify(queryParams.filters);
-    //   axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]', {
-    //     params: queryParams
-    //   })
-    //     .then((response) => {
-    //       this.data = response.data;
-    //       console.log(this.data);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
-    // SalesOrder() {
-    //   // Make an HTTP GET request to the API endpoint
-    //   let queryParams = { filters: [] }
-    //   queryParams.fields = JSON.stringify(['*'])
-    //   queryParams.limit_page_length = "None"
-    //   queryParams.filters = JSON.stringify(queryParams?.filters);
-    //   axios.get('http://192.168.1.177:8000/api/resource/SalesOrder', {
-    //     params: queryParams
-    //   })
-    //     .then((response) => {
-    //       this.data = JSON.parse(JSON.stringify(response.data));
-    //       console.log(this.data);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
     logout() {
       localStorage.clear()
       this.$router.push({ name: 'LoginPage' })
@@ -350,15 +313,17 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(['*']);
       queryParams.limit_page_length = null;
-      if (queryParams.filters) {
-        queryParams.filters = JSON.stringify(queryParams.filters);
-      }
+      queryParams.filters = JSON.stringify(queryParams?.filters);
       axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order', {
-        params: queryParams
+        params: queryParams,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }, withCredentials: true
       })
         .then((response) => {
           this.data = response.data.data;
-          console.log(this.data.length, 'sales orders======');
+          console.log(this.data.length, 'sales orders==', this.data);
         }).catch((error) => {
           console.error(error);
         });
@@ -367,26 +332,40 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(['*']);
       queryParams.limit_page_length = null;
-      if (queryParams.filters) {
-        queryParams.filters = JSON.stringify(queryParams.filters);
-      }
+      queryParams.filters = JSON.stringify(queryParams?.filters);
       axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]', {
-        params: queryParams
+        params: queryParams,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }, withCredentials: true
       })
         .then((response) => {
           this.delivery = response.data.data;
-          console.log(this.delivery.length, 'delivery Notes======');
+          console.log(this.delivery.length, 'delivery Notes==', this.delivery);
         })
         .catch((error) => {
           console.error(error);
         });
-    }
+    },
+    ToLead() {
+      this.$router.push({ name: 'AddLeads' })
+    },
+    ToCustomers() {
+      this.$router.push({ name: 'AddCustomers' })
+    },
+
   }
 
 }
 
 </script>
 <style scoped>
+.card {
+  cursor: pointer;
+}
+
+
 .logout {
   background: #3B43F9 !important;
   font-size: 12px !important;
@@ -402,9 +381,17 @@ export default {
   position: fixed;
   bottom: 10%;
   right: 5%;
+  animation: bounce infinite;
+}
 
+@keyframes bounce {
+  0% {
+    transform: translateY(20px);
+  }
 
-
+  100% {
+    transform: translateY(10px);
+  }
 }
 
 .main-button span {
@@ -614,9 +601,8 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
 }
-
-
 
 
 @media (max-width:575px) {
