@@ -99,7 +99,7 @@ export default {
         .post(url, data, {
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
+            'Accept': "application/json",
           },
           withCredentials: true,
         })
