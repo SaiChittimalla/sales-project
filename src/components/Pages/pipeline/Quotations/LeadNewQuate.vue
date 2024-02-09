@@ -164,7 +164,7 @@ export default {
                 this.data = res.data;
                 this.duplicateArr = res.data;
             } catch (error) {
-                console.error("Error  data:", error);
+                console.error("Error fetching data:", error);
             }
         },
         filterOptions() {
