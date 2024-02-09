@@ -17,12 +17,14 @@
                         <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                             <h6 class="m-2 label-name">Customer</h6>
                             <div class="custom-select">
-                                <input class="input-search w-100 border-0 " placeholder="search or select a customer" type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions">
-                                <ul v-show="isOpen" class="ul-tag w-100 ">
-                                    <li class="list-items" v-for="item in filteredData" :key="item.id" @click="selectOption(item)">
+                                <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer"
+                                    type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions">
+                                <select v-show="isOpen" class="ul-tag w-100 ms-2">
+                                    <option class="list-items" v-for="item in filteredData" :key="item.id"
+                                        @click="selectOption(item)">
                                         {{ item.customer_name }}
-                                    </li>
-                                </ul>
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -40,7 +42,7 @@
                                 </div>
                                 <div class="col-4 d-flex align-items-center justify-content-center text-nowrap">
                                     <router-link to="/AddItems" class="text-decoration-none">
-                                        <button type="button" class="border-0 bg-white add-item-btn">
+                                        <button type="button" class="border-0 bg-white add-item-btn" @click="postData">
                                             <i class="bi bi-plus-circle me-2"></i>Add Item
                                         </button>
                                     </router-link>
@@ -55,13 +57,15 @@
 </template>
 
 <script>
+// import axios from 'axios'
 export default {
     data() {
         return {
             data: [],
             filteredData: [],
             searchQuery: '',
-            isOpen: false
+            isOpen: false,
+            selectedCustomer: null
 
         };
     },
@@ -70,7 +74,6 @@ export default {
     },
     methods: {
         async fetchData() {
-
             try {
                 const response = await fetch(
                     "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]"
@@ -83,7 +86,7 @@ export default {
                     (item) => item.quotation_to === "Customer"
                 );
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetch data:", error);
             }
         },
         filterOptions() {
@@ -92,10 +95,44 @@ export default {
             );
         },
         selectOption(item) {
+            this.selectedCustomer = item;
             this.searchQuery = item.customer_name;
             this.isOpen = false;
 
         }
+
+        // async postData() {
+            
+        //     try {
+        //         // Define your data to be posted
+        //         const postData = {
+        //             company: this.selectedCustomer.customer_name,
+        //             // Add other properties as needed
+        //         };
+
+        //         // Send POST request using Axios
+        //         const response = await axios.post("http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]", postData,{
+        //             headers: {
+        //         'Expect': '', // Disable the Expect header
+        //         'Content-Type': 'application/json' // Add Content-Type header if needed
+        //         }
+
+        //         });
+
+        //         // Check if request was successful
+        //         if (response.status === 200) {
+        //             console.log('Data posted successfully');
+        //             console.log(postData);
+        //         } else {
+        //             console.error('Failed to post data');
+        //         }
+        //     } 
+        //     catch (error) {
+        //         console.error('Error:', error);
+        //     }
+        // },
+
+        
 
         // filterCustomers(event) {
         //     const selectedCustomer = event.target.value;
@@ -149,7 +186,6 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    font-family: Montserrat;
 }
 
 .add-item-btn {
@@ -158,7 +194,6 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    font-family: Montserrat;
 }
 
 select,
@@ -185,12 +220,13 @@ select,
 }
 
 input {
-    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.ul-tag{
+.ul-tag {
     position: absolute;
     z-index: 1;
     background-color: #fff;
@@ -216,11 +252,12 @@ input {
 .list-items:hover {
     background-color: #f0f0f0;
 }
-.input-search{
+
+.input-search::placeholder {
     color: #999;
-font-size: 13px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-size: 14px;
 }
 </style>
