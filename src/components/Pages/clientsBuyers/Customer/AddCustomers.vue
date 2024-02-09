@@ -5,14 +5,14 @@
             <nav class="navbar navigated">
                 <div class=" container ">
                     <router-link to="/Homepage" class=" text-decoration-none ">
-                        <h4 class="back-to"><i class="bi bi-arrow-left ps-3"></i> New Lead</h4>
+                        <h4 class="back-to"><i class="bi bi-arrow-left ps-3"></i> New Customer</h4>
                     </router-link>
                 </div>
             </nav>
-            <div class="container ">
-                <div class=" d-flex  justify-content-center   ">
+            <div class=" container ">
+                <div class=" d-flex  justify-content-center ">
                     <div class=" position-relative ">
-                        <table class="mt-3 w-100  ">
+                        <table class="mt-3 w-100 ">
                             <thead>
                                 <tr>
                                     <th>S.no</th>
@@ -21,26 +21,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for=" (item, index) in  lead " :key="index">
+                                <tr v-for=" (item, index) in  Customer " :key="index">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ item.first_name }}
+                                    <td>
+                                        <div>{{ item.name }}</div>
                                         <div>
-                                            <div class=" line-height">
-                                                <span class="idNumbers">ID : {{ item.name }}</span>
-                                            </div>
-                                            <div class=" line-height">
-                                                <span class="idStatus  "> Status : {{ item.status }}</span>
-
-                                            </div>
+                                            <span class="idNumbers">ID : {{ item.customer_name }}</span>
+                                        </div>
+                                        <div>
+                                            <span class="idStatus">Customer Type : {{ item.customer_type }}</span>
                                         </div>
                                     </td>
-                                    <td><span><i class="ri-pencil-fill "></i></span></td>
+                                    <td><span><i class="ri-pencil-fill"></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class=" d-flex started-div   justify-content-center ">
-                            <button type="button" class=" btn btn-outline-primary  Getstart" @click="Addlead()">
-                                ADD LEAD
+                        <div class=" d-flex started-div   justify-content-center w-100  ">
+                            <button type="button" class=" btn btn-outline-primary  Getstart" @click="AddCustomers()">
+                                ADD CUSTOMERS
                             </button>
                         </div>
                     </div>
@@ -50,22 +48,22 @@
         <template v-if="show">
             <nav class="navbar navigated">
                 <div class=" container ">
-                    <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
+                    <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Customer</h4>
                 </div>
             </nav>
             <div class=" d-flex  justify-content-center ">
                 <div>
                     <div class="p-4">
                         <h2 class="lead-heading mt-3 ">
-                            It’s easy to create lead with very few steps.
+                            It’s easy to create Customer with very few steps.
                         </h2>
                         <div class="card mt-5  all-cards">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-10 col-md-10 col-sm-10 title-div">
-                                        <h3><span>1</span>&nbsp;Enter lead’s personal details</h3>
+                                        <h3><span>1</span>&nbsp;Enter Customer’s personal details</h3>
                                         <p class="card-para">These particulars are indispensable for the ease of identifying
-                                            leads
+                                            Customers
                                             during later stages
                                             of sales.</p>
                                     </div>
@@ -82,10 +80,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-10 col-md-10 col-sm-10 title-div">
-                                        <h3><span>2</span>&nbsp;Lead Source
+                                        <h3><span>2</span>&nbsp;Customer Source
                                             <span class=" optional"> (optional)</span>
                                         </h3>
-                                        <p class="card-para">Define the Lead Type (Client, Partner, Consultant) and Disclose
+                                        <p class="card-para">Define the Customer Type (Client, Partner, Consultant) and
+                                            Disclose
                                             the
                                             Source (Mail, Advertisement,Call)</p>
                                     </div>
@@ -104,7 +103,8 @@
                                         <h3><span>3</span>&nbsp;Request
                                             <span class="optional"> (optional)</span>
                                         </h3>
-                                        <p class="card-para">Defines the underlying purpose driving the lead's request.</p>
+                                        <p class="card-para">Defines the underlying purpose driving the Customer's request.
+                                        </p>
                                     </div>
                                     <div class=" col-lg-2 col-md-2 col-sm-2 img-div">
                                         <div class="image-center">
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class=" d-flex started-div   justify-content-center ">
-                        <router-link to="/leadform/1" class=" text-decoration-none "> <button type="button"
+                        <router-link to="/CustomerForm/1" class=" text-decoration-none "> <button type="button"
                                 class="Getstart">
                                 Get started
                             </button></router-link>
@@ -132,27 +132,29 @@
 import axios from 'axios';
 
 export default {
-    name: 'AddLeads',
+    name: 'AddCustomers',
     data() {
         return {
-            lead: [],
+            Customer: [],
             show: false
         }
     },
     mounted() {
-        this.LeadData();
+        this.CustomerData();
         let user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
             this.$router.push({ name: 'LoginPage' })
         }
     },
     methods: {
-        LeadData() {
+        CustomerData() {
             let queryParams = { filters: [] };
             queryParams.fields = JSON.stringify(['*']);
             queryParams.limit_page_length = null;
-            queryParams.filters = JSON.stringify(queryParams?.filters);
-            axios.get('http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]', {
+            if (queryParams.filters) {
+                queryParams.filters = JSON.stringify(queryParams.filters);
+            }
+            axios.get('http://192.168.1.177:8000/api/resource/Customer?fields=[%22*%22]', {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
@@ -161,20 +163,18 @@ export default {
             })
                 .then((response) => {
                     console.log(response);
-                    this.lead = response.data.data;
-                    console.log(this.lead.length, 'Lead count======');
+                    this.Customer = response.data.data;
+                    console.log(this.Customer.length, 'Customer======', this.Customer);
                 }).catch((error) => {
                     console.error(error);
                 });
         },
-
-        Addlead() {
+        AddCustomers() {
             this.show = true;
         },
         backtolist() {
             this.show = false;
         },
-
     }
 }
 </script>
@@ -185,7 +185,6 @@ table tr {
     border-collapse: collapse;
     text-align: start;
     vertical-align: middle !important;
-
 }
 
 table thead {
@@ -206,12 +205,12 @@ tbody td {
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
-    line-height: 30px;
+    line-height: 25px;
     padding: 0px 10px;
 }
 
 tbody tr {
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 tbody tr:hover {
@@ -228,18 +227,13 @@ tbody tr:hover {
     margin: 0;
 }
 
-.line-height {
-    line-height: normal;
-    padding: 3px 0px;
-}
-
 .idStatus {
     color: #878787;
     font-family: Montserrat;
     font-size: 11px;
     font-style: normal;
     font-weight: 600;
-
+    margin: 0;
 }
 
 .back-to {
@@ -314,10 +308,10 @@ tbody tr:hover {
     border: 1px solid #3B43F9;
 }
 
-/* .Getstart:hover {
+.Getstart:hover {
     color: #fff;
     background-color: #3B43F9;
-} */
+}
 
 .started-div {
     background-color: #fff;

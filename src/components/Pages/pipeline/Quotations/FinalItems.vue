@@ -3,7 +3,9 @@
     <nav class="navbar header">
       <div class="container">
         <div class="p-1">
-          <i class="ri-arrow-left-line quotationsfs"><span class="ps-2">New Quotation - Customer</span></i>
+          <i class="ri-arrow-left-line quotationsfs"
+            ><span class="ps-2">New Quotation - Customer</span></i
+          >
         </div>
       </div>
     </nav>
@@ -12,11 +14,19 @@
         <div class="inputheader mt-3">
           <div class="p-3">
             <label for="Companyselect">
-              <p class="text-muted">Customer</p>
-            </label><br />
-            <select class="form-select w-100 border-0" aria-label="Default select example" v-model="selectedCustomer"
-              @change="fetchItemsForCustomer">
-              <option v-for="(customer, index) in customerList" :key="index" :value="customer.customer_name">
+              <p class="text-muted">Customer</p> </label
+            ><br />
+            <select
+              class="form-select formfocus w-100 border-0"
+              aria-label="Default select example"
+              v-model="selectedCustomer"
+              @change="fetchItemsForCustomer"
+            >
+              <option
+                v-for="(customer, index) in customerList"
+                :key="index"
+                :value="customer.customer_name"
+              >
                 {{ customer.customer_name }}
               </option>
             </select>
@@ -28,138 +38,165 @@
             </select> -->
           </div>
         </div>
-        <div class="card card1 mt-4">
-          <div class="card-header border-bottom-0">
-            <div class="d-flex justify-content-between p-1 align-items-center">
-              <div>
-                <h6>Products</h6>
-                <p>Add items to your quotation.</p>
+        <div v-if="selectedCustomer">
+          <div v-for="(item, index) in selectedCustomerItems" :key="index">
+            <div class="card card1 mt-4">
+              <div class="card-header border-bottom-0">
+                <div
+                  class="d-flex justify-content-between p-1 align-items-center"
+                >
+                  <div>
+                    <h6>Products</h6>
+                    <p>Add items to your quotation.</p>
+                  </div>
+                  <div class="d-flex gap-1 align-items-center">
+                    <div class="">
+                      <img
+                        src="../../../../assets/gridicons_add-outline.png"
+                        alt="icon"
+                        class="img-fluid mb-3"
+                      />
+                    </div>
+                    <div>
+                      <p class="">Add Item</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="d-flex gap-1 align-items-center">
-                <div class="">
-                  <img src="../../../../assets/gridicons_add-outline.png" alt="icon" class="img-fluid mb-3" />
+              <div class="card-body card-body123">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h6>{{ item.item_name }}</h6>
+                    <p>
+                      {{ item.description }}
+                    </p>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <button class="btn border-1 increment">
+                      <button class="btn border-0 p-0" @click="decrement(item)">
+                        -
+                      </button>
+                      <h6>
+                        <span id="count">{{ item.qty }}</span>
+                      </h6>
+                      <button class="btn p-0 border-0" @click="increment(item)">
+                        +
+                      </button>
+                    </button>
+                  </div>
+                  <div>
+                    <h6>₹ {{ item.base_price_list_rate }}</h6>
+                    <p class="text-end" style="color: #3b43f9">Edit</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card card1 mt-3 p-1">
+              <div
+                class="d-flex justify-content-between mt-2 p-1"
+                style="border-bottom: 1px dashed #eee"
+              >
+                <h6>Total Items Value</h6>
+                <h6>₹{{ item.base_amount }}</h6>
+              </div>
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>CGST:&nbsp;9%</h6>
                 </div>
                 <div>
-                  <p class="">Add Item</p>
+                  <h6 class="text-muted">₹ 5689.30</h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>SGST:&nbsp;9%</h6>
+                </div>
+                <div>
+                  <h6 class="text-muted">
+                    ₹ {{ item.total_taxes_and_charges }}
+                  </h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>IGST:&nbsp;0</h6>
+                </div>
+                <div>
+                  <h6 class="text-muted">₹ 0.00</h6>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>VAT:&nbsp;0</h6>
+                </div>
+                <div>
+                  <h6 class="text-muted">₹ 0.00</h6>
+                </div>
+                <div>
+                  <h6 class="text-muted">₹ 0.00</h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>SEZ:&nbsp;0</h6>
+                </div>
+                <div>
+                  <h6 class="text-muted">₹ 0.00</h6>
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-between p-1 mt-3"
+                style="border-bottom: 1px dashed LIGHTGREY"
+              >
+                <div>
+                  <h6>Total:</h6>
+                </div>
+                <div>
+                  <h6>₹ 11,614.00</h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between p-1 mt-3">
+                <div>
+                  <h6>Discount</h6>
+                  <p class="text-muted">Give additional discount before tax</p>
+                </div>
+                <div class="d-flex gap-2">
+                  <div class="circle-with-plus">+</div>
+                  <div>
+                    <p style="color: #3b43f9" class="text-nowrap">
+                      Add Discount
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                  <h6>Grand Total</h6>
+                  <h6 class="text-muted">{{ item.qty }}</h6>
+                  <h6>₹ {{ item.base_rounded_total }}</h6>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-body card-body123" v-if="selectedCustomer">
-            <div class="d-flex justify-content-between" v-for="(item, index) in selectedCustomerItems" :key="index">
-              <div>
-                <h6>{{ item.item_name }}</h6>
-                <p>
-                  {{ item.description }}
-                </p>
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <button class="btn border-1 increment">
-                  <button class="btn border-0 p-0" @click="decrement()">
-                    -
-                  </button>
-                  <h6>
-                    <span id="count">{{ count + item.is_purchase_item }}</span>
-                  </h6>
-                  <button class="btn p-0 border-0" @click="increment()">
-                    +
-                  </button>
+            <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
+              <div class="mt-2 mb-2">
+                <button class="btn btndraft">
+                  <h6 class="m-0">Save as draft</h6>
                 </button>
               </div>
-              <div>
-                <h6>₹ {{ item.last_purchase_rate }}</h6>
-                <p class="text-end" style="color: #3b43f9">Edit</p>
+              <div class="mt-2 mb-2">
+                <button class="btn btn-quot text-decoration-none">
+                  <router-link
+                    to="/QuotationsList"
+                    class="text-decoration-none"
+                  >
+                    <h6 class="text-white m-0">
+                      Create Quotation
+                    </h6></router-link
+                  >
+                </button>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="card card1 mt-3 p-1">
-          <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
-            <h6>Total Items Value</h6>
-            <h6>₹ 87,236.00</h6>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>CGST:&nbsp;9%</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 5689.30</h6>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>SGST:&nbsp;9%</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 5689.30</h6>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>IGST:&nbsp;0</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 0.00</h6>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>VAT:&nbsp;0</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 0.00</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 0.00</h6>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>SEZ:&nbsp;0</h6>
-            </div>
-            <div>
-              <h6 class="text-muted">₹ 0.00</h6>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
-            <div>
-              <h6>Total:</h6>
-            </div>
-            <div>
-              <h6>₹ 11,614.00</h6>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between p-1 mt-3">
-            <div>
-              <h6>Discount</h6>
-              <p class="text-muted">Give additional discount before tax</p>
-            </div>
-            <div class="d-flex gap-2">
-              <div class="circle-with-plus">+</div>
-              <div>
-                <p style="color: #3b43f9" class="text-nowrap">Add Discount</p>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-between">
-              <h6>Grand Total</h6>
-              <h6 class="text-muted">QTY:9</h6>
-              <h6><span>₹</span> 1235</h6>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
-          <div class="mt-2 mb-2">
-            <button class="btn btndraft">
-              <h6>Save as draft</h6>
-            </button>
-          </div>
-          <div class="mt-2 mb-2">
-            <button class="btn btn-quot">
-              <h6 class="text-white">Create Quotation</h6>
-            </button>
           </div>
         </div>
       </div>
@@ -184,14 +221,23 @@ export default {
     this.fetchItemsForCustomer();
   },
   methods: {
-    increment() {
+    increment(item) {
       this.count = this.count + 1;
-      return this.count;
+      item.qty = this.count;
+      item.base_rounded_total = item.qty * item.base_price_list_rate;
+      item.base_amount = item.qty * item.base_price_list_rate;
     },
-    decrement() {
-      this.count = this.count - 1;
-      return this.count;
+    decrement(item) {
+      if (this.count > 0) {
+        this.count = this.count - 1;
+        item.qty = this.count;
+        item.base_rounded_total = item.qty * item.base_price_list_rate;
+        item.base_amount = item.qty * item.base_price_list_rate;
+      }
     },
+
+    // ...
+
     fetchData() {
       this.loading = true;
       axios
@@ -214,16 +260,18 @@ export default {
     },
     fetchItemsForCustomer() {
       if (this.selectedCustomer) {
-        // Adjust the API endpoint or method based on your actual data structure
         axios
-          .get(`http://192.168.1.177:8000/api/resource/Quotation`, {
-            params: {
-              fields: JSON.stringify(["*"]),
-              customer_name: this.selectedCustomer, // Pass the selected customer to the API
-            },
-          })
+          .get(
+            `http://192.168.1.177:8000/api/resource/Quotation/SAL-QTN-2024-00003?fields=[%22*%22]`,
+            {
+              params: {
+                fields: JSON.stringify(["*"]),
+                customer_name: this.selectedCustomer,
+              },
+            }
+          )
           .then((response) => {
-            this.selectedCustomerItems = response.data.data;
+            this.selectedCustomerItems = response.data.data.items;
           })
           .catch((error) => {
             console.error(error.message);
@@ -236,6 +284,12 @@ export default {
 };
 </script>
 <style scoped>
+.btn:focus {
+  box-shadow: none;
+}
+.formfocus:focus {
+  box-shadow: none;
+}
 select option {
   background-color: white !important;
   color: black !important;
@@ -279,6 +333,7 @@ select option {
   background: #3b43f9;
   color: white;
   padding: 10px 10px;
+  text-decoration-line: none !important;
 }
 
 .increment {
@@ -331,6 +386,9 @@ select option {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+}
+*:focus {
+  outline: none;
 }
 
 .header {
@@ -390,14 +448,7 @@ p {
   .inputheader {
     width: 500px;
   }
-
-  @media (min-width: 300px) and (max-width: 450px) {
-    .positionbtn {
-      position: fixed;
-      bottom: 0;
-      z-index: 100;
-    }
-  }
-}</style>
+}
+</style>
 
   

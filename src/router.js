@@ -11,6 +11,8 @@ import SalesOrder from './components/Pages/pipeline/SalesOrder/SalesOrder.vue';
 import NewSales from './components/Pages/pipeline/SalesOrder/NewSales.vue';
 import AddLeads from './components/Pages/clientsBuyers/Leads/AddLeads.vue';
 import LeadForm from './components/Pages/clientsBuyers/Leads/LeadForm.vue';
+import AddCustomers from './components/Pages/clientsBuyers/Customer/AddCustomers.vue'
+import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm.vue'
 
 const routes = [
     {
@@ -57,13 +59,28 @@ const routes = [
         component: NewSales
     },
     {
+        name: 'AddLeads',
         path: '/addleads',
         component: AddLeads,
 
     },
     {
-        path: '/leadform',
-        component: LeadForm
+        name: 'LeadForm',
+        path: '/leadform/:id',
+        component: LeadForm,
+        props: true
+    },
+    {
+        name: 'AddCustomers',
+        path: '/AddCustomers',
+        component: AddCustomers
+    },
+    {
+        name: 'CustomerForm',
+        path: '/CustomerForm/:id',
+        component: CustomerForm,
+        props: true
+
     }
 
 ]

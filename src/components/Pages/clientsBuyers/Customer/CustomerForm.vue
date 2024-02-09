@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navigated">
             <div class=" container ">
-                <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backstep()"></i> New Lead</h4>
+                <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backstep()"></i> New Customer</h4>
             </div>
         </nav>
         <div>
@@ -14,35 +14,34 @@
                                 <div class=" data-height">
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
-                                            Specify the particulars of the lead.
+                                            Specify the particulars of the Customer.
                                         </h2>
                                     </div>
                                     <div>
-                                        <div class="card input-cards " :class="{ 'border-danger': error.first_name }">
+                                        <div class="card input-cards  " :class="{ 'border-danger': error.customer_name }">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">First Name
-                                                        <span v-if="!error.first_name" class=" required">(required)</span>
+                                                    <label for="Name" class="form-label text-muted">Customer Name
+                                                        <span v-if="!error.customer_name"
+                                                            class=" required">(required)</span>
                                                         <span class="text-danger required "
-                                                            v-if="error.first_name">(required)
+                                                            v-if="error.customer_name">(required)
                                                         </span>
                                                     </label>
                                                     <input type="text" class="form-control " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.first_name" @input="isInputEmpty" />
+                                                        v-model="this.formData.customer_name" @input="isInputEmpty" />
                                                 </div>
                                             </div>
 
                                             <div class="padding-div">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted">Name</label>
+                                                    <label for="Name" class="form-label text-muted">Gender</label>
                                                     <input type="text" class="form-control  " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.lead_name" />
+                                                        v-model="this.formData.gender" />
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="card input-cards " :class="{ 'border-danger': error.mobile_no }">
                                             <div class="padding-div border-top-0 ">
@@ -93,28 +92,26 @@
                             </template>
                             <template v-if="currentStep == 2">
                                 <div class=" data-height">
-                                    <div class=" text-end mt-3  ">
-                                        <span class="text-muted" @click="next()">Skip <span><i
-                                                    class="ri-skip-forward-fill"></i></span></span>
-                                    </div>
+                                    <div class=" text-end mt-3  "><span class="text-muted" @click="next()">Skip <span><i
+                                                    class="ri-skip-forward-fill"></i></span></span></div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
                                             Does the lead belong to any organization?
                                         </h2>
                                     </div>
                                     <div>
-                                        <div class=" card input-cards">
+                                        <!-- <div class=" card input-cards">
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
-                                                    <label for="" class="form-label">Organization</label>
+                                                    <label for="" class="form-label">Represents Company</label>
                                                     <input type="text" class="form-control" name="" id=""
                                                         aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.company_name" />
+                                                        v-model="this.formData.customer_type" />
 
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <div class=" card input-cards">
                                             <div class="padding-div  border-top-0  ">
                                                 <div class="">
@@ -143,13 +140,15 @@
 
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
+
                                 </div>
                             </template>
                             <template v-if="currentStep == 3">
                                 <div class="lead-org data-height">
-                                    <div class=" text-end "><span class="text-muted" @click="next()">Skip <span><i
+                                    <div class=" text-end   "><span class="text-muted" @click="next()">Skip <span><i
                                                     class="ri-skip-forward-fill"></i></span></span></div>
                                     <div>
                                         <h2 class="lead-heading mt-3 ">
@@ -160,10 +159,11 @@
                                         <div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check " name="btnradio-1" id="btnradio1"
-                                                    v-model="this.formData.type" v-bind:value="'Client'" autocomplete="off">
+                                                    v-model="this.formData.customer_type" v-bind:value="'Company'"
+                                                    autocomplete="off">
                                                 <label class="btn btn-primary checking-box  " for="btnradio1">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Client</h4>
+                                                        <h4 class="lead-type text-start ">Company</h4>
                                                         <p class="lead-discription text-start  text-muted">A client receives
                                                             services or
                                                             products
@@ -175,11 +175,11 @@
                                             </div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check" name="btnradio-1" id="btnradio2"
-                                                    v-model="this.formData.type" v-bind:value="'Channel Partner'"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Individual'"
                                                     autocomplete="off">
                                                 <label class="btn btn-primary checking-box " for="btnradio2">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Channel Partner</h4>
+                                                        <h4 class="lead-type text-start ">Individual</h4>
                                                         <p class="lead-discription text-start  text-muted">A channel partner
                                                             collaborates with a company to market and distribute its
                                                             products.
@@ -189,11 +189,24 @@
                                             </div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check" name="btnradio-1" id="btnradio3"
-                                                    v-model="this.formData.type" v-bind:value="'Consultant'"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Proprietorship'"
                                                     autocomplete="off">
                                                 <label class="btn btn-primary checking-box " for="btnradio3">
                                                     <div class="padding-div border-top-0 ">
-                                                        <h4 class="lead-type text-start ">Consultant</h4>
+                                                        <h4 class="lead-type text-start ">Proprietorship</h4>
+                                                        <p class="lead-discription text-start  text-muted">A consultant
+                                                            offers
+                                                            expert advice and solutions to address specific challenges.</p>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div class="my-2">
+                                                <input type="radio" class="btn-check" name="btnradio-1" id="btnradio3"
+                                                    v-model="this.formData.customer_type" v-bind:value="'Partnership'"
+                                                    autocomplete="off">
+                                                <label class="btn btn-primary checking-box " for="btnradio3">
+                                                    <div class="padding-div border-top-0 ">
+                                                        <h4 class="lead-type text-start ">Partnership</h4>
                                                         <p class="lead-discription text-start  text-muted">A consultant
                                                             offers
                                                             expert advice and solutions to address specific challenges.</p>
@@ -417,7 +430,7 @@
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
                                                         v-model="this.formData.request_type"
-                                                        v-bind:value="'Product Enquiry'" id="btnradio22" autocomplete="off">
+                                                        v-bind:value="'Product_Enquiry'" id="btnradio22" autocomplete="off">
                                                     <label class="btn h-100 btn-primary bg-check-none " for="btnradio22">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
@@ -434,9 +447,8 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 mb-3 cat-div">
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
-                                                        v-model="this.formData.request_type"
-                                                        v-bind:value="'Request for Information'" id="btnradio23"
-                                                        autocomplete="off">
+                                                        v-model="this.formData.request_type" v-bind:value="'Information'"
+                                                        id="btnradio23" autocomplete="off">
                                                     <label class="btn h-100 btn-primary bg-check-none " for="btnradio23">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
@@ -492,6 +504,7 @@
                             </template>
                         </div>
                     </div>
+
                     <div class=" bottom-div">
                         <div class=" container ">
                             <div class="  d-flex  justify-content-evenly ">
@@ -505,7 +518,7 @@
                                 <div>
                                     <div v-if="currentStep !== totalSteps">
                                         <button type="button"
-                                            :disabled="!this.formData.first_name || !this.formData.mobile_no"
+                                            :disabled="!this.formData.customer_name || !this.formData.mobile_no"
                                             class="btn btn-primary next-btn" @click="next()">Next</button>
                                     </div>
                                     <!-- Submit button appears only on the last step -->
@@ -529,8 +542,7 @@ import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
 
 export default {
-    name: 'LeadForm',
-
+    name: 'CustomerForm',
     data() {
         return {
             currentStep: 1,
@@ -545,42 +557,37 @@ export default {
     mounted() {
         this.currentStep = this.$route.params.id
         console.log(this.currentStep);
-
     },
-
-
     methods: {
         next() {
-
             if (this.currentStep < this.totalSteps) {
                 this.currentStep++;
                 let id = this.currentStep
-                this.$router.push({ path: `/leadform/${id}` })
+                this.$router.push({ path: `/CustomerForm/${id}` })
             }
-
         },
         back() {
             if (this.currentStep > 1) {
                 this.currentStep--;
                 let id = this.currentStep
-                this.$router.push({ path: `/leadform/${id}` })
+                this.$router.push({ path: `/CustomerForm/${id}` })
             }
         },
         submitForm() {
             console.log(this.formData);
-            axios.post('http://192.168.1.177:8000/api/resource/Lead', this.formData, {
+            axios.post('http://192.168.1.177:8000/api/resource/Customer', this.formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 }, withCredentials: true
-            })
+            },)
                 .then((response) => {
                     console.log(response);
                     this.formData = {};
                     this.currentStep = 1
-                    this.$router.push({ name: 'AddLeads' })
+                    this.$router.push({ name: 'AddCustomers' })
                 });
-            toast.success("Successfully Lead Added ", {
+            toast.success("Successfully Customer Added ", {
                 // toast options here
             });
         },
@@ -588,21 +595,19 @@ export default {
             return {
                 'move': this.currentStep !== step,
                 'move Active': this.currentStep === step,
-                'active-step': this.currentStep >= step || this.completedSteps.includes(step),
-
+                'active-step': this.currentStep >= step || this.completedSteps.includes(step)
             };
         },
+
         backstep() {
-            this.$router.push({
-                name: 'AddLeads',
-            });
+            this.$router.push({ name: 'AddCustomers' })
         },
         isInputEmpty() {
-            if (!this.formData.first_name) {
-                this.error.first_name = "First Name"
+            if (!this.formData.customer_name) {
+                this.error.customer_name = "First Name"
             }
             else {
-                delete this.error.first_name;
+                delete this.error.customer_name;
 
 
             }
@@ -626,26 +631,6 @@ export default {
 <style scoped>
 .border-danger {
     border: 1px solid red;
-}
-
-.errsize {
-    font-family: Montserrat;
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-left: 10px;
-}
-
-.select-options {
-    color: #111;
-    font-family: Montserrat;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-
-    padding: 3px 0px 3px 5px !important;
 }
 
 @media (max-width: 575px) {
@@ -712,7 +697,6 @@ export default {
     bottom: 0;
     background-color: white !important;
     padding: 15px 5px;
-
 }
 
 .step-bar {
@@ -854,7 +838,6 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-
 }
 
 .navigated {

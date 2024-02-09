@@ -17,7 +17,7 @@
                   <button class="btn btn-primary  mb-3  inside-profile" type="button">
                     {{ usrName }}
                   </button>
-                  <router-link to="/" class="text-decoration-none logout border-0    " @click="logout()">
+                  <router-link to="/" class="text-decoration-none logout border-0" @click="logout()">
                     <button type="button" class="btn btn-primary logout ">
                       LOGOUT
                     </button>
@@ -65,7 +65,7 @@
             <div>
               <div>
                 <h4 class="collect-amt"><span>₹</span> 23,54,345.09</h4>
-                <p class="amount-collected">Amount collected</p>
+                <p class="amount-collected">Amount collect</p>
 
               </div>
             </div>
@@ -120,7 +120,7 @@
               <div class=" card-body d-flex  justify-content-evenly status-pad  ">
                 <div><img src="../assets/solar_delivery-bold.svg" alt="" class=" img-fluid status-img"></div>
                 <div>
-                  <h4 class=" num-status m-0">345</h4>
+                  <h4 class=" num-status m-0">{{ this.delivery.length }}</h4>
                   <span class=" num-titles"> Total Delivery Notes</span>
                 </div>
               </div>
@@ -200,18 +200,18 @@
           </div>
           <div class="d-flex justify-content-evenly my-4  g-0  ">
             <div class="">
-              <router-link to="/addleads" class=" text-decoration-none ">
-                <div class="card border-0 ">
-                  <div class="icon-quotations">
-                    <div class=" text-center ">
-                      <img src="../assets/Group 237656.svg" alt="icon">
-                    </div>
-                  </div>
-                  <div class="card-body px-2">
-                    <h5 class="card-text cards-headings">Leads</h5>
+
+              <div class="card border-0 " @click="ToLead()">
+                <div class="icon-quotations">
+                  <div class=" text-center ">
+                    <img src="../assets/Group 237656.svg" alt="icon">
                   </div>
                 </div>
-              </router-link>
+                <div class="card-body px-2">
+                  <h5 class="card-text cards-headings">Leads</h5>
+                </div>
+              </div>
+
             </div>
             <div class="">
               <div class="card border-0  ">
@@ -226,7 +226,7 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0  " @click="ToCustomers()">
                 <div class="icon-quotations">
                   <div class=" text-center position-relative">
                     <img src="../assets/Group 237658.svg" alt="">
@@ -282,7 +282,6 @@
 <script>
 import axios from 'axios';
 export default {
-
   name: 'HomePage',
   data() {
     return {
@@ -294,6 +293,7 @@ export default {
   mounted() {
     console.log(localStorage.getItem("user"));
     this.SalesOrder();
+    this.DeliveryOrder();
     let user = JSON.parse(localStorage.getItem('user'));
     if (!user) {
       this.$router.push({ name: 'LoginPage' })
@@ -304,79 +304,56 @@ export default {
 
   },
   methods: {
-
-    // SalesOrder() {
-    //   // Make an HTTP GET request to the API endpoint
-    //   let queryParams = { filters: [] };
-    //   let user = JSON.parse(localStorage.getItem('user'));
-    //   let ownerFilter = ['owner', '=', user.usr];
-    //   queryParams.filters.push(ownerFilter);
-    //   queryParams.filters = JSON.stringify(queryParams.filters);
-    //   axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]', {
-    //     params: queryParams
-    //   })
-    //     .then((response) => {
-    //       this.data = response.data;
-    //       console.log(this.data);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
-    // SalesOrder() {
-    //   // Make an HTTP GET request to the API endpoint
-    //   let queryParams = { filters: [] }
-    //   queryParams.fields = JSON.stringify(['*'])
-    //   queryParams.limit_page_length = "None"
-    //   queryParams.filters = JSON.stringify(queryParams?.filters);
-    //   axios.get('http://192.168.1.177:8000/api/resource/SalesOrder', {
-    //     params: queryParams
-    //   })
-    //     .then((response) => {
-    //       this.data = JSON.parse(JSON.stringify(response.data));
-    //       console.log(this.data);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
     logout() {
       localStorage.clear()
       this.$router.push({ name: 'LoginPage' })
 
     },
-    async SalesOrder() {
-
-      try {
-        let queryParams = { filters: [] };
-        queryParams.fields = JSON.stringify(['*']);
-        queryParams.limit_page_length = null;
-        if (queryParams.filters) {
-          queryParams.filters = JSON.stringify(queryParams.filters);
-        }
-        const response = await axios.get('http://192.168.1.177:8000/api/resource/Sales Order', {
-          params: queryParams
+    SalesOrder() {
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(['*']);
+      queryParams.limit_page_length = null;
+      queryParams.filters = JSON.stringify(queryParams?.filters);
+      axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order', {
+        params: queryParams,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }, withCredentials: true
+      })
+        .then((response) => {
+          this.data = response.data.data;
+          console.log(this.data.length, 'sales orders==', this.data);
+        }).catch((error) => {
+          console.error(error);
         });
-        this.data = response.data.data;
-        console.log(this.data);
-        console.log(this.data.length, 'sales orders======');
-      } catch (error) {
-        console.error(error);
-      }
     },
     DeliveryOrder() {
-      // Make an HTTP GET request to the API endpoint
-
-      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]')
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(['*']);
+      queryParams.limit_page_length = null;
+      queryParams.filters = JSON.stringify(queryParams?.filters);
+      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]', {
+        params: queryParams,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }, withCredentials: true
+      })
         .then((response) => {
-          this.delivery = response.data;
-          console.log(this.delivery, 'delivery');
+          this.delivery = response.data.data;
+          console.log(this.delivery.length, 'delivery Notes==', this.delivery);
         })
         .catch((error) => {
           console.error(error);
         });
     },
-
+    ToLead() {
+      this.$router.push({ name: 'AddLeads' })
+    },
+    ToCustomers() {
+      this.$router.push({ name: 'AddCustomers' })
+    },
 
   }
 
@@ -384,6 +361,11 @@ export default {
 
 </script>
 <style scoped>
+.card {
+  cursor: pointer;
+}
+
+
 .logout {
   background: #3B43F9 !important;
   font-size: 12px !important;
@@ -399,9 +381,17 @@ export default {
   position: fixed;
   bottom: 10%;
   right: 5%;
+  animation: bounce infinite;
+}
 
+@keyframes bounce {
+  0% {
+    transform: translateY(20px);
+  }
 
-
+  100% {
+    transform: translateY(10px);
+  }
 }
 
 .main-button span {
@@ -611,9 +601,8 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
 }
-
-
 
 
 @media (max-width:575px) {
