@@ -7,7 +7,7 @@
         </a>
         <div>
           <div class="dropdown dropstart">
-            <button class="btn btn-primary  profile-modal" type="button" id="dropdownMenuButton1"
+            <button class="btn btn-primary border-0   profile-modal" type="button" id="dropdownMenuButton1"
               data-bs-toggle="dropdown" aria-expanded="false">
               {{ usrName }}
             </button>
@@ -35,7 +35,8 @@
         <div class="text-center month-tag pt-3">
           <span>
             <i class="bi bi-chevron-left"></i>
-            This Month
+            <button type="button" class=" btn btn-dark bg-transparent month-tag border-0 shadow-none "> This
+              Month</button>
             <i class="bi bi-chevron-right"></i>
           </span>
         </div>
@@ -489,7 +490,7 @@ export default {
   height: 42px;
   flex-shrink: 0;
   border-radius: 24px;
-  background: #3B43F9 !important;
+  background: #001B4E !important;
   transition: all 0.3ms ease;
 
 }

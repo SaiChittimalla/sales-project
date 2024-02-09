@@ -504,8 +504,7 @@
                                         @click="back()">Back</button></div>
                                 <div>
                                     <div v-if="currentStep !== totalSteps">
-                                        <button type="button"
-                                            :disabled="!this.formData.first_name || !this.formData.mobile_no"
+                                        <button type="button" :disabled="!this.formData.first_name || !isMobileValid()"
                                             class="btn btn-primary next-btn" @click="next()">Next</button>
                                     </div>
                                     <!-- Submit button appears only on the last step -->
@@ -608,15 +607,19 @@ export default {
             }
         },
         isNumberEmpty() {
+            const mobileNumberRegex = /^\d{10}$/;
+
             if (!this.formData.mobile_no) {
-                this.error.mobile_no = "First Name"
-            }
-            else {
+                this.error.mobile_no = "Mobile number is required";
+            } else if (!mobileNumberRegex.test(this.formData.mobile_no)) {
+                this.error.mobile_no = "Invalid mobile number format";
+            } else {
                 delete this.error.mobile_no;
-
-
             }
-        }
+        },
+        isMobileValid() {
+            return this.formData.mobile_no && this.formData.mobile_no.length === 10 && !this.error.mobile_no;
+        },
     }
 }
 
