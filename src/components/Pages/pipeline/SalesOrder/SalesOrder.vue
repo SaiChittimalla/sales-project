@@ -3,10 +3,12 @@
     <div class="container">
       <div class="d-flex gap-2 p-2 align-items-center">
         <div>
-          <i class="ri-arrow-left-line"
-            ><span class="ps-2 quotationsfs"
-              >SalesOrders &nbsp;({{ totalQuotations }})</span
-            ></i
+          <router-link to="/HomePage" class="text-decoration-none text-black">
+            <i class="ri-arrow-left-line text-black"
+              ><span class="ps-2 quotationsfs"
+                >SalesOrders &nbsp;({{ totalQuotations }})</span
+              ></i
+            ></router-link
           >
         </div>
       </div>
@@ -42,7 +44,7 @@
             Completed
           </li>
           <li class="list-group-item btn2" @click="setFilter('This Month')">
-            <select class="border-0">
+            <select class="border-0 bg-white">
               <option class="border-0">This Month</option>
             </select>
           </li>
@@ -90,13 +92,11 @@
       </div>
     </div>
     <div>
-      <router-link to="/NewSalesOrder" class=" text-decoration-none ">
-        <button
-        class="btn btn-primary circle-with-plus"
-        type="button"
+      <router-link to="/NewSalesOrder" class="text-decoration-none">
+        <button class="btn btn-primary circle-with-plus" type="button">
+          +
+        </button></router-link
       >
-        +
-      </button></router-link>
     </div>
   </div>
 </template>
@@ -144,9 +144,10 @@ export default {
               fields: JSON.stringify(["*"]),
             },
             headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            }, withCredentials: true
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials: true,
           }
         )
         .then((response) => {
@@ -262,6 +263,7 @@ export default {
   height: 24px;
   flex-shrink: 0;
   font-size: 20px;
+  color: black;
 }
 
 .ri-search-line {
@@ -290,6 +292,7 @@ export default {
   border-radius: 20px;
   background: #3b43f9;
   color: white;
+  border: 0px;
   /* color: #3C3C3C; */
   font-family: Montserrat;
   font-size: 12px;
@@ -302,8 +305,7 @@ export default {
 
 .btn2 {
   border-radius: 20px;
-  background: #f3f3f3;
-  color: #3c3c3c;
+
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;

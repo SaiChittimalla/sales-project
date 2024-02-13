@@ -5,9 +5,12 @@
         <div class="row">
           <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> -->
           <div class="shadow-lg">
-            <h6 class="fw-bold py-2">
-              <i class="bi bi-arrow-left me-2 mt-5"></i>New Quotation - Customer
-            </h6>
+            <router-link to="/QuotationsList" class="text-decoration-none">
+              <h6 class="fw-bold py-2">
+                <i class="bi bi-arrow-left me-2 mt-5"></i>New Quotation -
+                Customer
+              </h6></router-link
+            >
           </div>
         </div>
 

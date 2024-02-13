@@ -177,10 +177,14 @@
               </div>
               <div class="d-flex justify-content-between p-1 mt-3">
                 <div>
-                  <h6>CGST:&nbsp;9%</h6>
+                  <h6>
+                    {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
+                  </h6>
                 </div>
                 <div>
-                  <h6 class="text-muted">₹ 5689.30</h6>
+                  <h6 class="text-muted">
+                    ₹ {{ currentEmployee.tax_amount || 0 }}
+                  </h6>
                 </div>
               </div>
               <div class="d-flex justify-content-between p-1 mt-3">
@@ -200,25 +204,6 @@
                 </div>
               </div>
 
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>VAT:&nbsp;0</h6>
-                </div>
-                <div>
-                  <h6 class="text-muted">₹ 0.00</h6>
-                </div>
-                <div>
-                  <h6 class="text-muted">₹ 0.00</h6>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>SEZ:&nbsp;0</h6>
-                </div>
-                <div>
-                  <h6 class="text-muted">₹ 0.00</h6>
-                </div>
-              </div>
               <div
                 class="d-flex justify-content-between p-1 mt-3"
                 style="border-bottom: 1px dashed LIGHTGREY"
@@ -227,7 +212,7 @@
                   <h6>Total:</h6>
                 </div>
                 <div>
-                  <h6>₹ 11,614.00</h6>
+                  <h6>₹ {{ currentEmployee.base_rounded_total }}</h6>
                 </div>
               </div>
               <div class="d-flex justify-content-between p-1 mt-3">
@@ -247,8 +232,8 @@
               <div class="card-footer">
                 <div class="d-flex justify-content-between">
                   <h6>Grand Total</h6>
-                  <h6 class="text-muted">10</h6>
-                  <h6>₹ 4000</h6>
+                  <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
+                  <h6>{{ currentEmployee.base_rounded_total }}</h6>
                 </div>
               </div>
             </div>
@@ -297,7 +282,7 @@
 
             <div class=" ">
               <div class="mt-3 d-flex justify-content-center">
-                <router-link to="/AddItems" class="btn btncustomer">
+                <router-link to="/completedata" class="btn btncustomer">
                   To Customer
                 </router-link>
               </div>
@@ -414,8 +399,15 @@ export default {
       this.allQuotation.filter((employee) => {
         if (employee.name == name) {
           this.currentEmployee = employee;
+          console.log(this.currentEmployee);
         }
       });
+      // this.allQuotation.filter((taxes) => {
+      //   if (taxes.taxes == taxes) {
+      //     this.currentEmployee = taxes;
+      //     console.log(this.currentEmployee);
+      //   }
+      // });
     },
     backMove() {
       // if (this.show == true) this.$router.push();
@@ -426,15 +418,19 @@ export default {
     },
     fetchData() {
       this.loading = true;
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(["*"]);
+      queryParams.limit_page_length = "none";
+      queryParams.filters = JSON.stringify(queryParams?.filters);
       axios
-        .get(
-          "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
-          {
-            params: {
-              fields: JSON.stringify(["*"]),
-            },
-          }
-        )
+        .get("http://192.168.1.177:8000/api/resource/Quotation", {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           this.allQuotation = JSON.parse(JSON.stringify(response.data.data));
           console.log(this.allQuotation);
@@ -699,9 +695,12 @@ p {
   line-height: normal;
 }
 
-@media (min-width: 500px) and (max-width: 2096px) {
+@media (min-width: 560px) and (max-width: 2096px) {
   .btncustomer {
     width: 30%;
+  }
+  .circle-with-plus {
+    display: block;
   }
 }
 

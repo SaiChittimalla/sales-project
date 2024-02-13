@@ -14,14 +14,28 @@
         <p class="credential-tag">Enter valid credentials</p>
         <div class="mb-1">
           <label for="ipPort" class="form-label">IP Address :</label>
-          <input type="text" id="ipPort" class="form-control" placeholder="192.168.1.177:8000" v-model="ipPort"
-            @input="parseIpPort" />
+          <input
+            type="text"
+            id="ipPort"
+            class="form-control"
+            placeholder="192.168.1.177:8000"
+            v-model="ipPort"
+            @input="parseIpPort"
+          />
         </div>
         <div class="mb-2 position-relative">
           <label for="Email" class="form-label">Username </label>
-          <input type="text" class="form-control input-radius" name="Email" :class="{ 'is-invalid': errors.email }"
-            id="Email" aria-describedby="emailHelpId" placeholder="Enter your username" v-model="formData.email"
-            @input="validatemail" />
+          <input
+            type="text"
+            class="form-control input-radius"
+            name="Email"
+            :class="{ 'is-invalid': errors.email }"
+            id="Email"
+            aria-describedby="emailHelpId"
+            placeholder="Enter your username"
+            v-model="formData.email"
+            @input="validatemail"
+          />
           <i class="bi bi-person"></i>
         </div>
         <div class="text-danger errsize my-1" v-if="errors.email">
@@ -29,15 +43,30 @@
         </div>
         <div class="mb-2 position-relative">
           <label for="password" class="form-label">Password </label>
-          <input :type="showPassword ? 'text' : 'password'" class="form-control input-radius" name="password"
-            :class="{ 'is-invalid': errors.password }" id="password" placeholder="Enter your password"
-            v-model="formData.password" @input="vaildatePassword" />
+          <input
+            :type="showPassword ? 'text' : 'password'"
+            class="form-control input-radius"
+            name="password"
+            :class="{ 'is-invalid': errors.password }"
+            id="password"
+            placeholder="Enter your password"
+            v-model="formData.password"
+            @input="vaildatePassword"
+          />
           <!-- <i class="ri-lock-line"></i> -->
           <i class="bi bi-lock"></i>
 
           <div class="eyes">
-            <i v-show="!showPassword" class="bi bi-eye-slash-fill" @click="togglePasswordVisibility"></i>
-            <i v-show="showPassword" class="bi bi-eye-fill" @click="togglePasswordVisibility"></i>
+            <i
+              v-show="!showPassword"
+              class="bi bi-eye-slash-fill"
+              @click="togglePasswordVisibility"
+            ></i>
+            <i
+              v-show="showPassword"
+              class="bi bi-eye-fill"
+              @click="togglePasswordVisibility"
+            ></i>
           </div>
         </div>
         <div class="text-danger errsize my-1" v-if="errors.password">
@@ -45,12 +74,18 @@
         </div>
 
         <div class="text-end mt-3">
-          <a href="" class="forget-pass text-decoration-none">Forget Password?</a>
+          <a href="" class="forget-pass text-decoration-none"
+            >Forget Password?</a
+          >
         </div>
         <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
-        <button type="submit" class="btn btn-white login" :disabled="!formData.email || !formData.password || !ipPort">
+        <button
+          type="submit"
+          class="btn btn-white login"
+          :disabled="!formData.email || !formData.password || !ipPort"
+        >
           <div v-if="loading" class="spinner-border spinner-border-sm"></div>
           <span v-if="!loading"> LOGIN </span>
         </button>
@@ -99,7 +134,7 @@ export default {
         .post(url, data, {
           headers: {
             "Content-Type": "application/json",
-            'Accept': "application/json",
+            Accept: "application/json",
           },
           withCredentials: true,
         })
