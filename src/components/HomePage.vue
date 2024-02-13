@@ -315,12 +315,13 @@ export default {
       queryParams.fields = JSON.stringify(['*']);
       queryParams.limit_page_length = null;
       queryParams.filters = JSON.stringify(queryParams?.filters);
-      axios.get('http://192.168.1.177:8000/api/resource/Sales%20Order', {
+      axios.get('api/resource/Sales%20Order', {
         params: queryParams,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
-        }, withCredentials: true
+        },
+        withCredentials: true
       })
         .then((response) => {
           this.data = response.data.data;
@@ -334,7 +335,7 @@ export default {
       queryParams.fields = JSON.stringify(['*']);
       queryParams.limit_page_length = null;
       queryParams.filters = JSON.stringify(queryParams?.filters);
-      axios.get('http://192.168.1.177:8000/api/resource/Delivery%20Note?fields=[%22*%22]', {
+      axios.get('api/resource/Delivery%20Note', {
         params: queryParams,
         headers: {
           'Content-Type': 'application/json',
