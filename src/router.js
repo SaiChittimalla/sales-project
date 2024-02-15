@@ -15,6 +15,7 @@ import CompleteData from "./components/Pages/pipeline/Quotations/CompleteData.vu
 import AddCustomers from './components/Pages/clientsBuyers/Customer/AddCustomers.vue'
 import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm.vue'
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
+import PracticePage from "./components/PracticePage.vue";
 
 const routes = [
     {
@@ -45,6 +46,10 @@ const routes = [
     {
         path: '/SalesOrders',
         component: SalesOrder
+    },
+    {
+        path: '/p',
+        component: PracticePage
     },
     // {
     //     path: '/NewSales',

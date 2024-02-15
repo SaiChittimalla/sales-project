@@ -3,22 +3,34 @@
     <nav class="navbar navigation-main">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="../assets/MorganLogo.svg" alt="Morgan" class="logo">
+          <img src="../assets/MorganLogo.svg" alt="Morgan" class="logo" />
         </a>
         <div>
           <div class="dropdown dropstart">
-            <button class="btn btn-primary border-0   profile-modal" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn btn-primary border-0 profile-modal"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               {{ usrName }}
             </button>
-            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-              <div class="d-flex  justify-content-center  align-items-center p-4">
-                <div class=" text-center">
-                  <button class="btn btn-primary  mb-3  inside-profile" type="button">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <div class="d-flex justify-content-center align-items-center p-4">
+                <div class="text-center">
+                  <button
+                    class="btn btn-primary mb-3 inside-profile"
+                    type="button"
+                  >
                     {{ usrName }}
                   </button>
-                  <router-link to="/" class="text-decoration-none logout border-0" @click="logout()">
-                    <button type="button" class="btn btn-primary logout ">
+                  <router-link
+                    to="/"
+                    class="text-decoration-none logout border-0"
+                    @click="logout()"
+                  >
+                    <button type="button" class="btn btn-primary logout">
                       LOGOUT
                     </button>
                   </router-link>
@@ -35,94 +47,122 @@
         <div class="text-center month-tag pt-3">
           <span>
             <i class="bi bi-chevron-left"></i>
-            <button type="button" class=" btn btn-dark bg-transparent month-tag border-0 shadow-none "> This
-              Month</button>
+            <button
+              type="button"
+              class="btn btn-dark bg-transparent month-tag border-0 shadow-none"
+            >
+              This Month
+            </button>
             <i class="bi bi-chevron-right"></i>
           </span>
         </div>
         <div>
-          <div class=" text-center mt-5 ">
-            <label for="" class="amount-attainable ">Total Amount Attainable</label>
+          <div class="text-center mt-5">
+            <label for="" class="amount-attainable"
+              >Total Amount Attainable</label
+            >
           </div>
         </div>
         <div>
-          <h3 class="total-blance"> <span>₹</span> 23,54,345.09</h3>
+          <h3 class="total-blance"><span>₹</span> 23,54,345.09</h3>
         </div>
         <div>
-          <div class=" container  text-center ">
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0"
-              aria-valuemax="100">
-              <div class="progress-bar  bg-warning " style="width: 75%"></div>
+          <div class="container text-center">
+            <div
+              class="progress"
+              role="progressbar"
+              aria-label="Warning example"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <div class="progress-bar bg-warning" style="width: 75%"></div>
             </div>
           </div>
         </div>
-        <div class=" container">
-          <div class="d-flex  justify-content-between  ">
+        <div class="container">
+          <div class="d-flex justify-content-between">
             <div>
               <h4 class="collected-amt"><span>₹</span> 23,54,345.09</h4>
               <p class="amount-collected">Amount collected</p>
-
             </div>
             <div>
               <div>
                 <h4 class="collect-amt"><span>₹</span> 23,54,345.09</h4>
                 <p class="amount-collected">Amount collect</p>
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
     <div class="pipeline-main">
-      <div class="all-status container-fluid  ">
+      <div class="all-status container-fluid">
         <div class="row pt-3">
-          <div class=" col-lg-3 col-md-6 col-sm-6 my-2     ">
+          <div class="col-lg-3 col-md-6 col-sm-6 my-2">
             <div class="card first-cards">
-              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
+              <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/totalorder.svg" alt="" class=" img-fluid status-img">
+                  <img
+                    src="../assets/totalorder.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
-                  <h4 class=" num-status m-0"> {{ this.data.length }}
-                  </h4>
-                  <span class=" num-titles"> Total Sales Orders</span>
+                  <h4 class="num-status m-0">{{ this.data.length }}</h4>
+                  <span class="num-titles"> Total Sales Orders</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class=" col-lg-3 col-md-6 col-sm-6 my-2   ">
+          <div class="col-lg-3 col-md-6 col-sm-6 my-2">
             <div class="card first-cards">
-              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
+              <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/dollar.svg" alt="" class=" img-fluid status-img">
+                  <img
+                    src="../assets/dollar.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
-                  <h4 class=" num-status m-0">{{ this.data.length }}</h4>
-                  <span class=" num-titles"> Total Sales Invoices</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=" col-lg-3 col-md-6 col-sm-6 my-2  ">
-            <div class="card first-cards">
-              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
-                <div><img src="../assets/Group7561.svg" alt="" class=" img-fluid status-img"></div>
-                <div>
-                  <h4 class=" num-status m-0">345</h4>
-                  <span class=" num-titles"> Pending Payments</span>
+                  <h4 class="num-status m-0">{{ this.data.length }}</h4>
+                  <span class="num-titles"> Total Sales Invoices</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class=" col-lg-3 col-md-6 col-sm-6 my-2  ">
+          <div class="col-lg-3 col-md-6 col-sm-6 my-2">
             <div class="card first-cards">
-              <div class=" card-body d-flex  justify-content-evenly status-pad  ">
-                <div><img src="../assets/solar_delivery-bold.svg" alt="" class=" img-fluid status-img"></div>
+              <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <h4 class=" num-status m-0">{{ this.delivery.length }}</h4>
-                  <span class=" num-titles"> Total Delivery Notes</span>
+                  <img
+                    src="../assets/Group7561.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
+                </div>
+                <div>
+                  <h4 class="num-status m-0">345</h4>
+                  <span class="num-titles"> Pending Payments</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+            <div class="card first-cards">
+              <div class="card-body d-flex justify-content-evenly status-pad">
+                <div>
+                  <img
+                    src="../assets/solar_delivery-bold.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
+                </div>
+                <div>
+                  <h4 class="num-status m-0">{{ this.delivery.length }}</h4>
+                  <span class="num-titles"> Total Delivery Notes</span>
                 </div>
               </div>
             </div>
@@ -132,30 +172,38 @@
       <div>
         <div class="card-shadow-div">
           <div>
-            <h5 class="pileline-heading m-0 ps-3 pt-3   ">Piplines</h5>
+            <h5 class="pileline-heading m-0 ps-3 pt-3">Piplines</h5>
             <p class="pipeline-span ps-3">Increase your sales efficiently</p>
           </div>
-          <div class="d-flex justify-content-evenly my-4  g-0  ">
+          <div class="d-flex justify-content-evenly my-4 g-0">
             <div class="">
-              <router-link to="./QuotationsList" class=" text-decoration-none ">
-                <div class="card border-0 ">
+              <router-link to="./QuotationsList" class="text-decoration-none">
+                <div class="card border-0">
                   <div class="icon-quotations">
-                    <div class=" text-center">
-                      <img src="../assets/Group 237652.svg" alt="icon" class=" img-fluid pipe-imgs  ">
+                    <div class="text-center">
+                      <img
+                        src="../assets/Group 237652.svg"
+                        alt="icon"
+                        class="img-fluid pipe-imgs"
+                      />
                     </div>
                   </div>
                   <div class="card-body px-2">
-                    <h5 class="card-text cards-headings ">Quotations</h5>
+                    <h5 class="card-text cards-headings">Quotations</h5>
                   </div>
                 </div>
               </router-link>
             </div>
             <div class="">
-              <router-link to="/SalesOrders" class="text-decoration-none ">
-                <div class="card border-0  ">
+              <router-link to="/SalesOrders" class="text-decoration-none">
+                <div class="card border-0">
                   <div class="icon-quotations">
-                    <div class=" text-center">
-                      <img src="../assets/Group 237653.svg" alt="icon" class=" img-fluid pipe-imgs ">
+                    <div class="text-center">
+                      <img
+                        src="../assets/Group 237653.svg"
+                        alt="icon"
+                        class="img-fluid pipe-imgs"
+                      />
                     </div>
                   </div>
                   <div class="card-body px-2">
@@ -165,11 +213,14 @@
               </router-link>
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0">
                 <div class="icon-quotations">
-                  <div class=" text-center">
-                    <img src="../assets/dollar1.svg" alt="icon" class=" img-fluid pipe-imgs ">
-
+                  <div class="text-center">
+                    <img
+                      src="../assets/dollar1.svg"
+                      alt="icon"
+                      class="img-fluid pipe-imgs"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -178,11 +229,14 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0">
                 <div class="icon-quotations">
-                  <div class=" text-center">
-                    <img src="../assets/carbon_delivery1.svg" alt="icon" class=" img-fluid pipe-imgs ">
-
+                  <div class="text-center">
+                    <img
+                      src="../assets/carbon_delivery1.svg"
+                      alt="icon"
+                      class="img-fluid pipe-imgs"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -196,29 +250,27 @@
       <div>
         <div class="card-shadow-div">
           <div>
-            <h5 class="pileline-heading m-0 ps-3 pt-3   ">Clients / Buyers</h5>
+            <h5 class="pileline-heading m-0 ps-3 pt-3">Clients / Buyers</h5>
             <p class="pipeline-span ps-3">Contact your clients easily</p>
           </div>
-          <div class="d-flex justify-content-evenly my-4  g-0  ">
+          <div class="d-flex justify-content-evenly my-4 g-0">
             <div class="">
-
-              <div class="card border-0 " @click="ToLead()">
+              <div class="card border-0" @click="ToLead()">
                 <div class="icon-quotations">
-                  <div class=" text-center ">
-                    <img src="../assets/Group 237656.svg" alt="icon">
+                  <div class="text-center">
+                    <img src="../assets/Group 237656.svg" alt="icon" />
                   </div>
                 </div>
                 <div class="card-body px-2">
                   <h5 class="card-text cards-headings">Leads</h5>
                 </div>
               </div>
-
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0">
                 <div class="icon-quotations">
-                  <div class=" text-center position-relative ">
-                    <img src="../assets/Group 237649.svg" alt="">
+                  <div class="text-center position-relative">
+                    <img src="../assets/Group 237649.svg" alt="" />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -227,13 +279,11 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0  " @click="ToCustomers()">
+              <div class="card border-0" @click="ToCustomers()">
                 <div class="icon-quotations">
-                  <div class=" text-center position-relative">
-                    <img src="../assets/Group 237658.svg" alt="">
-
+                  <div class="text-center position-relative">
+                    <img src="../assets/Group 237658.svg" alt="" />
                   </div>
-
                 </div>
                 <div class="card-body px-2">
                   <h5 class="card-text cards-headings">Customers</h5>
@@ -241,11 +291,14 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0  ">
+              <div class="card border-0">
                 <div class="icon-quotations">
-                  <div class=" text-center">
-                    <img src="../assets/Group 237659.svg" alt="icon" class=" img-fluid ">
-
+                  <div class="text-center">
+                    <img
+                      src="../assets/Group 237659.svg"
+                      alt="icon"
+                      class="img-fluid"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -257,15 +310,15 @@
         </div>
       </div>
       <div>
-        <div class=" card-shadow-div">
-          <div class=" d-flex  ">
+        <div class="card-shadow-div">
+          <div class="d-flex">
             <div class="ps-3 pt-3">
-              <div class="text-center position-relative ">
-                <img src="../assets/Group 237533.svg " alt="">
+              <div class="text-center position-relative">
+                <img src="../assets/Group 237533.svg " alt="" />
               </div>
             </div>
             <div>
-              <h5 class="pileline-heading m-0 ps-3 pt-3   ">Catalogue</h5>
+              <h5 class="pileline-heading m-0 ps-3 pt-3">Catalogue</h5>
               <p class="pipeline-span ps-3">View Your Items here</p>
             </div>
           </div>
@@ -281,103 +334,100 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
+import { ApiUrls, Doctypes } from "@/shared/apiUrls";
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   data() {
     return {
       data: [],
-      usrName: '',
+      usrName: "",
       delivery: [],
-    }
+    };
   },
   mounted() {
     console.log(localStorage.getItem("user"));
     this.SalesOrder();
     this.DeliveryOrder();
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
-      this.$router.push({ name: 'LoginPage' })
+      this.$router.push({ name: "LoginPage" });
     } else {
       this.usrName = user.usr.charAt(0).toUpperCase();
     }
-
-
   },
   methods: {
     logout() {
-      localStorage.clear()
-      this.$router.push({ name: 'LoginPage' })
-
+      localStorage.clear();
+      this.$router.push({ name: "LoginPage" });
     },
     SalesOrder() {
       let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(['*']);
+      queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = null;
       queryParams.filters = JSON.stringify(queryParams?.filters);
-      axios.get('api/resource/Sales%20Order', {
-        params: queryParams,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        withCredentials: true
-      })
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.salesorder, {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           this.data = response.data.data;
-          console.log(this.data.length, 'sales orders==', this.data);
-        }).catch((error) => {
+          console.log(this.data.length, "sales orders==", this.data);
+        })
+        .catch((error) => {
           console.error(error);
         });
     },
     DeliveryOrder() {
       let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(['*']);
+      queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = null;
       queryParams.filters = JSON.stringify(queryParams?.filters);
-      axios.get('api/resource/Delivery%20Note', {
-        params: queryParams,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }, withCredentials: true
-      })
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.delivery, {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           this.delivery = response.data.data;
-          console.log(this.delivery.length, 'delivery Notes==', this.delivery);
+          console.log(this.delivery.length, "delivery Notes==", this.delivery);
         })
         .catch((error) => {
           console.error(error);
         });
     },
     ToLead() {
-      this.$router.push({ name: 'AddLeads' })
+      this.$router.push({ name: "AddLeads" });
     },
     ToCustomers() {
-      this.$router.push({ name: 'AddCustomers' })
+      this.$router.push({ name: "AddCustomers" });
     },
-
-  }
-
-}
-
+  },
+};
 </script>
 <style scoped>
 .card {
   cursor: pointer;
 }
 
-
 .logout {
-  background: #3B43F9 !important;
+  background: #3b43f9 !important;
   font-size: 12px !important;
-
 }
 
 .main-button {
   width: 62px;
   height: 62px;
-  background-color: #3B43F9;
+  background-color: #3b43f9;
   border: none;
   border-radius: 50%;
   position: fixed;
@@ -409,12 +459,11 @@ export default {
 }
 
 * {
-  font-family: 'Montserrat' !important;
-
+  font-family: "Montserrat" !important;
 }
 
 .collected-amt {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: "Montserrat";
   font-size: 13px;
@@ -425,7 +474,7 @@ export default {
 }
 
 .collect-amt {
-  color: #FF4646;
+  color: #ff4646;
   text-align: right;
   font-family: Montserrat;
   font-size: 13px;
@@ -433,11 +482,10 @@ export default {
   font-weight: 700;
   line-height: normal;
   margin: 0;
-
 }
 
 .amount-collected {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Montserrat;
   font-size: 11px;
@@ -452,7 +500,7 @@ export default {
 }
 
 .total-blance {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Montserrat;
   font-size: 24px;
@@ -462,7 +510,7 @@ export default {
 }
 
 .month-tag {
-  color: #FFF;
+  color: #fff;
   font-family: Montserrat;
   font-size: 14px;
   font-style: normal;
@@ -471,7 +519,7 @@ export default {
 }
 
 .amount-attainable {
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: Montserrat;
   font-size: 11px;
@@ -491,9 +539,8 @@ export default {
   height: 42px;
   flex-shrink: 0;
   border-radius: 24px;
-  background: #001B4E !important;
+  background: #001b4e !important;
   transition: all 0.3ms ease;
-
 }
 
 .inside-profile {
@@ -505,12 +552,10 @@ export default {
   transition: all 0.3ms ease;
   border: 1px solid black;
   color: black;
-
 }
 
 .all-status {
   transition: all 0.3ms ease;
-
 }
 
 .total-amount {
@@ -518,7 +563,11 @@ export default {
   transition: all 0.3ms ease;
 
   height: 265px;
-  background: linear-gradient(180deg, #001B4E 78.49%, rgba(0, 27, 78, 0.00) 134.43%);
+  background: linear-gradient(
+    180deg,
+    #001b4e 78.49%,
+    rgba(0, 27, 78, 0) 134.43%
+  );
 }
 
 .pipeline-main {
@@ -526,18 +575,17 @@ export default {
   /* height: 694px; */
   margin-top: -25px;
   border-radius: 20px 20px 0px 0px;
-  background: linear-gradient(180deg, #C1EBFF 0%, rgba(215, 216, 255, 0.00) 100%);
+  background: linear-gradient(180deg, #c1ebff 0%, rgba(215, 216, 255, 0) 100%);
   transition: all 0.3ms ease;
 }
 
 .card-shadow-div {
   border-radius: 10px;
-  border: 1px solid #EEE;
-  background: #FFF;
+  border: 1px solid #eee;
+  background: #fff;
   box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.08);
   margin: 15px 13px;
   transition: all 0.3ms ease;
-
 }
 
 .pileline-heading {
@@ -563,11 +611,10 @@ export default {
   /* display: flex;
   justify-content: center;
   align-items: center; */
-
 }
 
 .cards-headings {
-  color: #001B4E;
+  color: #001b4e;
   text-align: center;
   font-family: Montserrat;
   font-size: 11px;
@@ -575,20 +622,18 @@ export default {
   font-weight: 600;
   line-height: normal;
   transition: all 0.3ms ease;
-
 }
 
 .first-cards {
   border-radius: 10px;
-  border: 1px solid #EEE;
-  background: #FFF;
+  border: 1px solid #eee;
+  background: #fff;
   box-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.08);
   transition: all 0.3ms ease;
-
 }
 
 .num-status {
-  color: #001B4E;
+  color: #001b4e;
   font-family: Montserrat;
   font-size: 15px;
   font-style: normal;
@@ -603,11 +648,9 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-
 }
 
-
-@media (max-width:575px) {
+@media (max-width: 575px) {
   .col-sm-6 {
     width: 50%;
   }
@@ -628,12 +671,10 @@ export default {
 
   .cards-headings {
     font-size: 17px;
-
   }
 
   .num-status {
     font-size: 17px;
-
   }
 
   .num-titles {
@@ -646,17 +687,14 @@ export default {
 
   .collected-amt {
     font-size: 17px;
-
   }
 
   .collect-amt {
     font-size: 17px;
-
   }
 
   .amount-collected {
     font-size: 14px;
-
   }
 }
 </style> 
