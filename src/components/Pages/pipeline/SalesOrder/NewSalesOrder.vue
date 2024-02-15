@@ -688,7 +688,7 @@ export default {
             this.show2 = true;
         },
         Increase(item) {
-            console.log(item, "djfbjh");
+            console.log(item,"sdv");
             item.qty++;
             item.amount = item.rate;
             item.rate = item.qty * item.last_purchase_rate;

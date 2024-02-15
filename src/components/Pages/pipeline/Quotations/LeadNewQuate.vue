@@ -746,7 +746,7 @@ export default {
                         console.log(this.newComplete);
                     })
                     .catch((error) => {
-                        console.error("Error updating data:", error);
+                        console.error("Error Updating data:", error);
                     });
                 // this.savedData = null;
             } else {
