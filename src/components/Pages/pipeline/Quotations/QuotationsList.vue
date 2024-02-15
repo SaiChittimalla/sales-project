@@ -364,7 +364,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchData();
+    this.quotationData();
     // console.log(Doctypes.quotations);
   },
   computed: {
@@ -426,7 +426,7 @@ export default {
     backgo() {
       this.$router.push("HomePage");
     },
-    fetchData() {
+    quotationData() {
       this.loading = true;
       let queryParams = {
         fields: JSON.stringify(["*"]),

@@ -4,14 +4,12 @@
 
 
 <script>
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import axios from 'axios';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import axios from "axios";
 export default {
   data() {
-    return {
-
-    }
+    return {};
   },
 
   methods: {
@@ -22,13 +20,14 @@ export default {
       };
       const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
 
-      axios.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        withCredentials: true
-      },)
+      axios
+        .post(url, data, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response);
           toast.success("Login Successful", {
@@ -38,18 +37,15 @@ export default {
           if (response.status === 200) {
             localStorage.setItem("user", JSON.stringify(data));
             setTimeout(() => {
-              this.$router.push({ name: 'HomePage' });
-
+              this.$router.push({ name: "HomePage" });
             }, 1000);
           }
           this.setCookies(response.data);
-
         })
         .catch((error) => {
           toast.error("Invalid Credentials");
           console.error(error);
         });
-
     },
     setCookies(data) {
       document.cookie = `user_id=${data.email}; path=/`;
@@ -57,17 +53,12 @@ export default {
       if (data.sid) {
         document.cookie = `sid=${data.sid}; path=/`;
       }
-    }
-
-  }
-
-
-}
-
+    },
+  },
+};
 </script>
 <style >
 * {
-  font-family: 'Montserrat' !important;
-
+  font-family: "Montserrat" !important;
 }
 </style>
