@@ -287,7 +287,9 @@
                 </router-link>
               </div>
               <div class="mt-3 d-flex justify-content-center">
-                <button class="btn btncustomer">To Lead</button>
+                <button @click="toLead()" class="btn btncustomer">
+                  To Lead
+                </button>
               </div>
             </div>
           </div>
@@ -341,6 +343,10 @@
 </template>
 <script>
 import axios from "axios";
+// import apiUrls from "@/shared/apiUrls";
+// import Doctypes from "@/shared/apiUrls";
+// import apiUrls from "@/shared/apiUrls";
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 // import HomePageVue from "@/components/HomePage.vue";
 export default {
   data() {
@@ -359,6 +365,7 @@ export default {
   },
   mounted() {
     this.fetchData();
+    // console.log(Doctypes.quotations);
   },
   computed: {
     totalQuotations() {
@@ -394,6 +401,9 @@ export default {
       this.filterType2 = type;
       this.filterType3 = type;
     },
+    toLead() {
+      this.$router.push("/LeadNewQuate");
+    },
     quotData(name) {
       this.show = false;
       this.allQuotation.filter((employee) => {
@@ -418,12 +428,13 @@ export default {
     },
     fetchData() {
       this.loading = true;
-      let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(["*"]);
-      queryParams.limit_page_length = "none";
-      queryParams.filters = JSON.stringify(queryParams?.filters);
+      let queryParams = {
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        filters: JSON.stringify([]),
+      };
       axios
-        .get("http://192.168.1.177:8000/api/resource/Quotation", {
+        .get(ApiUrls.resource + "/" + Doctypes.quotations, {
           params: queryParams,
           headers: {
             "Content-Type": "application/json",
@@ -432,11 +443,11 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          this.allQuotation = JSON.parse(JSON.stringify(response.data.data));
-          console.log(this.allQuotation);
+          this.allQuotation = response.data.data;
+          console.log(response);
         })
         .catch((error) => {
-          console.error(error.message);
+          console.error("error message:" + error.message);
         })
         .finally(() => {
           this.loading = false;

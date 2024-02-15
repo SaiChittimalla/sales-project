@@ -490,7 +490,7 @@
               </div>
               <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
                 <div class="mt-2 mb-2">
-                  <button class="btn btndraft">
+                  <button class="btn btndraft" @click="mySubmit()">
                     <h6 class="m-0">Save as draft</h6>
                   </button>
                 </div>
@@ -512,6 +512,7 @@
 </template>
 <script>
 import axios from "axios";
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
   data() {
@@ -561,42 +562,29 @@ export default {
       this.show3 = false;
       this.show1 = false;
     },
-
     fetchData() {
       this.loading = true;
       axios
-        .get("http://192.168.1.177:8000/api/resource/Item?fields=[%22*%22]", {
-          params: {
-            fields: JSON.stringify(["*"]),
-          },
-        })
+        .get(ApiUrls.resource + "/" + Doctypes.items)
         .then((response) => {
           this.itemData = response.data.data.map((item) => ({
             ...item,
             qty: 0,
           }));
-          console.log(this.itemData);
         })
-        .catch((error) => {
-          console.error(error.message);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+        .catch((error) => console.error(error.message))
+        .finally(() => (this.loading = false));
     },
     fetchCustomers() {
-      const apiUrl =
-        "http://192.168.1.177:8000/api/resource/Customer?fields=[%22*%22]";
-
       axios
-        .get(apiUrl)
+        .get(ApiUrls.resource + "/" + Doctypes.customer)
         .then((response) => {
           this.customers = response.data.data;
           this.isOpen = true;
         })
-        .catch((error) => {
-          console.error("Error fetching customer data:", error);
-        });
+        .catch((error) =>
+          console.error("Error fetching customer data:", error)
+        );
     },
     selectCustomer(customer) {
       this.searchQuery = customer.name;
@@ -604,15 +592,11 @@ export default {
       this.isOpen = false;
     },
     Increase(item) {
-      console.log(item, "djfbjh");
       item.qty++;
       item.amount = item.rate;
       item.rate = item.qty * item.last_purchase_rate;
       this.selectedItems.push(item);
-      if (item.qty) {
-        // item.last_purchase_rate += item.qty;
-        this.updateTotalQuantityAndPrice();
-      }
+      if (item.qty) this.updateTotalQuantityAndPrice();
       this.addBtn = false;
     },
     Decrease(item) {
@@ -621,127 +605,114 @@ export default {
         item.qty--;
         item.amount = item.rate;
         item.rate = item.qty * item.last_purchase_rate;
-        // item.rate /= 2;
         this.addBtn = false;
         this.updateTotalQuantityAndPrice();
       } else {
         this.addBtn = true;
       }
     },
-    // Increase2(newitem, index) {
-    //   newitem.qty++;
-    //   newitem.rate = newitem.qty * newitem.last_purchase_rate;
-    //   this.updateTotalQuantityAndPrice();
-    //   this.updateSavedData(newitem, index);
-    // },
-    // Decrease2(newitem, index) {
-    //   if (newitem.qty > 0) {
-    //     newitem.qty--;
-    //     newitem.rate = newitem.qty * newitem.last_purchase_rate;
-    //     this.updateTotalQuantityAndPrice();
-    //     this.updateSavedData(newitem, index);
-    //   }
-    // },
-    // updateSavedData(item) {
-    //   const existingItem = this.savedData.find(
-    //     (savedItem) => savedItem.idx === item.idx
-    //   );
-    //   if (existingItem) {
-    //     existingItem.qty = item.qty;
-    //     existingItem.rate = item.rate;
-    //   } else {
-    //     this.savedData.push({ ...item, qty: item.qty, rate: item.rate });
-    //   }
-    // },
-
     showData() {
       this.showBtn = false;
     },
-
     duplicate(val) {
       const objectString = JSON.stringify(val);
       if (!this.obj.has(objectString)) {
         this.obj.add(objectString);
         this.arr.push(val);
       }
-      console.log(this.arr, "array");
     },
-
     mySubmit() {
       if (!this.selectedCustomer) {
         alert("Please select a customer before submitting.");
         return;
       }
-
-      this.selectedItems.map((val) => {
-        this.duplicate(val);
-      });
+      this.selectedItems.forEach((val) => this.duplicate(val));
 
       this.selectedCustomer.party_name = this.selectedCustomer.customer_name;
       const postData = {
         ...this.selectedCustomer,
         items: this.arr,
+        docstatus: 0,
+        name: "",
       };
-      this.savedData = postData;
+
+      axios
+        .post(ApiUrls.resource + "/" + Doctypes.quotations, postData)
+        .then((res) => (this.savedData = res.data));
 
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
     },
-
     createQuotation() {
       if (this.savedData) {
+        const customerName = this.selectedCustomer.customer_name;
         axios
-          .post(
-            "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
-            this.savedData
+          .get(
+            ApiUrls.resource +
+              "/" +
+              Doctypes.quotations +
+              "?filters=[['customer_name', '=', '" +
+              customerName +
+              "']]"
           )
           .then((response) => {
-            this.newComplete = response.data;
+            const existingData = response.data.data[0];
+            if (existingData) {
+              existingData.docstatus = 1;
+              existingData.items = this.arr;
+              existingData.party_name = customerName;
 
-            console.log(this.newComplete);
+              axios
+                .put(
+                  ApiUrls.resource +
+                    "/" +
+                    Doctypes.quotations +
+                    "/" +
+                    existingData.name,
+                  existingData
+                )
+                .then((response) => (this.newComplete = response.data))
+                .catch((error) => console.error("Error updating data:", error));
+            } else {
+              console.error(
+                "No matching record found for the customer name:",
+                customerName
+              );
+            }
           })
-          .catch((error) => {
-            console.error("Error submitting data:", error);
-          });
-        // this.savedData = null;
-      } else {
-        alert.warn("No data to submit. Please submit data first.");
+          .catch((error) =>
+            console.error("Error fetching existing data:", error)
+          );
+        this.savedData = null;
       }
     },
-
     updateTotalQuantityAndPrice() {
       let arr = [];
       let quantity = [];
-      let price;
-      this.selectedItems.map((data) => {
-        if (!quantity.includes(data.qty)) {
-          quantity.push(data.qty);
-        }
+      this.selectedItems.forEach((data) => {
+        if (!quantity.includes(data.qty)) quantity.push(data.qty);
         this.totalQuantity = quantity.reduce((a, b) => a + b);
-        price = data.qty * data.last_purchase_rate;
-        if (!arr.includes(price)) {
-          arr.push(price);
-        }
+        const price = data.qty * data.last_purchase_rate;
+        if (!arr.includes(price)) arr.push(price);
       });
       this.totalPrice = arr.reduce((a, b) => a + b);
       console.log(
         "quantity:",
-        this.totalQuantity + " " + "Total Price:" + this.totalPrice
+        this.totalQuantity + " Total Price:" + this.totalPrice
       );
     },
   },
   watch: {
     searchQuery() {
-      if (this.searchQuery.length > 0) {
-        this.fetchCustomers();
-      } else {
-        this.isOpen = false;
-      }
+      this.searchQuery.length > 0
+        ? this.fetchCustomers()
+        : (this.isOpen = false);
     },
   },
 };
 </script>
+
 <style scoped>
 .heading {
   color: #111;

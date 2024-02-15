@@ -136,20 +136,20 @@ export default {
     },
     fetchData() {
       this.loading = true;
+      let queryParams = {
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        filters: JSON.stringify([]),
+      };
       axios
-        .get(
-          "http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]",
-          {
-            params: {
-              fields: JSON.stringify(["*"]),
-            },
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            withCredentials: true,
-          }
-        )
+        .get("api/resource/Sales%20Order", {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           this.saleOrders = JSON.parse(JSON.stringify(response.data.data));
           console.log(this.saleOrders);

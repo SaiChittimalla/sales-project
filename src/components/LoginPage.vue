@@ -1,4 +1,4 @@
-<template>
+<template >
   <nav class="navbar bg-body-tertiary">
     <div class="container">
       <a class="navbar-brand" href="#">
@@ -12,17 +12,11 @@
       <form @submit.prevent="submitForm()">
         <h4 class="login-tag">Login</h4>
         <p class="credential-tag">Enter valid credentials</p>
-        <div class="mb-1">
+        <!-- <div class="mb-1">
           <label for="ipPort" class="form-label">IP Address :</label>
-          <input
-            type="text"
-            id="ipPort"
-            class="form-control"
-            placeholder="192.168.1.177:8000"
-            v-model="ipPort"
-            @input="parseIpPort"
-          />
-        </div>
+          <input type="text" id="ipPort" class="form-control" placeholder="192.168.1.177:8000" v-model="ipPort"
+            @input="parseIpPort" />
+        </div> -->
         <div class="mb-2 position-relative">
           <label for="Email" class="form-label">Username </label>
           <input
@@ -84,8 +78,9 @@
         <button
           type="submit"
           class="btn btn-white login"
-          :disabled="!formData.email || !formData.password || !ipPort"
+          :disabled="!formData.email || !formData.password"
         >
+          <!-- !ipPort -->
           <div v-if="loading" class="spinner-border spinner-border-sm"></div>
           <span v-if="!loading"> LOGIN </span>
         </button>
@@ -99,6 +94,8 @@
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
+// import apiUrls from "@/shared/apiUrls";
+import { ApiUrls } from "@/shared/apiUrls";
 
 export default {
   name: "LoginPage",
@@ -128,18 +125,29 @@ export default {
         usr: this.formData.email,
         pwd: this.formData.password,
       };
-      const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
+      // const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
+
+      // axios
+      //   .post(url, data, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       'Accept': "application/json",
+      //     },
+      //     withCredentials: true,
+      //   })
 
       axios
-        .post(url, data, {
+        .post(ApiUrls.login, data, {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
           withCredentials: true,
         })
+
         .then((response) => {
           console.log(response);
+          this.loading = true;
           toast.success("Login Successful", {
             position: "top-right",
           });
