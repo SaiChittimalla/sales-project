@@ -431,7 +431,6 @@ export default {
       let queryParams = {
         fields: JSON.stringify(["*"]),
         limit_page_length: "none",
-        filters: JSON.stringify([]),
       };
       axios
         .get(ApiUrls.resource + "/" + Doctypes.quotations, {
