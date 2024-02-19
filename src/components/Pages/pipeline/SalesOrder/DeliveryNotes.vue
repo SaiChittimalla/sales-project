@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="">
     <nav class="navbar header" v-if="show">
@@ -6,7 +8,7 @@
           <div>
             <i @click="backgo()" class="ri-arrow-left-line"
               ><span class="ps-2 quotationsfs"
-                >Quotations &nbsp;({{ totalQuotations }})</span
+                >DeliveryNotes &nbsp;({{ totalQuotations }})</span
               ></i
             >
           </div>
@@ -18,7 +20,7 @@
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
             <i @click="backMove()" class="ri-arrow-left-line"
-              ><span class="ps-2 quotationsfs">QuotationDetails</span></i
+              ><span class="ps-2 quotationsfs">DeliveryDetails</span></i
             >
           </div>
         </div>
@@ -29,10 +31,7 @@
         <div
           class="d-flex justify-content-between align-items-center buttonsall"
         >
-          <ul
-            class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row"
-          >
-            <!-- Add click event handlers to the filter buttons -->
+          <ul class="d-flex list-unstyled flex-wrap list-group flex-row">
             <li
               class="list-group-item btn2"
               :class="{ active: activeFilter === 'All' }"
@@ -42,10 +41,10 @@
             </li>
             <li
               class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Lead' }"
-              @click="setFilter('Lead')"
+              :class="{ active: activeFilter === 'Draft' }"
+              @click="setFilter('Draft')"
             >
-              Lead
+              Draft
             </li>
             <li
               class="list-group-item btn2"
@@ -56,10 +55,10 @@
             </li>
             <li
               class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Ordered' }"
-              @click="setFilter('Ordered')"
+              :class="{ active: activeFilter === 'Completed' }"
+              @click="setFilter('Completed')"
             >
-              Ordered
+              Completed
             </li>
             <!-- ... other filter buttons ... -->
 
@@ -70,9 +69,6 @@
             >
               This Month
             </li>
-            <!-- <select class="border-0 selectback">
-                <option class="border-0 bg-none">This Month</option> 
-              </select> -->
           </ul>
         </div>
       </div>
@@ -81,7 +77,7 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4" v-if="show">
             <div
               class="card card1 mb-4"
-              v-for="(employee, index) in filteredQuotations"
+              v-for="(quotation, index) in filteredQuotations"
               :key="index"
             >
               <div
@@ -94,16 +90,19 @@
                   </div>
                   <div>
                     <p style="font-size: 13px" class="align-items-center mt-3">
-                      {{ employee.name }}<br /><span
+                      {{ quotation.name }}<br /><span
                         class="text-muted"
                         style="font-size: 11px"
-                        >{{ employee.transaction_date }}</span
+                        >{{ quotation.transaction_date }}</span
                       >
                     </p>
                   </div>
                 </div>
                 <div>
-                  <button class="savedbutton1" @click="quotData(employee.name)">
+                  <button
+                    class="savedbutton1"
+                    @click="quotData(quotation.name)"
+                  >
                     View
                     <hr class="m-0" />
                   </button>
@@ -114,15 +113,15 @@
               >
                 <div>
                   <h6 class="" style="font-size: 13px">
-                    {{ employee.customer_name }}
+                    {{ quotation.customer_name }}
                   </h6>
                   <p style="font-size: 11px; color: #3b43f9">
-                    {{ employee.quotation_to }}
+                    {{ quotation.quotation_to }}
                   </p>
                 </div>
 
                 <div>
-                  <button class="savedbutton">{{ employee.status }}</button>
+                  <button class="savedbutton">{{ quotation.status }}</button>
                 </div>
               </div>
             </div>
@@ -241,118 +240,19 @@
         </div>
       </div>
       <div></div>
-      <div>
-        <button
-          class="btn btn-primary circle-with-plus offcnv"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasBottom"
-          aria-controls="offcanvasBottom"
-        >
-          +
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary circle-with-plus2 mdl-btn"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          +
-        </button>
-
-        <div
-          class="offcanvas offcanvas-bottom h-50"
-          tabindex="-1"
-          id="offcanvasBottom"
-          aria-labelledby="offcanvasBottomLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-            <button
-              type="button"
-              class="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body small">
-            <h5 class="offcanvastext text-center">
-              <b>Specify the quotation's <br />intended recipient.</b>
-            </h5>
-
-            <div class=" ">
-              <div class="mt-3 d-flex justify-content-center">
-                <router-link to="/completedata" class="btn btncustomer">
-                  To Customer
-                </router-link>
-              </div>
-              <div class="mt-3 d-flex justify-content-center">
-                <button @click="toLead()" class="btn btncustomer">
-                  To Lead
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div
-            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-          >
-            <div class="modal-content">
-              <div class="modal-header">
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <h5 class="offcanvastext text-center">
-                  <b>Specify the quotation's <br />intended recipient.</b>
-                </h5>
-
-                <div class=" ">
-                  <div class="mt-3 d-flex justify-content-center">
-                    <router-link
-                      to="/completedata"
-                      class="btn btncustomer w-100"
-                    >
-                      To Customer
-                    </router-link>
-                  </div>
-                  <div class="mt-3 d-flex justify-content-center">
-                    <button class="btn btncustomer w-100">To Lead</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
-<script>
+  <script>
 import axios from "axios";
-// import apiUrls from "@/shared/apiUrls";
-// import Doctypes from "@/shared/apiUrls";
-// import apiUrls from "@/shared/apiUrls";
+
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
-// import HomePageVue from "@/components/HomePage.vue";
+
 export default {
   data() {
     return {
       data: [],
-      allQuotation: [],
+      deliveryNotes: [],
       filterType: "All",
       employeeFilterType: "Lead",
       activeFilter: "All",
@@ -365,7 +265,6 @@ export default {
   },
   mounted() {
     this.quotationData();
-    // console.log(Doctypes.quotations);
   },
   computed: {
     totalQuotations() {
@@ -373,22 +272,22 @@ export default {
     },
     filteredQuotations() {
       if (this.filterType === "All") {
-        return this.allQuotation;
+        return this.deliveryNotes;
       } else if (this.filterType1 === "Customer") {
-        return this.allQuotation.filter(
-          (employee) => employee.quotation_to === this.filterType1
+        return this.deliveryNotes.filter(
+          (quotation) => quotation.quotation_to === this.filterType1
         );
       } else if (this.filterType2 === "Lead") {
-        return this.allQuotation.filter(
-          (employee) => employee.quotation_to === this.filterType2
+        return this.deliveryNotes.filter(
+          (quotation) => quotation.quotation_to === this.filterType2
         );
       } else if (this.filterType3 === "This Month") {
-        return this.allQuotation.filter(
-          (employee) => employee.transaction_date === this.filterType3
+        return this.deliveryNotes.filter(
+          (quotation) => quotation.transaction_date === this.filterType3
         );
       } else {
-        return this.allQuotation.filter(
-          (employee) => employee.status === this.filterType
+        return this.deliveryNotes.filter(
+          (quotation) => quotation.status === this.filterType
         );
       }
     },
@@ -406,13 +305,13 @@ export default {
     },
     quotData(name) {
       this.show = false;
-      this.allQuotation.filter((employee) => {
-        if (employee.name == name) {
-          this.currentEmployee = employee;
+      this.deliveryNotes.filter((quotation) => {
+        if (quotation.name == name) {
+          this.currentEmployee = quotation;
           console.log(this.currentEmployee);
         }
       });
-      // this.allQuotation.filter((taxes) => {
+      // this.deliveryNotes.filter((taxes) => {
       //   if (taxes.taxes == taxes) {
       //     this.currentEmployee = taxes;
       //     console.log(this.currentEmployee);
@@ -420,7 +319,6 @@ export default {
       // });
     },
     backMove() {
-      // if (this.show == true) this.$router.push();
       this.show = !this.show;
     },
     backgo() {
@@ -433,7 +331,7 @@ export default {
         limit_page_length: "none",
       };
       axios
-        .get(ApiUrls.resource + "/" + Doctypes.quotations, {
+        .get(ApiUrls.resource + "/" + Doctypes.delivery, {
           params: queryParams,
           headers: {
             "Content-Type": "application/json",
@@ -442,7 +340,7 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          this.allQuotation = response.data.data;
+          this.deliveryNotes = response.data.data;
           console.log(response);
         })
         .catch((error) => {
@@ -455,7 +353,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+  <style scoped>
 @media (min-width: 575px) and (max-width: 2560px) {
   .offcnv {
     display: none !important;
@@ -477,8 +375,8 @@ export default {
   background: none !important;
 }
 .btn-clicked {
-  background-color: #ff0000; /* Change to the desired color */
-  color: #ffffff; /* Change to the desired text color */
+  background-color: #ff0000;
+  color: #ffffff;
 }
 .draftbtn {
   border-radius: 4px;
@@ -615,7 +513,7 @@ export default {
 .btn2 {
   border-radius: 20px;
   /* background: #f3f3f3;
-  color: #3c3c3c; */
+    color: #3c3c3c; */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
@@ -727,7 +625,7 @@ p {
 }
 
 /* .list-group-item + .list-group-item.active {
-  margin-top: 0 !important;
-  border-top-width: 0 !important;
-} */
+    margin-top: 0 !important;
+    border-top-width: 0 !important;
+  } */
 </style>
