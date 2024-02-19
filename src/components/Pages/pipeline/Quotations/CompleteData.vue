@@ -1,5 +1,8 @@
 <template>
   <template v-if="!twoSteps">
+    <div>
+      <p>Phone Number: <a href="#" @click="callPhoneNumber">9822817266</a></p>
+    </div>
     <div class="">
       <nav class="navbar header" v-if="show">
         <div class="container">
@@ -60,7 +63,8 @@
                   style="border-bottom: 1px solid #eeeeee">
                   <div class="d-flex gap-3 align-items-center">
                     <div class="d-flex justify-content-center ri-file-edit-line1">
-                      <i class="ri-file-edit-line"></i>
+                      <img src="../../../../assets/lets-icons_paper-fill.svg" alt="">
+
                     </div>
                     <div>
                       <p style="font-size: 13px" class="align-items-center mt-3">
@@ -95,41 +99,49 @@
           </div>
 
           <div class="" v-if="!show">
-            <div class="card card1 p-3">
+            <div class="">
               <div class="card card1 p-4">
-                <p style="font-size: 13px" class="text-black">
-                  {{ singleQuotation.name }}
-                </p>
-                <p style="font-size: 13px">{{ singleQuotation.title }}</p>
+                <span class="data-span">
+                  ID :
+                  <span class="data-id-tags">
+                    {{ singleQuotation.name }}
+                  </span>
+                </span>
+                <span class="data-span">
+                  Title :
+                  <span class=" data-id-tags">
+                    {{ singleQuotation.title }}
+                  </span>
+                </span>
 
-                <p style="font-size: 13px">Primary Contact Details:</p>
-                <div class="">
-                  <p style="font-size: 13px">
-                    Number:<span class="text-muted">&nbsp;{{ singleQuotation.contact_mobile }}</span>
-                  </p>
-                  <p style="font-size: 13px">
-                    E-mail:<span class="text-muted">
-                      &nbsp;{{ singleQuotation.contact_email }}</span>
-                  </p>
-                </div>
+                <span class=" data-span">Primary Contact Details:</span>
+
+                <span class="data-span">
+                  Number:<span class="text-muted">&nbsp;{{ singleQuotation.contact_mobile }}</span>
+                </span>
+                <span class="data-span">
+                  E-mail:<span class="text-muted">
+                    &nbsp;{{ singleQuotation.contact_email }}</span>
+                </span>
+
               </div>
 
               <div class="card card1 p-4 mt-3">
-                <p style="font-size: 13px">Address:</p>
+                <span class="data-span">Address:</span>
                 <div class="">
-                  <p style="font-size: 13px">
+                  <span class="data-span">
                     Billing Address:<br /><span class="text-muted">{{
                       singleQuotation.shipping_address
                     }}</span>
-                  </p>
-                  <p style="font-size: 13px">
+                  </span>
+                  <span class="data-span">
                     Shipping Address:<br /><span class="text-muted">
                       {{ singleQuotation.shipping_address }}
                     </span>
-                  </p>
+                  </span>
                 </div>
               </div>
-              <div>
+              <div class=" card crad1">
                 <div v-for="(item, index) in singleQuotation.items" :key="index">
                   <div class="card-body card-body123">
                     <div class="d-flex justify-content-between">
@@ -228,8 +240,8 @@
                 </div>
 
               </div>
-              <div class="mt-2 mb-2 d-flex justify-content-end ">
-                <button class="btn btn-quot text-decoration-none" @click="createQuotation()">
+              <div class="mt-2 mb-2 d-flex justify-content-end create-quote ">
+                <button class="btn btn-quot text-decoration-none" @click="quotationExits()">
                   <h6 class="text-white m-0">Create Quotation</h6>
                 </button>
               </div>
@@ -306,7 +318,7 @@
             <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> -->
             <div class="shadow-lg">
               <h6 class="fw-bold py-2">
-                <i class="bi bi-arrow-left me-2 mt-5"></i>New Quotation -
+                <i class="bi bi-arrow-left me-2 mt-5" @click="QuotationBack()"></i>New Quotation -
                 Customer
               </h6>
             </div>
@@ -367,7 +379,7 @@
             <div class="col-sm-9 col-md-7 col-lg-7 col-xl-7 col-search">
               <div class="form-group has-search">
                 <span class="form-control-feedback"><i class="bi bi-search"></i></span>
-                <input type="search" class="form-control bg-light" placeholder="Search item name"
+                <input type="search" class="form-control bg-light" placeholder="Search item name" v-model="secondQuery"
                   @input="SearchDetails" />
               </div>
             </div>
@@ -386,7 +398,7 @@
         </div>
         <section>
           <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" v-for="(item, index) in itemData" :key="index">
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" v-for="(item, index) in itemsData" :key="index">
               <div class="row p-3">
                 <div class="col-3">
                   <div>
@@ -425,11 +437,13 @@
                     </button>
                   </div>
 
-                  <router-link to="#" class="text-nowrap">
-                    <h6 class="editPrice mt-3 ms-2" v-show="item?.qty">
-                      edit price
-                    </h6>
-                  </router-link>
+
+                  <button type="button" class="editPrice border-0 bg-white   text-nowrap  mt-3 ms-2" v-show="item?.qty"
+                    data-bs-toggle="offcanvas" :data-bs-target="'#item_' + item.idx" role="button"
+                    aria-controls="offcanvasExample">
+                    edit price
+                  </button>
+
                   <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" :id="'item_' + item.idx"
                     aria-labelledby="offcanvasExampleLabel">
                     <div class="offcanvas-header">
@@ -522,9 +536,8 @@
                   <div class="col-sm-11 total-purchase">
                     <div>
                       <span class="fw-bold">Total price:₹{{ totalPrice }}</span>
-                      <!-- <span
-                      >Total quantity: <b>{{ totalQuantity }}</b></span -->
                     </div>
+                    <span class="fw-bold">Qty: <b>{{ totalQuantity }}</b></span>
                   </div>
                   <div class="col-sm-1 submit-col text-end d-flex align-items-center justify-content-center">
                     <button @click="mySubmit()" class="border-0 bg-transparent p-2 submit-btn">
@@ -718,7 +731,8 @@
 <script>
 import axios from "axios";
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
-
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
   data() {
     return {
@@ -728,6 +742,7 @@ export default {
       show2: false,
       itemData: [],
       searchQuery: "",
+      secondQuery: "",
       isOpen: false,
       customers: [],
       qty: 0,
@@ -756,7 +771,10 @@ export default {
       },
       singleQuotation: [],
       filteredData: [],
-      duplicateArr: []
+      duplicateArr: [],
+      returnUpdate: {
+
+      }
     };
   },
   mounted() {
@@ -787,6 +805,10 @@ export default {
       this.show2 = true;
       this.show3 = false;
       this.show1 = false;
+    },
+    QuotationBack() {
+      this.twoSteps = false;
+
     },
     fetchData() {
       this.loading = true;
@@ -892,6 +914,9 @@ export default {
         .post(ApiUrls.resource + "/" + Doctypes.quotations, this.postData)
         .then((res) => {
           this.savedData = res.data.data;
+          toast.success("Saved As Drafts", {
+            position: "top-right",
+          })
           console.log(res);
 
         });
@@ -912,7 +937,13 @@ export default {
             this.savedData.name,
             this.savedData
           )
-          .then((response) => (this.newComplete = response.data))
+          .then((response) => (this.newComplete = response.data
+          ),
+            toast.success("Quotation Created", {
+              position: "top-right",
+            })
+          )
+
           .catch((error) => console.error("Error updating data:", error));
       } else {
         console.error(
@@ -920,6 +951,38 @@ export default {
 
         );
       }
+    },
+    quotationExits() {
+      if (this.singleQuotation) {
+        this.singleQuotation.docstatus = 1;
+        // this.singleQuotation.items = this.arr;
+
+        axios
+          .put(
+            ApiUrls.resource +
+            "/" +
+            Doctypes.quotations +
+            "/" +
+            this.singleQuotation?.name,
+            this.singleQuotation
+          )
+          .then((response) => (this.newComplete = response.data
+          ),
+            toast.success("Quotation Created", {
+              position: "top-right",
+            }),
+            this.show = true
+
+          )
+
+          .catch((error) => console.error("Error updating data:", error));
+      } else {
+        console.error(
+          "No matching record found for the customer name:",
+
+        );
+      }
+
     },
     quotData(quota) {
       this.show = false;
@@ -964,6 +1027,7 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = "none";
+      // queryParams.order_by = '`creation`.`modified` desc'
       queryParams.filters = JSON.stringify(queryParams?.filters);
       axios
         .get(ApiUrls.resource + "/" + Doctypes.quotations, {
@@ -1018,6 +1082,11 @@ export default {
       this.show1 = false;
       this.show2 = true;
       this.show3 = false;
+    },
+    callPhoneNumber() {
+      const phoneNumber = '1234567890'; // Replace this with the actual phone number
+      const telUrl = `tel:${phoneNumber}`;
+      window.open(telUrl, '_self');
     }
   },
   watch: {
@@ -1052,11 +1121,42 @@ export default {
         );
       }
     },
+    itemsData() {
+      return this.itemData.filter(item => {
+        return Object.values(item).some(value => {
+          return String(value).toLowerCase().includes(this.secondQuery.toLowerCase());
+        });
+      });
+    }
   },
 };
 </script>
 
 <style scoped>
+.create-quote {
+  position: sticky;
+  bottom: 0px;
+  background: white;
+}
+
+.data-span {
+  color: #444;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px;
+}
+
+.data-id-tags {
+  color: #111;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  line-height: normal;
+}
+
 .heading {
   color: #111;
   font-size: 13px;

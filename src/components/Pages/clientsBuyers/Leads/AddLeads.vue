@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <template v-if="!show">
+        <template v-if="showOne">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <router-link to="/Homepage" class=" text-decoration-none ">
@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span><i class="ri-pencil-fill "></i></span></td>
+                                    <td><span><i class="ri-eye-line" @click="toDetails()"></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -47,7 +47,20 @@
                 </div>
             </div>
         </template>
-        <template v-if="show">
+        <template v-if="showTwo">
+            <nav class="navbar navigated">
+                <div class=" container ">
+                    <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
+                </div>
+            </nav>
+            <div class=" d-flex  justify-content-center ">
+                <div>
+
+                </div>
+            </div>
+
+        </template>
+        <template v-if="showThree">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
@@ -136,7 +149,9 @@ export default {
     data() {
         return {
             lead: [],
-            show: false
+            showOne: true,
+            showTwo: false,
+            showThree: false
         }
     },
     mounted() {
@@ -162,24 +177,39 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.lead = response.data.data;
-                    console.log(this.lead.length, 'Lead count======');
+                    console.log(this.lead.length, 'Lead count======', this.lead);
                 }).catch((error) => {
                     console.error(error);
                 });
         },
 
         Addlead() {
-            this.show = true;
+            this.showOne = false;
+            this.showTwo = false;
+            this.showThree = true;
         },
         backtolist() {
-            this.show = false;
+            this.showOne = true
+            this.showTwo = false
+            this.showThree = false
         },
+        toDetails() {
+            this.showOne = false
+            this.showTwo = true
+            this.showThree = false
+
+
+        }
 
     }
 }
 </script>
 
 <style  scoped>
+.ri-eye-line {
+    cursor: pointer;
+}
+
 table tr {
     border: 1px solid #EEE;
     border-collapse: collapse;
