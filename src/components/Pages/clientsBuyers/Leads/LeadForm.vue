@@ -526,6 +526,7 @@
 import axios from 'axios';
 import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'LeadForm',
@@ -567,7 +568,7 @@ export default {
         },
         submitForm() {
             console.log(this.formData);
-            axios.post('http://192.168.1.177:8000/api/resource/Lead', this.formData, {
+            axios.post(ApiUrls.resource + "/" + Doctypes.lead, this.formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
