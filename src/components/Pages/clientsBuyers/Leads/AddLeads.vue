@@ -143,6 +143,7 @@
 
 <script>
 import axios from 'axios';
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'AddLeads',
@@ -167,7 +168,7 @@ export default {
             queryParams.fields = JSON.stringify(['*']);
             queryParams.limit_page_length = null;
             queryParams.filters = JSON.stringify(queryParams?.filters);
-            axios.get('http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]', {
+            axios.get(ApiUrls.resource + "/" + Doctypes.lead, {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
