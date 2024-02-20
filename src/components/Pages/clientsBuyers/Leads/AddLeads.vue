@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <template v-if="showOne">
+        <template v-if="!show">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <router-link to="/Homepage" class=" text-decoration-none ">
@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span><i class="ri-eye-line" @click="toDetails()"></i></span></td>
+                                    <td><span><i class="ri-pencil-fill "></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -47,20 +47,7 @@
                 </div>
             </div>
         </template>
-        <template v-if="showTwo">
-            <nav class="navbar navigated">
-                <div class=" container ">
-                    <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
-                </div>
-            </nav>
-            <div class=" d-flex  justify-content-center ">
-                <div>
-
-                </div>
-            </div>
-
-        </template>
-        <template v-if="showThree">
+        <template v-if="show">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
@@ -143,16 +130,13 @@
 
 <script>
 import axios from 'axios';
-import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'AddLeads',
     data() {
         return {
             lead: [],
-            showOne: true,
-            showTwo: false,
-            showThree: false
+            show: false
         }
     },
     mounted() {
@@ -168,7 +152,7 @@ export default {
             queryParams.fields = JSON.stringify(['*']);
             queryParams.limit_page_length = null;
             queryParams.filters = JSON.stringify(queryParams?.filters);
-            axios.get(ApiUrls.resource + "/" + Doctypes.lead, {
+            axios.get('http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]', {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
@@ -178,39 +162,24 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.lead = response.data.data;
-                    console.log(this.lead.length, 'Lead count======', this.lead);
+                    console.log(this.lead.length, 'Lead count======');
                 }).catch((error) => {
                     console.error(error);
                 });
         },
 
         Addlead() {
-            this.showOne = false;
-            this.showTwo = false;
-            this.showThree = true;
+            this.show = true;
         },
         backtolist() {
-            this.showOne = true
-            this.showTwo = false
-            this.showThree = false
+            this.show = false;
         },
-        toDetails() {
-            this.showOne = false
-            this.showTwo = true
-            this.showThree = false
-
-
-        }
 
     }
 }
 </script>
 
 <style  scoped>
-.ri-eye-line {
-    cursor: pointer;
-}
-
 table tr {
     border: 1px solid #EEE;
     border-collapse: collapse;

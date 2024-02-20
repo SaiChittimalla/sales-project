@@ -16,7 +16,6 @@ import AddCustomers from './components/Pages/clientsBuyers/Customer/AddCustomers
 import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm.vue'
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
 import PracticePage from "./components/PracticePage.vue";
-import DeliveryNotes from "./components/Pages/pipeline/SalesOrder/DeliveryNotes.vue"
 
 const routes = [
     {
@@ -67,11 +66,8 @@ const routes = [
         component: LeadForm
     },
     {
-        name: 'completedata',
         path: '/completedata',
-        component: CompleteData,
-        props: true
-
+        component: CompleteData
     }, {
         name: 'LeadForm',
         path: '/leadform/:id',
@@ -94,12 +90,6 @@ const routes = [
         path: '/NewSalesOrder',
         component: NewSalesOrder
     },
-    {
-        name: 'DeliveryNotes',
-        path: '/DeliveryNotes',
-        component: DeliveryNotes
-    },
-
 
 ]
 const router = createRouter({

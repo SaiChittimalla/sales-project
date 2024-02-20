@@ -177,20 +177,22 @@
           </div>
           <div class="d-flex justify-content-evenly my-4 g-0">
             <div class="">
-              <div class="card border-0" @click="completeData()">
-                <div class="icon-quotations">
-                  <div class="text-center">
-                    <img
-                      src="../assets/Group 237652.svg"
-                      alt="icon"
-                      class="img-fluid pipe-imgs"
-                    />
+              <router-link to="./completedata" class="text-decoration-none">
+                <div class="card border-0">
+                  <div class="icon-quotations">
+                    <div class="text-center">
+                      <img
+                        src="../assets/Group 237652.svg"
+                        alt="icon"
+                        class="img-fluid pipe-imgs"
+                      />
+                    </div>
+                  </div>
+                  <div class="card-body px-2">
+                    <h5 class="card-text cards-headings">Quotations</h5>
                   </div>
                 </div>
-                <div class="card-body px-2">
-                  <h5 class="card-text cards-headings">Quotations</h5>
-                </div>
-              </div>
+              </router-link>
             </div>
             <div class="">
               <router-link to="/SalesOrders" class="text-decoration-none">
@@ -237,7 +239,7 @@
                     />
                   </div>
                 </div>
-                <div class="card-body px-2" @click="deliveryNotes()">
+                <div class="card-body px-2">
                   <h5 class="card-text cards-headings">Delivery Notes</h5>
                 </div>
               </div>
@@ -324,11 +326,11 @@
       </div>
     </div>
 
-    <!-- <div>
+    <div>
       <button type="button" class="main-button">
         <span>+</span>
       </button>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -408,14 +410,6 @@ export default {
     },
     ToCustomers() {
       this.$router.push({ name: "AddCustomers" });
-    },
-    completeData() {
-      this.$router.push({ name: "completedata" });
-    },
-    deliveryNotes() {
-      this.$router.push({
-        name: "DeliveryNotes",
-      });
     },
   },
 };
