@@ -20,7 +20,7 @@
                                     placeholder="search or select a customer" type="text" v-model="searchQuery"
                                     @click="isOpen = true" @input="filterOptions">
                                 <ul v-show="isOpen" class="ul-tag w-100 ms-2">
-                                    <li class="list-items ms-1" v-for="item in data" :key="item.id"
+                                    <li class="list-items ms-1" v-for="item in filteredData" :key="item.id"
                                         @click="selectOption(item)">
                                         {{ item.lead_name }}
                                     </li>
@@ -168,7 +168,7 @@
 
                         <div class="col-sm-3 col-md-5 col-lg-5 col-xl-5 col-category">
                             <button type="button" class="border-0 text-nowrap catogory-btn">
-                                Category<i class="bi bi-sliders"></i>
+                                Category<i class=" ms-2  bi bi-sliders"></i>
                             </button>
                         </div>
                     </div>
@@ -318,9 +318,8 @@
                                 <div class="row">
                                     <div class="col-sm-11 total-purchase">
                                         <div>
-                                            <span class="fw-bold">Total price:₹{{ totalPrice }}</span>
-                                            <!-- <span
-                      >Total quantity: <b>{{ totalQuantity }}</b></span -->
+                                            <span class="fw-bold">Total price :- ₹ {{ totalPrice }}</span><br>
+                                            <span class="fw-bold">Qty :- {{ totalQuantity }}</span>
                                         </div>
                                     </div>
                                     <div
@@ -341,12 +340,12 @@
     <section v-if="show3">
         <!-- <div> -->
         <div>
-            <nav class="navbar header">
+            <nav class="navbar header shadow-sm ">
                 <div class="container w-100 ">
-                    <div class="p-1">
-                        <i @click="backSide()" class="ri-arrow-left-line quotationsfs"><span class="ps-2">New Quotation -
-                                Lead</span></i>
-                    </div>
+                    <h6 class="fw-bold">
+                        <span class=""><i @click="backSide()" class="bi bi-arrow-left me-2 ">
+                                </i>New Quotation - lead</span>
+                    </h6>
                 </div>
             </nav>
             <div class="container ">
@@ -493,7 +492,7 @@
                             <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
                                 <div class="mt-2 mb-2">
                                     <button class="btn btndraft">
-                                        <h6 class="m-0">Save as draft</h6>
+                                        <h6 class="m-0" @click="saveDraft()">Save as draft</h6>
                                     </button>
                                 </div>
                                 <div class="mt-2 mb-2">
@@ -514,6 +513,8 @@
 
 <script>
 import axios from 'axios';
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
+
 export default {
     data() {
         return {
@@ -544,7 +545,7 @@ export default {
             savedData: [],
             statusData: {
                 status: 'Open',
-                quotation_to: 'Lead',   
+                quotation_to: 'Lead',
             }
         };
     },
@@ -553,16 +554,31 @@ export default {
         this.fetchItem();
     },
     methods: {
-        async fetchData() {
-            try {
-                const response = await fetch("http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]");
-                const res = await response.json();
-                this.data = res.data;
-                // console.log("lead" + JSON.stringify(this.data));
-            } catch (error) {
-                console.error("Error fetch data:", error);
-            }
+        fetchData() {
+            let queryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none",
+                filters: JSON.stringify([]),
+            };
+            axios
+                .get(ApiUrls.resource + "/" + Doctypes.lead, {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then((response) => {
+                    this.data = response.data.data;
+                    this.isOpen = false;
+                    console.log(this.data);
+                })
+                .catch((error) =>
+                    console.error("Error fetching Lead data:", error)
+                );
         },
+
         filterOptions() {
             this.filteredData = this.data.filter(item =>
                 item.lead_name.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -575,31 +591,35 @@ export default {
         },
         saveData() {
             console.log(this.formData);
+
             axios
-                .post(
-                    "http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]",
-                    this.formData
-                )
-                .then((res) => {
-                    this.fetchData();
+                .post(ApiUrls.resource + "/" + Doctypes.lead, this.formData)
+                .then((res) => {this.fetchData();
                     console.log(res);
                 })
-                .catch((error) => {
-                    console.log("Error while sending data", error);
-                });
+
         },
         additem() {
-                this.show1 = false,
+            this.show1 = false,
                 this.show2 = true,
                 this.show3 = false
         },
+
         fetchItem() {
             this.loading = true;
+            let queryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none",
+                filters: JSON.stringify([]),
+            };
             axios
-                .get("http://192.168.1.177:8000/api/resource/Item?fields=[%22*%22]", {
-                    params: {
-                        fields: JSON.stringify(["*"]),
+                .get(ApiUrls.resource + "/" + Doctypes.items, {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
                     },
+                    withCredentials: true,
                 })
                 .then((response) => {
                     this.itemData = response.data.data.map((item) => ({
@@ -608,18 +628,17 @@ export default {
                     }));
                     console.log(this.itemData);
                 })
-                .catch((error) => {
-                    console.error(error.message);
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
+                .catch((error) => console.error(error.message))
+                .finally(() => (this.loading = false));
         },
-        SearchDetails(search) {
-            let value = search.target.value;
-            this.data = this.duplicateArr.filter((each) =>
-                each.item_name.toLowerCase().includes(value.toLowerCase()) ? each : null
-            );
+
+        SearchDetails() {
+            // let value = search.target.value;
+            // this.itemData = this.data.filter((each) =>
+            //     each.item_name.toLowerCase().includes(value.toLowerCase()) ? each : null);
+            return this.itemData.filter(item => {
+            return item.data.toLowerCase().includes(this.SearchDetails.toLowerCase())
+      })
         },
         NewQuote() {
             this.show2 = false;
@@ -707,40 +726,43 @@ export default {
                 docstatus: 0,
                 ...this.statusData
             };
-
             this.savedData = postData;
             console.log(this.savedData)
             console.log(this.statusdata);
 
-            if (this.savedData) {
-                axios
-                    .post(
-                        "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
-                        this.savedData
-                    )
-                    .then((response) => {
-                        this.newComplete = response.data;
+            // if (this.savedData) {
+            //     axios
+            //         .post(
+            //             "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
+            //             this.savedData
+            //         )
+            //         .then((response) => {
+            //             this.newComplete = response.data;
 
-                        console.log(this.newComplete);
-                    })
-                    .catch((error) => {
-                        console.error("Error submitting data:", error);
-                    });
-            } else {
-                alert.warn("No data to submit. Please submit data first.");
-            }
+            //             console.log(this.newComplete);
+            //         })
+            //         .catch((error) => {
+            //             console.error("Error submitting data:", error);
+            //         });
+            // } else {
+            //     alert.warn("No data to submit. Please submit data first.");
+            // }
+        },
 
+        saveDraft(){
+            axios
+                .post(ApiUrls.resource + "/" + Doctypes.quotations, this.savedData)
+                .then((res) => (this.savedData = res.data.data));
+                console.log(this.savedData);
         },
 
         createQuotation() {
             if (this.savedData) {
-                this.docstatus = 1;
+                this.savedData.docstatus=1;
+                this.savedData.items=this.arr,
                 console.log(this.savedData);
                 axios
-                    .post(
-                        "http://192.168.1.177:8000/api/resource/Quotation/",
-                        this.savedData
-                    )
+                    .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
                     .then((response) => {
                         this.newComplete = response.data;
                         console.log(this.newComplete);
@@ -750,9 +772,10 @@ export default {
                     });
                 // this.savedData = null;
             } else {
-                alert.warn("No data to submit. Please submit data first.");
+               console.log("No data to submit. Please submit data first.");
             }
         },
+
 
     },
 };
@@ -1205,6 +1228,13 @@ input::placeholder {
     line-height: normal;
     padding: 12px;
 }
+.add-item-btn1{
+    color: #444;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
 
 .submit-section {
     position: sticky;
@@ -1293,8 +1323,8 @@ input::placeholder {
 
 .btndraft {
     border-radius: 40px;
-    background: #f8f8ff;
-    color: #3b43f9;
+    background: #F2F2F2;
+    /* color: #3b43f9; */
     padding: 10px 10px;
 }
 

@@ -199,8 +199,7 @@
                 <section class="add-item-section">
                     <div class="add-item">
                         <h6 class="fw-bold py-2">
-                            <i class="bi bi-arrow-left me-2 mt-5" @click="NewQuote"></i>Add
-                            Items
+                            <i class="bi bi-arrow-left me-2 mt-5" @click="NewQuote"></i>Add Items
                         </h6>
                     </div>
                     <div class="row mt-3 px-2">
@@ -364,9 +363,8 @@
                                 <div class="row">
                                     <div class="col-sm-11 total-purchase">
                                         <div>
-                                            <span class="fw-bold">Total price:₹{{ totalPrice }}</span>
-                                            <!-- <span
-                      >Total quantity: <b>{{ totalQuantity }}</b></span -->
+                                            <span class="fw-bold">Total price :- ₹ {{ totalPrice }}</span><br>
+                                            <span class="fw-bold">Qty :- {{ totalQuantity }}</span>
                                         </div>
                                     </div>
                                     <div
@@ -387,12 +385,11 @@
     <section v-if="show3">
         <!-- <div> -->
         <div>
-            <nav class="navbar header">
+            <nav class="navbar header shadow-sm">
                 <div class="container w-100 ">
-                    <div class="p-1">
-                        <i @click="backSide()" class="ri-arrow-left-line quotationsfs"><span class="ps-2">New Sales
-                                Order</span></i>
-                    </div>
+                    <h6 class="fw-bold ">
+                        <span class=""><i @click="backSide()" class="bi bi-arrow-left me-2 mt-5 navbar-heading"></i>New Sales Order</span>
+                    </h6>
                 </div>
             </nav>
             <div class="container ">
@@ -555,7 +552,7 @@
                             <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
                                 <div class="mt-2 mb-2">
                                     <button class="btn btndraft">
-                                        <h6 class="m-0">Save as draft</h6>
+                                        <h6 class="m-0" @click="saveDraft()">Save as draft</h6>
                                     </button>
                                 </div>
                                 <div class="mt-2 mb-2">
@@ -569,13 +566,16 @@
                 </div>
             </div>
         </div>
-    <!-- </div> -->
+        <!-- </div> -->
 
     </section>
+    
 </template>
 
 <script>
 import axios from 'axios';
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
+
 export default {
     data() {
         return {
@@ -600,6 +600,7 @@ export default {
             customers: [],
             qty: 0,
             selectedItems: [],
+            duplicateArr: [],
             showBtn: true,
             addBtn: true,
             totalPrice: 0,
@@ -616,18 +617,47 @@ export default {
         this.fetchItem();
     },
     methods: {
-        async fetchData() {
-            try {
-                const response = await fetch(
-                    'http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]');
-                const res = await response.json();
-                this.data = res.data;
-                this.duplicateArr = res.data;
+        // async fetchData() {
+        //     try {
+        //         const response = await fetch(
+        //             'http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]');
+        //         const res = await response.json();
+        //         this.data = res.data;
+        //         this.duplicateArr = res.data;
 
-            } catch (error) {
-                console.error("Error  data:", error);
-            }
+        //     } catch (error) {
+        //         console.error("Error  data:", error);
+        //     }
+        // },
+
+        fetchData() {
+            this.loading = true;
+            let queryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none",
+                filters: JSON.stringify([]),
+            };
+            axios
+                .get("api/resource/Sales%20Order", {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then((response) => {
+                    this.duplicateArr = JSON.parse(JSON.stringify(response.data.data));
+                    console.log(this.duplicateArr);
+                })
+                .catch((error) => {
+                    console.error(error.message);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
+
         filterOptions() {
             this.filteredData = this.duplicateArr.filter(item =>
                 item.customer_name.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -659,11 +689,19 @@ export default {
         },
         fetchItem() {
             this.loading = true;
+            let queryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none",
+                filters: JSON.stringify([]),
+            };
             axios
-                .get("http://192.168.1.177:8000/api/resource/Item?fields=[%22*%22]", {
-                    params: {
-                        fields: JSON.stringify(["*"]),
+                .get(ApiUrls.resource + "/" + Doctypes.items, {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
                     },
+                    withCredentials: true,
                 })
                 .then((response) => {
                     this.itemData = response.data.data.map((item) => ({
@@ -672,12 +710,8 @@ export default {
                     }));
                     console.log(this.itemData);
                 })
-                .catch((error) => {
-                    console.error(error.message);
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
+                .catch((error) => console.error(error.message))
+                .finally(() => (this.loading = false));
         },
         NewQuote() {
             this.show2 = false;
@@ -688,7 +722,7 @@ export default {
             this.show2 = true;
         },
         Increase(item) {
-            console.log(item,"sdv");
+            console.log(item, "sdv");
             item.qty++;
             item.amount = item.rate;
             item.rate = item.qty * item.last_purchase_rate;
@@ -702,6 +736,7 @@ export default {
         Decrease(item) {
             this.selectedItems.push(item);
             if (item.qty) {
+
                 item.qty--;
                 item.amount = item.rate;
                 item.rate = item.qty * item.last_purchase_rate;
@@ -725,30 +760,31 @@ export default {
             console.log(this.arr, "array");
         },
 
-        mySubmit() {
-            this.show1 = false,
-                this.show2 = false,
-                this.show3 = true
-            if (!this.selectedCustomer) {
-                alert("Please select a customer before submitting.");
-                return;
-            }
+        // mySubmit() {
+        //     this.show1 = false,
+        //         this.show2 = false,
+        //         this.show3 = true
+        //     if (!this.selectedCustomer) {
+        //         alert("Please select a customer before submitting.");
+        //         return;
+        //     }
 
-            this.selectedItems.map((val) => {
-                this.duplicate(val);
-            });
+        //     this.selectedItems.map((val) => {
+        //         this.duplicate(val);
+        //     });
 
-            this.selectedCustomer.party_name = this.selectedCustomer.customer_name;
-            const postData = {
-                ...this.selectedCustomer,
-                items: this.arr,
-                ...this.formdata,
-                ...this.DeliveryData,
-                
-            };
-            this.savedData = postData;
-            console.log(this.savedData)
-        },
+        //     this.selectedCustomer.party_name = this.selectedCustomer.customer_name;
+        //     const postData = {
+        //         ...this.selectedCustomer,
+        //         items: this.arr,
+        //         ...this.formdata,
+        //         ...this.DeliveryData,
+
+        //     };
+        //     this.savedData = postData;
+        //     console.log(this.savedData)
+        // },
+
         updateTotalQuantityAndPrice() {
             let arr = [];
             let quantity = [];
@@ -769,36 +805,67 @@ export default {
                 this.totalQuantity + " " + "Total Price:" + this.totalPrice
             );
         },
+
+        mySubmit() {
+            this.show1 = false,
+                this.show2 = false,
+                this.show3 = true
+            if (!this.selectedCustomer) {
+                alert("Please select a customer before submitting.");
+                return;
+            }
+            this.selectedItems.forEach((val) => this.duplicate(val));
+            this.selectedCustomer.party_name = this.selectedCustomer.customer_name;
+            const postData = {
+                ...this.selectedCustomer,
+                items: this.arr,
+                ...this.formdata,
+                ...this.DeliveryData,
+                docstatus: 0,
+            };
+            this.savedData = postData;
+            // console.log(postData);
+            // console.log(this.savedData)
+            // axios
+            //     .post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
+            //     .then((res) => (this.savedData = res.data));
+        },
+        saveDraft() {
+            axios
+                .post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
+                .then((res) => (this.savedData = res.data.data));
+            console.log(this.savedData);
+        },
         createSales() {
             if (this.savedData) {
+                this.savedData.docstatus = 1;
+                // this.savedData.items=this.arr;
+                this.savedData.party_name=this.selectedCustomer.party_name;
+                console.log("this.savedData.name:", this.savedData.name);
                 axios
-                    .post(
-                        "http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]",
-                        this.savedData
-                    )
+                    .put(ApiUrls.resource + "/" + Doctypes.salesorder + "/" + this.savedData.name, this.savedData)
                     .then((response) => {
                         this.newComplete = response.data;
-
                         console.log(this.newComplete);
                     })
                     .catch((error) => {
                         console.error("Error submitting data:", error);
                     });
-                // this.savedData = null;
             } else {
-                alert.warn("No data to submit. Please submit data first.");
+                alert("No data to submit. Please submit data first."); 
+            }
+        }
+
+    },
+    watch: {
+        searchQuery() {
+            if (this.searchQuery.length > 0) {
+                this.fetchItem();
+            } else {
+                this.isOpen = true;
             }
         },
     },
-    watch: {
-    searchQuery() {
-      if (this.searchQuery.length > 0) {
-        this.fetchItem();
-      } else {
-        this.isOpen = false;
-      }
-    },
-  },
 }
 </script>
 
@@ -890,10 +957,12 @@ select,
 .form-control:focus {
     box-shadow: none;
 }
-.form-control{
+
+.form-control {
     font-size: 14px;
     font-weight: 600;
 }
+
 .ul-tag {
     position: absolute;
     z-index: 1;
@@ -1041,7 +1110,7 @@ select,
     border-radius: 30px;
     background: #fafafa;
     border: 1px solid #eee;
-   
+
 }
 
 .has-search .form-control-feedback {
@@ -1348,8 +1417,7 @@ input::placeholder {
 
 .btndraft {
     border-radius: 40px;
-    background: #f8f8ff;
-    color: #3b43f9;
+    background: #F2F2F2;
     padding: 10px 10px;
 }
 
@@ -1360,14 +1428,16 @@ input::placeholder {
     padding: 10px 10px;
     text-decoration-line: none !important;
 }
-h6{
+
+h6 {
     color: #111;
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
-.paragraph-txt{
+
+.paragraph-txt {
     color: #444;
     font-family: Montserrat;
     font-size: 11px;
