@@ -144,6 +144,24 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class=" card input-cards">
+                                            <div class="padding-div  border-top-0  ">
+                                                <div class="">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Tax Category</label>
+                                                        <select class="form-select form-select-lg" name="" id=""
+                                                            v-model="this.formData.tax_category">
+                                                            <option selected>Select Tax Category</option>
+                                                            <option class="tax-option ps-3 " value="In-State">In-Statee
+                                                            </option>
+                                                            <option class="tax-option ps-3 " value="Out-State">Out-State
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </template>
@@ -542,7 +560,7 @@ export default {
         }
     },
     mounted() {
-        this.currentStep = this.$route.params.id
+        // this.currentStep = this.$route.params.id
         console.log(this.currentStep);
 
     },
@@ -553,16 +571,16 @@ export default {
 
             if (this.currentStep < this.totalSteps) {
                 this.currentStep++;
-                let id = this.currentStep
-                this.$router.push({ path: `/leadform/${id}` })
+                // let id = this.currentStep
+                // this.$router.push({ path: `/leadform/${id}` })
             }
 
         },
         back() {
             if (this.currentStep > 1) {
                 this.currentStep--;
-                let id = this.currentStep
-                this.$router.push({ path: `/leadform/${id}` })
+                // let id = this.currentStep
+                // this.$router.push({ path: `/leadform/${id}` })
             }
         },
         submitForm() {

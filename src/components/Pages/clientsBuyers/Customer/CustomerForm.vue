@@ -100,18 +100,6 @@
                                         </h2>
                                     </div>
                                     <div>
-                                        <!-- <div class=" card input-cards">
-                                            <div class="padding-div border-top-0 ">
-                                                <div class="">
-                                                    <label for="" class="form-label">Represents Company</label>
-                                                    <input type="text" class="form-control" name="" id=""
-                                                        aria-describedby="helpId" placeholder=""
-                                                        v-model="this.formData.customer_type" />
-
-                                                </div>
-                                            </div>
-
-                                        </div> -->
                                         <div class=" card input-cards">
                                             <div class="padding-div  border-top-0  ">
                                                 <div class="">
@@ -119,7 +107,6 @@
                                                     <input type="text" class="form-control" name="" id=""
                                                         aria-describedby="helpId" placeholder=""
                                                         v-model="this.formData.city" />
-
                                                 </div>
                                             </div>
                                             <div class="padding-div  ">
@@ -128,7 +115,6 @@
                                                     <input type="text" class="form-control" name="" id=""
                                                         aria-describedby="helpId" placeholder=""
                                                         v-model="this.formData.state" />
-
                                                 </div>
                                             </div>
                                             <div class="padding-div  ">
@@ -137,10 +123,26 @@
                                                     <input type="text" class="form-control" name="" id=""
                                                         aria-describedby="helpId" placeholder=""
                                                         v-model="this.formData.country" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" card input-cards">
+                                            <div class="padding-div  border-top-0  ">
+                                                <div class="">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Tax Category</label>
+                                                        <select class="form-select form-select-lg" name="" id=""
+                                                            v-model="this.formData.tax_category">
+                                                            <option selected>Select Tax Category</option>
+                                                            <option class="tax-option ps-3 " value="In-State">In-Statee
+                                                            </option>
+                                                            <option class="tax-option ps-3 " value="Out-State">Out-State
+                                                            </option>
+                                                        </select>
+                                                    </div>
 
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -445,7 +447,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 mb-3 cat-div">
-                                                <div class="">
+                                                <div class=" h-100">
                                                     <input type="radio" class="btn-check" name="categoryradio"
                                                         v-model="this.formData.request_type" v-bind:value="'Information'"
                                                         id="btnradio23" autocomplete="off">
@@ -554,41 +556,44 @@ export default {
         }
     },
     mounted() {
-        this.currentStep = this.$route.params.id
+        // this.currentStep = this.$route.params.id
         console.log(this.currentStep);
     },
     methods: {
         next() {
             if (this.currentStep < this.totalSteps) {
                 this.currentStep++;
-                let id = this.currentStep
-                this.$router.push({ path: `/CustomerForm/${id}` })
+                // let id = this.currentStep
+                // this.$router.push({ path: `/CustomerForm/${id}` })
+
             }
         },
         back() {
             if (this.currentStep > 1) {
                 this.currentStep--;
-                let id = this.currentStep
-                this.$router.push({ path: `/CustomerForm/${id}` })
+                // let id = this.currentStep
+                // this.$router.push({ path: `/CustomerForm/${id}` })
             }
         },
         submitForm() {
             console.log(this.formData);
-            axios.post('http://192.168.1.177:8000/api/resource/Customer', this.formData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }, withCredentials: true
-            },)
+            axios.post(ApiUrls.resource + "/" + Doctypes.customer, this.formData, {
+                withCredentials: true
+            })
                 .then((response) => {
                     console.log(response);
                     this.formData = {};
                     this.currentStep = 1
                     this.$router.push({ name: 'AddCustomers' })
+
+                    toast.success("Successfully Customer Added ");
+                })
+                .catch((error) => {
+                    console.error("Error adding customer:", error);
+                    toast.error("Failed to add customer. Please try again.");
+
+
                 });
-            toast.success("Successfully Customer Added ", {
-                // toast options here
-            });
         },
         getStepClasses(step) {
             return {
@@ -642,14 +647,26 @@ export default {
     }
 }
 
+.tax-option {
+    background-color: white;
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    padding: 10px 0px 0px 0px !important;
+
+}
+
 .back-btn {
     color: #000;
     font-family: Montserrat;
     font-size: 15px;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    /* line-height: normal; */
     text-decoration-line: underline;
+
 }
 
 .back-btn:focus {
@@ -806,6 +823,28 @@ export default {
     font-weight: 600;
     line-height: 37px;
     padding: 0;
+
+}
+
+.form-select {
+    border: none;
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 37px;
+    /* padding: 0; */
+
+}
+
+.form-select :focus {
+    box-shadow: none;
+
+}
+
+.form-select:active {
+    box-shadow: none;
 
 }
 

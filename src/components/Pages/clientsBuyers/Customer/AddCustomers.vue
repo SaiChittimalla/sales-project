@@ -117,10 +117,9 @@
                         </div>
                     </div>
                     <div class=" d-flex started-div   justify-content-center ">
-                        <router-link to="/CustomerForm/1" class=" text-decoration-none "> <button type="button"
-                                class="Getstart">
-                                Get started
-                            </button></router-link>
+                        <button type="button" @click="started()" class="Getstart">
+                            Get started
+                        </button>
                     </div>
                 </div>
             </div>
@@ -151,6 +150,7 @@ export default {
             let queryParams = { filters: [] };
             queryParams.fields = JSON.stringify(['*']);
             queryParams.limit_page_length = null;
+            queryParams.order_by = 'creation DESC';
             if (queryParams.filters) {
                 queryParams.filters = JSON.stringify(queryParams.filters);
             }
@@ -175,6 +175,13 @@ export default {
         backtolist() {
             this.show = false;
         },
+        started() {
+            this.$router.push({
+                // path: '/CustomerForm'
+                name: 'CustomerForm'
+
+            })
+        }
     }
 }
 </script>
