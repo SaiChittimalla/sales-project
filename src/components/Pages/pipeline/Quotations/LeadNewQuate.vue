@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="shadow-lg">
                     <h6 class="fw-bold py-2">
-                        <router-link to="/QuotationsList" class="text-decoration-none"><i
+                        <router-link to="/completedata" class="text-decoration-none"><i
                                 class="bi bi-arrow-left me-2 mt-5"></i></router-link>New Quotation - Lead
                     </h6>
                 </div>
@@ -16,9 +16,8 @@
                         <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                             <h6 class="m-2 label-name">Lead</h6>
                             <div class="custom-select">
-                                <input class="input-search form-control w-100 border-0"
-                                    placeholder="search or select a customer" type="text" v-model="searchQuery"
-                                    @click="isOpen = true" @input="filterOptions">
+                                <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer"
+                                    type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions">
                                 <ul v-show="isOpen" class="ul-tag w-100 ms-2">
                                     <li class="list-items ms-1" v-for="item in filteredData" :key="item.id"
                                         @click="selectOption(item)">
@@ -26,12 +25,12 @@
                                     </li>
                                     <li>
                                         <div>
-                                            <button type="button" class="new-lead-btn rounded-3  p-1 text-start  w-100"
+                                            <button type="button" class="new-lead-btn rounded-3 mt-2 w-100  text-start fw-bold  "
                                                 data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                                                 aria-controls="offcanvasExample">
-                                                <i class="bi bi-plus-circle me-1 fw-bold "></i>Add New Lead
+                                                <i class="bi bi-plus new-lead-icon me-2 fw-bold "></i>Add New Lead
                                             </button>
-                                            <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
+                                            <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasExample"
                                                 aria-labelledby="offcanvasExampleLabel">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title new-lead-offcanvas"
@@ -42,74 +41,48 @@
                                                         data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                                 </div>
                                                 <div class="offcanvas-body">
-                                                    <div class="row mb-3 m-1">
-                                                        <!-- <div class="card lead-card">
-                                                            <div>
-                                                                <p class="lead">Lead Name</p>
-                                                                <input type="text" placeholder="Enter name of the lead"
-                                                                    class="border-0 input-lead p-1" />
-                                                            </div>
-                                                        </div> -->
-                                                    </div>
-
-                                                    <div class="row mb-3 m-1">
+                                                    <div class="row mb-2 m-1">
                                                         <div class="card lead-card">
                                                             <div>
-                                                                <p class="lead">Full Name</p>
-                                                                <input type="text" placeholder="Enter Full Name"
-                                                                    class="border-0 input-lead form-control p-1 w-100 "
-                                                                    v-model="formData.lead_name" />
+                                                                <p class="lead">Lead Name</p>
+                                                                <input type="text" placeholder="Enter Full Name" v-model="formData.lead_name"
+                                                                    class="border-0 input-lead p-1 w-100 btn text-start  " />
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row mb-3 m-1">
+                                                    <div class="row mb-2 m-1">
                                                         <div class="card lead-card">
                                                             <div>
                                                                 <p class="lead">Mobile Number</p>
                                                                 <span>+91<input type="Number" placeholder="0 0 0 0 0 0 0 "
-                                                                        class="border-0 ms-2 input-lead p-1 w-75 "
-                                                                        v-model="formData.mobile_no" /></span>
+                                                                        class="border-0 ms-2 input-lead p-1 w-75 btn text-start"  v-model="formData.mobile_no" /></span>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row mb-3 m-1">
+                                                    <div class="row mb-2 m-1">
                                                         <div class="card lead-card">
                                                             <div>
                                                                 <p class="lead">Email Address</p>
-                                                                <input type="mail" placeholder="Enter Email Address"
-                                                                    class="border-0 input-lead form-control p-1 w-100 "
-                                                                    v-model="formData.email_id" />
+                                                                <input type="text" placeholder="Enter Email Address"
+                                                                    class="border-0 input-lead p-1 w-100 btn text-start" v-model="formData.email_id"/>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <!-- <div class="row mb-3 m-1">
-                                                        <div class="card lead-card">
-                                                            <div>
-                                                                <p class="lead">Enter Source</p>
-                                                                <input type="text" placeholder="Enter Source"
-                                                                    class="border-0 input-lead p-1" v-model="formData.source" />
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
 
                                                     <div class="row">
                                                         <div class="col-4">
                                                             <div class="text-end">
-                                                                <button type="reset" class="btn border-0 cancel-btn mt-2">
+                                                                <button type=" reset" class="btn border-0 cancel-btn mt-2">
                                                                     Cancel
                                                                 </button>
                                                             </div>
                                                         </div>
                                                         <div class="col-8">
                                                             <div class="text-end">
-                                                                <button type="submit" @click="saveData()"
-                                                                    :disabled="!formData" data-bs-toggle="offcanvas"
-                                                                    href="#offcanvasExample" role="button"
-                                                                    aria-controls="offcanvasExample"
-                                                                    class="btn border-0 save-btn text-white">
+                                                                <button type="button"
+                                                                    class="btn border-0 save-btn text-white" @click="saveData()">
                                                                     Save
                                                                 </button>
                                                             </div>
@@ -338,7 +311,6 @@
     </section>
 
     <section v-if="show3">
-        <!-- <div> -->
         <div>
             <nav class="navbar header shadow-sm ">
                 <div class="container w-100 ">
@@ -506,8 +478,6 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
-
     </section>
 </template>
 
@@ -518,13 +488,12 @@ import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 export default {
     data() {
         return {
-            show1: true,
-            show2: false,
-            show3: false,
             data: [],
+            show1:true,
+            show2:false,
+            show3:false,
             searchQuery: '',
             filteredData: [],
-            duplicateArr: [],
             isOpen: false,
             selectedLead: null,
             formData: {
@@ -585,8 +554,8 @@ export default {
             );
         },
         selectOption(item) {
-            this.searchQuery = item.lead_name;
             this.selectedLead = item;
+            this.searchQuery = item.lead_name;
             this.isOpen = false;
         },
         saveData() {
@@ -707,7 +676,7 @@ export default {
         },
 
         mySubmit() {
-            this.show1 = false,
+                this.show1 = false,
                 this.show2 = false,
                 this.show3 = true
             if (!this.selectedLead) {
@@ -717,7 +686,7 @@ export default {
             this.selectedItems.map((val) => {
                 this.duplicate(val);
             });
-            this.selectedLead.party_name = this.selectedLead.name;
+            this.selectedLead.party_name = this.selectedLead.lead_name
             this.selectedLead.title = this.selectedLead.lead_name;
             this.select
             const postData = {
@@ -759,7 +728,7 @@ export default {
         createQuotation() {
             if (this.savedData) {
                 this.savedData.docstatus=1;
-                this.savedData.items=this.arr,
+                // this.savedData.items=this.arr,
                 console.log(this.savedData);
                 axios
                     .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
@@ -798,7 +767,7 @@ export default {
     background: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
     border: 1px solid #eee;
-    padding: 17px 10px;
+    padding: 12px 10px;
 }
 
 .bi-arrow-left {
@@ -843,7 +812,7 @@ select,
 }
 
 .label-name {
-    color: #444 !important;
+    color: #444;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -899,10 +868,16 @@ input {
 }
 
 .new-lead-btn {
+    /* border: 1px solid #d4d3d3; */
     border-radius: 0px 0px 10px 10px;
     border: 1px solid #e5e5e5;
     background: #fff;
-    font-weight: 500;
+    font-size: 14px;
+}
+.new-lead-icon{
+    font-size: 19px;
+    font-weight: bold;
+
 }
 
 .new-lead-offcanvas {
@@ -929,8 +904,8 @@ input {
 }
 
 .input-lead::placeholder {
-    color: #ababab;
-    font-size: 14px;
+    color: #979696;
+    font-size: 13px !important;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -942,10 +917,6 @@ input {
     font-weight: 400;
     line-height: normal;
     font-size: 13px;
-}
-
-.form-control:focus {
-    box-shadow: none;
 }
 
 .save-btn {
@@ -1327,7 +1298,9 @@ input::placeholder {
     /* color: #3b43f9; */
     padding: 10px 10px;
 }
-
+.btn:focus {
+    box-shadow: none;
+}
 .btn-quot {
     border-radius: 40px;
     background: #3b43f9;
