@@ -190,32 +190,69 @@
                     </h6>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between p-1 mt-3">
-                  <div>
-                    <h6>SGST:&nbsp;9%</h6>
-                  </div>
-                  <div>
-                    <h6 class="text-muted">₹ 5434</h6>
+              </div>
+              <div class=" card card1 mt-3">
+                <div v-for="(item, index) in singleQuotation.items" :key="index">
+                  <div class="card-body card-body123 d-flex justify-content-between   ">
+
+                    <div>
+                      <h6>{{ item.item_name }}</h6>
+                      <p>{{ item.item_code }}</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <button class="btn border-1 increment">
+                        <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease2(item, index)"
+                          :disabled="item.qty == 0">
+                          <i class="bi bi-dash"></i>
+                        </button>
+                        <h6>
+                          <span id="count" :v-model="singleQuotation.items">{{ item.qty }}</span>
+                        </h6>
+                        <button type="button" class="border-0 bg-transparent rounded-1" @click="Increase2(item, index)">
+                          <i class="bi bi-plus"></i>
+                        </button>
+                      </button>
+                    </div>
+                    <div>
+                      <h6 :v-model="item.rate">{{ item.rate }}</h6>
+                      <p class="text-end" style="color: #3b43f9">Edit</p>
+                    </div>
+
                   </div>
                 </div>
-                <div class="d-flex justify-content-between p-1 mt-3">
-                  <div>
-                    <h6>IGST:&nbsp;0</h6>
+
+              </div>
+
+              <div class="card card1 mt-3 p-4">
+                <div class="d-flex justify-content-between mt-2 " style="border-bottom: 1px dashed #eee">
+                  <h6>Total Items Value</h6>
+                  <h6 :v-modal="singleQuotation.net_total">₹{{ singleQuotation.net_total }}</h6>
+                </div>
+                <div v-for="(taxe, index) in singleQuotation.taxes" :key="index">
+                  <div class="d-flex justify-content-between  mt-3">
+                    <div>
+                      <h6>
+                        {{ taxe.account_head }}
+                      </h6>
+                    </div>
+                    <div>
+                      <h6 class="text-muted">
+                        ₹ {{ taxe.tax_amount || 0 }}
+                      </h6>
+                    </div>
                   </div>
-                  <div>
-                    <h6 class="text-muted">₹ 0.00</h6>
-                  </div>
+
                 </div>
 
                 <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
                   <div>
-                    <h6>Total:</h6>
+                    <h6>Total Taxes:</h6>
                   </div>
                   <div>
-                    <h6>₹ {{ singleQuotation.base_rounded_total }}</h6>
+                    <h6>₹ {{ singleQuotation.total_taxes_and_charges }}</h6>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between p-1 mt-3">
+                <div class="d-flex justify-content-between  mt-3">
                   <div>
                     <h6>Discount</h6>
                     <p class="text-muted">
@@ -225,17 +262,19 @@
                   <div class="d-flex gap-2">
                     <div class="circle-with-plus">+</div>
                     <div>
-                      <p style="color: #3b43f9" class="text-nowrap">
+                      <p style="color: #3b43f9" class="text-nowrap m-0 " @click="toggleDiscountInput">
                         Add Discount
                       </p>
+                      <input v-model="singleQuotation.additional_discount_percentage" v-if="showDiscountInput" type="text"
+                        class=" form-control-sm " placeholder="Enter discount amount">
                     </div>
                   </div>
                 </div>
-                <div class="card-footer">
+                <div class="card-foot">
                   <div class="d-flex justify-content-between">
                     <h6>Grand Total</h6>
-                    <h6 class="text-muted">{{ singleQuotation.qty }}</h6>
-                    <h6>{{ singleQuotation.base_rounded_total }}</h6>
+                    <h6 class="text-muted">{{ singleQuotation.total_qty }}</h6>
+                    <h6>{{ singleQuotation.grand_total }}</h6>
                   </div>
                 </div>
 
@@ -362,6 +401,14 @@
                 </div>
               </div>
             </div>
+            <!-- <div>
+              <select class="form-select form-select-lg" name="customer" id="customer" v-model="customers.party_name">
+                <option v-for=" (customer, index)  in  customers" :key="index" :value="customer.party_name">{{
+                  customer.name }}
+                </option>
+              </select>
+              {{ customers.party_name }}
+            </div> -->
           </div>
         </div>
       </section>
@@ -411,7 +458,7 @@
                       {{ item.item_name }}
                     </h6>
                     <div class="d-flex text-nowrap">
-                      <p>₹ {{ item.last_purchase_rate }}</p>
+                      <p>₹ {{ item.valuation_rate }}</p>
                       <li class="ms-1 text-muted">{{ item.item_code }}</li>
                     </div>
                     <p class="text-muted item-info">
@@ -467,7 +514,7 @@
                       <div class="row mb-3 mt-3">
                         <div>
                           <h6 class="label-heading">
-                            ₹ {{ item.last_purchase_rate }}
+                            ₹ {{ item.valuation_rate }}
                           </h6>
                           <p class="label-name">Actual Price 1x</p>
                         </div>
@@ -632,7 +679,22 @@
                     <h6>Total Items Value</h6>
                     <h6>₹ {{ this.totalPrice }}</h6>
                   </div>
-                  <div class="d-flex justify-content-between p-1 mt-3">
+                  <div v-for="(taxe, index) in customers.taxes" :key="index">
+                    <div class="d-flex justify-content-between  mt-3">
+                      <div>
+                        <h6>
+                          {{ taxe.account_head }}
+                        </h6>
+                      </div>
+                      <div>
+                        <h6 class="text-muted">
+                          ₹ {{ taxe.tax_amount || 0 }}
+                        </h6>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- <div class="d-flex justify-content-between p-1 mt-3">
                     <div>
                       <h6>CGST:&nbsp;9%</h6>
                     </div>
@@ -675,7 +737,7 @@
                     <div>
                       <h6 class="text-muted">₹ 0.00</h6>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
                     <div>
                       <h6>Total:</h6>
@@ -691,19 +753,17 @@
                         Give additional discount before tax
                       </p>
                     </div>
-                    <div class="d-flex gap-2">
-                      <div class="circle-with">+</div>
-                      <div>
-                        <p style="color: #3b43f9" class="text-nowrap">
-                          Add Discount
-                        </p>
-                      </div>
+                    <div>
+                      <p style="color: #3b43f9" class="text-nowrap" @click="toggleDiscountInput">
+                        <i class="ri-add-circle-line"></i>Add Discount
+                      </p>
+                      <input v-if="showDiscountInput" type="text" class=" w-75 " placeholder="Enter discount amount">
                     </div>
                   </div>
                   <div class="card-footer">
                     <div class="d-flex justify-content-between">
                       <h6>Grand Total</h6>
-                      <h6 class="text-muted">Qty:{{ totalQuantity }}</h6>
+                      <h6 class="text-muted">Qty:{{ this.totalQuantity }}</h6>
                       <h6>{{ totalPrice }}</h6>
                     </div>
                   </div>
@@ -773,8 +833,9 @@ export default {
       filteredData: [],
       duplicateArr: [],
       returnUpdate: {
+      },
+      showDiscountInput: false,
 
-      }
     };
   },
   mounted() {
@@ -836,13 +897,25 @@ export default {
         .finally(() => (this.loading = false));
     },
     fetchCustomers() {
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(['*']);
+      queryParams.limit_page_length = null;
+      queryParams.order_by = 'creation DESC';
+      if (queryParams.filters) {
+        queryParams.filters = JSON.stringify(queryParams.filters);
+      }
       axios
-        .get(ApiUrls.resource + "/" + Doctypes.customer)
+        .get(ApiUrls.resource + "/" + Doctypes.customer, {
+          params: queryParams,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }, withCredentials: true
+        })
         .then((response) => {
           console.log(response.data);
           this.customers = response.data.data;
           this.duplicateArr = response.data.data;
-
           // this.isOpen = false;
         })
         .catch((error) =>
@@ -852,6 +925,7 @@ export default {
     selectCustomer(customer) {
       this.searchQuery = customer.name;
       this.selectedCustomer = customer;
+      console.log(this.selectedCustomer);
       this.isOpen = false;
     },
     filterOptions() {
@@ -862,19 +936,23 @@ export default {
       console.log(this.filteredData);
     },
     Increase(item) {
-      item.qty++;
-      item.amount = item.rate;
-      item.rate = item.qty * item.last_purchase_rate;
       this.selectedItems.push(item);
-      if (item.qty) this.updateTotalQuantityAndPrice();
-      this.addBtn = false;
+      item.qty++;
+      if (item.qty) {
+        item.amount = item.rate;
+        item.rate = item.qty * item.valuation_rate;
+        this.updateTotalQuantityAndPrice();
+      } else {
+        this.addBtn = false;
+      }
+
     },
     Decrease(item) {
       this.selectedItems.push(item);
       if (item.qty) {
         item.qty--;
         item.amount = item.rate;
-        item.rate = item.qty * item.last_purchase_rate;
+        item.rate = item.qty * item.valuation_rate;
         this.addBtn = false;
         this.updateTotalQuantityAndPrice();
       } else {
@@ -908,6 +986,7 @@ export default {
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
+
     },
     saveDraft() {
       axios
@@ -952,11 +1031,36 @@ export default {
         );
       }
     },
+    Increase2(item) {
+      item.qty++; // Increase the quantity locally
+      item.rate = item.qty * item.valuation_rate;
+      item.amount = item.rate;
+      this.singleQuotation.net_total += item.valuation_rate;
+      this.updateTotalQuantity();
+      console.log(this.singleQuotation);
+
+    },
+    Decrease2(item) {
+      if (item.qty > 0) {
+        item.qty--; // Decrease the quantity locally
+        item.rate = item.qty * item.valuation_rate;
+        item.amount = item.rate;
+        this.singleQuotation.net_total -= item.valuation_rate;
+        this.updateTotalQuantity();
+        console.log(this.singleQuotation);
+
+      }
+    },
+    updateTotalQuantity() {
+      let totalQty = 0;
+      for (let item of this.singleQuotation.items) {
+        totalQty += item.qty;
+      }
+      this.singleQuotation.total_qty = totalQty;
+    },
     quotationExits() {
       if (this.singleQuotation) {
         this.singleQuotation.docstatus = 1;
-        // this.singleQuotation.items = this.arr;
-
         axios
           .put(
             ApiUrls.resource +
@@ -966,36 +1070,26 @@ export default {
             this.singleQuotation?.name,
             this.singleQuotation
           )
-          .then((response) => (this.newComplete = response.data
-          ),
+          .then(response => {
+            this.newComplete = response.data;
             toast.success("Quotation Created", {
               position: "top-right",
-            }),
-            this.show = true
-
-          )
-
-          .catch((error) => console.error("Error updating data:", error));
+            });
+            this.show = true;
+          })
+          .catch(error => console.error("Error updating data:", error));
       } else {
-        console.error(
-          "No matching record found for the customer name:",
-
-        );
+        console.error("No matching record found for the customer name:");
       }
-
     },
+
     quotData(quota) {
       this.show = false;
       console.log(quota.name);
-      this.$router.push({
-        query: {
-          id: quota.name
-        }
-      });
-
       let quotationQueryParams = {
         fields: JSON.stringify(["*"]),
-        limit_page_length: "none"
+        limit_page_length: "none",
+        order_by: 'creation DESC'
       };
 
       axios
@@ -1010,10 +1104,19 @@ export default {
         .then((quotationResponse) => {
           this.singleQuotation = quotationResponse.data.data;
           console.log(this.singleQuotation);
+          console.log(this.singleQuotation.taxes, "ghfgh");
         })
         .catch((quotationError) => {
           console.error("Error fetching quotation data:", quotationError.message);
         });
+    },
+    removeBrTags(address) {
+      if (address) {
+        // Remove <br> tags from the address data
+        return address.replace(/<br\s*\/?>/g, ' ');
+      } else {
+        return ' '; // or handle the case where address is undefined
+      }
     },
     // backMove() {
     //   // if (this.show == true) this.$router.push();
@@ -1027,7 +1130,7 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = "none";
-      // queryParams.order_by = '`creation`.`modified` desc'
+      queryParams.order_by = 'creation DESC';
       queryParams.filters = JSON.stringify(queryParams?.filters);
       axios
         .get(ApiUrls.resource + "/" + Doctypes.quotations, {
@@ -1055,7 +1158,7 @@ export default {
       this.selectedItems.forEach((data) => {
         if (!quantity.includes(data.qty)) quantity.push(data.qty);
         this.totalQuantity = quantity.reduce((a, b) => a + b);
-        const price = data.qty * data.last_purchase_rate;
+        const price = data.qty * data.valuation_rate;
         if (!arr.includes(price)) arr.push(price);
       });
       this.totalPrice = arr.reduce((a, b) => a + b);
@@ -1083,11 +1186,10 @@ export default {
       this.show2 = true;
       this.show3 = false;
     },
-    callPhoneNumber() {
-      const phoneNumber = '1234567890'; // Replace this with the actual phone number
-      const telUrl = `tel:${phoneNumber}`;
-      window.open(telUrl, '_self');
+    toggleDiscountInput() {
+      this.showDiscountInput = !this.showDiscountInput;
     }
+
   },
   watch: {
     searchQuery() {

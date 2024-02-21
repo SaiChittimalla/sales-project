@@ -10,7 +10,7 @@
                 </div>
             </nav>
             <div class="container ">
-                <div class=" d-flex  justify-content-center   ">
+                <div class=" d-flex  justify-content-center">
                     <div class=" position-relative ">
                         <table class="mt-3 w-100  ">
                             <thead>
@@ -34,7 +34,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span><i class="ri-eye-line" @click="toDetails()"></i></span></td>
+                                    <td><span><i class="ri-eye-line" @click="toDetails(item.name)"></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -53,8 +53,25 @@
                     <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Lead</h4>
                 </div>
             </nav>
-            <div class=" d-flex  justify-content-center ">
-                <div>
+            <div class="m-3 ">
+                <div class="card card1 ps-3 ">
+                    <div>
+                        <div class=" profile-img d-flex justify-content-center align-items-center ">
+                            <p class="Name-alpha">{{ leadDetails.first_name.charAt(0).toUpperCase() }}</p>
+                        </div>
+                    </div>
+                    <p class="details-heading">ID : <span class="details-data"> {{ leadDetails.name }} </span></p>
+                    <p class="details-heading">Status : <span class="details-data"> {{ leadDetails.status }} </span></p>
+                    <p class="details-heading">Name: <span class="details-data"> {{ leadDetails.first_name }} </span></p>
+                    <div>
+                        <p class="details-heading">Phone Number: <a href="# " class="details-data text-decoration-none "
+                                @click="callPhoneNumber">{{ leadDetails.mobile_no || "No Number" }}</a> <i
+                                class="ri-phone-line fs-5 fw-light mx-2 " @click="callPhoneNumber"></i>
+                            <a href="#" class=" text-decoration-none  text-success " @click="redirectToWhatsApp"><i
+                                    class="ri-whatsapp-line fs-4 "></i></a>
+                        </p>
+                    </div>
+
 
                 </div>
             </div>
@@ -130,10 +147,9 @@
                         </div>
                     </div>
                     <div class=" d-flex started-div   justify-content-center ">
-                        <router-link to="/leadform/1" class=" text-decoration-none "> <button type="button"
-                                class="Getstart">
-                                Get started
-                            </button></router-link>
+                        <button type="button" class="Getstart" @click="started()">
+                            Get started
+                        </button>
                     </div>
                 </div>
             </div>
@@ -152,7 +168,8 @@ export default {
             lead: [],
             showOne: true,
             showTwo: false,
-            showThree: false
+            showThree: false,
+            leadDetails: []
         }
     },
     mounted() {
@@ -160,6 +177,8 @@ export default {
         let user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
             this.$router.push({ name: 'LoginPage' })
+        } else {
+            this.usrName = user.usr.charAt(0).toUpperCase();
         }
     },
     methods: {
@@ -167,6 +186,7 @@ export default {
             let queryParams = { filters: [] };
             queryParams.fields = JSON.stringify(['*']);
             queryParams.limit_page_length = null;
+            queryParams.order_by = 'creation DESC';
             queryParams.filters = JSON.stringify(queryParams?.filters);
             axios.get(ApiUrls.resource + "/" + Doctypes.lead, {
                 params: queryParams,
@@ -194,19 +214,89 @@ export default {
             this.showTwo = false
             this.showThree = false
         },
-        toDetails() {
+        toDetails(name) {
             this.showOne = false
             this.showTwo = true
             this.showThree = false
+            this.lead.filter(lead => {
+                if (lead.name == name) {
+                    this.leadDetails = lead
+                }
+            })
+            console.log(this.leadDetails);
 
+        },
+        callPhoneNumber() {
+            const phoneNumber = this.leadDetails.mobile_no;
+            const telUrl = `tel:${phoneNumber}`;
+            window.open(telUrl, '_self');
+        },
+        redirectToWhatsApp() {
+            const phoneNumber = this.leadDetails.mobile_no;
+            const message = 'Hello!';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        },
+        started() {
+            this.$router.push({
+                // path: '/CustomerForm'
+                name: 'LeadForm'
 
+            })
         }
 
     }
 }
 </script>
 
-<style  scoped>
+<style scoped>
+.Name-alpha {
+    font-size: 52px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    background: #f3f3f3;
+    border-radius: 5px;
+    margin-top: 10px;
+
+}
+
+.profile-img:hover {
+    background: #fff;
+
+}
+
+.card1 {
+    border-radius: 10px;
+    background: #fafafa;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+
+}
+
+.details-heading {
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.details-data {
+    color: #999;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 .ri-eye-line {
     cursor: pointer;
 }
