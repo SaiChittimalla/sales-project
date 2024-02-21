@@ -12,7 +12,9 @@ export const Doctypes = {
     customer: 'Customer',
     salesorder: 'Sales Order',
     items: 'Item',
-    delivery: 'Delivery Note'
+    delivery: 'Delivery Note',
+    contacts: 'Contact'
+
 };
 
 export const ApiUrls = {

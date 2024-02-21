@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <template v-if="showOne">
+        <template v-if="!show">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <router-link to="/Homepage" class=" text-decoration-none ">
@@ -159,7 +159,6 @@
 
 <script>
 import axios from 'axios';
-import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'AddLeads',
@@ -188,7 +187,7 @@ export default {
             queryParams.limit_page_length = null;
             queryParams.order_by = 'creation DESC';
             queryParams.filters = JSON.stringify(queryParams?.filters);
-            axios.get(ApiUrls.resource + "/" + Doctypes.lead, {
+            axios.get('http://192.168.1.177:8000/api/resource/Lead?fields=[%22*%22]', {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
@@ -198,21 +197,17 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.lead = response.data.data;
-                    console.log(this.lead.length, 'Lead count======', this.lead);
+                    console.log(this.lead.length, 'Lead count======');
                 }).catch((error) => {
                     console.error(error);
                 });
         },
 
         Addlead() {
-            this.showOne = false;
-            this.showTwo = false;
-            this.showThree = true;
+            this.show = true;
         },
         backtolist() {
-            this.showOne = true
-            this.showTwo = false
-            this.showThree = false
+            this.show = false;
         },
         toDetails(name) {
             this.showOne = false

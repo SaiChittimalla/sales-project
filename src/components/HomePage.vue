@@ -7,17 +7,29 @@
         </a>
         <div>
           <div class="dropdown dropstart">
-            <button class="btn btn-primary border-0 profile-modal" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn btn-primary border-0 profile-modal"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               {{ usrName }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <div class="d-flex justify-content-center align-items-center p-4">
                 <div class="text-center">
-                  <button class="btn btn-primary mb-3 inside-profile" type="button">
+                  <button
+                    class="btn btn-primary mb-3 inside-profile"
+                    type="button"
+                  >
                     {{ usrName }}
                   </button>
-                  <router-link to="/" class="text-decoration-none logout border-0" @click="logout()">
+                  <router-link
+                    to="/"
+                    class="text-decoration-none logout border-0"
+                    @click="logout()"
+                  >
                     <button type="button" class="btn btn-primary logout">
                       LOGOUT
                     </button>
@@ -35,7 +47,10 @@
         <div class="text-center month-tag pt-3">
           <span>
             <i class="bi bi-chevron-left"></i>
-            <button type="button" class="btn btn-dark bg-transparent month-tag border-0 shadow-none">
+            <button
+              type="button"
+              class="btn btn-dark bg-transparent month-tag border-0 shadow-none"
+            >
               This Month
             </button>
             <i class="bi bi-chevron-right"></i>
@@ -43,7 +58,9 @@
         </div>
         <div>
           <div class="text-center mt-5">
-            <label for="" class="amount-attainable">Total Amount Attainable</label>
+            <label for="" class="amount-attainable"
+              >Total Amount Attainable</label
+            >
           </div>
         </div>
         <div>
@@ -51,8 +68,14 @@
         </div>
         <div>
           <div class="container text-center">
-            <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0"
-              aria-valuemax="100">
+            <div
+              class="progress"
+              role="progressbar"
+              aria-label="Warning example"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
               <div class="progress-bar bg-warning" style="width: 75%"></div>
             </div>
           </div>
@@ -80,7 +103,11 @@
             <div class="card first-cards">
               <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/totalorder.svg" alt="" class="img-fluid status-img" />
+                  <img
+                    src="../assets/totalorder.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
                   <h4 class="num-status m-0">{{ this.data.length }}</h4>
@@ -93,7 +120,11 @@
             <div class="card first-cards">
               <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/dollar.svg" alt="" class="img-fluid status-img" />
+                  <img
+                    src="../assets/dollar.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
                   <h4 class="num-status m-0">{{ this.data.length }}</h4>
@@ -106,7 +137,11 @@
             <div class="card first-cards">
               <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/Group7561.svg" alt="" class="img-fluid status-img" />
+                  <img
+                    src="../assets/Group7561.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
                   <h4 class="num-status m-0">345</h4>
@@ -119,7 +154,11 @@
             <div class="card first-cards">
               <div class="card-body d-flex justify-content-evenly status-pad">
                 <div>
-                  <img src="../assets/solar_delivery-bold.svg" alt="" class="img-fluid status-img" />
+                  <img
+                    src="../assets/solar_delivery-bold.svg"
+                    alt=""
+                    class="img-fluid status-img"
+                  />
                 </div>
                 <div>
                   <h4 class="num-status m-0">{{ this.delivery.length }}</h4>
@@ -138,25 +177,33 @@
           </div>
           <div class="d-flex justify-content-evenly my-4 g-0">
             <div class="">
-
-              <div class="card border-0" @click="completeData()">
-                <div class="icon-quotations">
-                  <div class="text-center">
-                    <img src="../assets/Group 237652.svg" alt="icon" class="img-fluid pipe-imgs" />
+              <router-link to="./completedata" class="text-decoration-none">
+                <div class="card border-0">
+                  <div class="icon-quotations">
+                    <div class="text-center">
+                      <img
+                        src="../assets/Group 237652.svg"
+                        alt="icon"
+                        class="img-fluid pipe-imgs"
+                      />
+                    </div>
+                  </div>
+                  <div class="card-body px-2">
+                    <h5 class="card-text cards-headings">Quotations</h5>
                   </div>
                 </div>
-                <div class="card-body px-2">
-                  <h5 class="card-text cards-headings">Quotations</h5>
-                </div>
-              </div>
-
+              </router-link>
             </div>
             <div class="">
               <router-link to="/SalesOrders" class="text-decoration-none">
                 <div class="card border-0">
                   <div class="icon-quotations">
                     <div class="text-center">
-                      <img src="../assets/Group 237653.svg" alt="icon" class="img-fluid pipe-imgs" />
+                      <img
+                        src="../assets/Group 237653.svg"
+                        alt="icon"
+                        class="img-fluid pipe-imgs"
+                      />
                     </div>
                   </div>
                   <div class="card-body px-2">
@@ -169,7 +216,11 @@
               <div class="card border-0">
                 <div class="icon-quotations">
                   <div class="text-center">
-                    <img src="../assets/dollar1.svg" alt="icon" class="img-fluid pipe-imgs" />
+                    <img
+                      src="../assets/dollar1.svg"
+                      alt="icon"
+                      class="img-fluid pipe-imgs"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -181,7 +232,11 @@
               <div class="card border-0">
                 <div class="icon-quotations">
                   <div class="text-center">
-                    <img src="../assets/carbon_delivery1.svg" alt="icon" class="img-fluid pipe-imgs" />
+                    <img
+                      src="../assets/carbon_delivery1.svg"
+                      alt="icon"
+                      class="img-fluid pipe-imgs"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -239,7 +294,11 @@
               <div class="card border-0">
                 <div class="icon-quotations">
                   <div class="text-center">
-                    <img src="../assets/Group 237659.svg" alt="icon" class="img-fluid" />
+                    <img
+                      src="../assets/Group 237659.svg"
+                      alt="icon"
+                      class="img-fluid"
+                    />
                   </div>
                 </div>
                 <div class="card-body px-2">
@@ -352,10 +411,6 @@ export default {
     ToCustomers() {
       this.$router.push({ name: "AddCustomers" });
     },
-    completeData() {
-      this.$router.push({ name: "completedata" });
-
-    }
   },
 };
 </script>
@@ -508,9 +563,11 @@ export default {
   transition: all 0.3ms ease;
 
   height: 265px;
-  background: linear-gradient(180deg,
-      #001b4e 78.49%,
-      rgba(0, 27, 78, 0) 134.43%);
+  background: linear-gradient(
+    180deg,
+    #001b4e 78.49%,
+    rgba(0, 27, 78, 0) 134.43%
+  );
 }
 
 .pipeline-main {

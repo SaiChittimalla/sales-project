@@ -66,11 +66,8 @@ const routes = [
         component: LeadForm
     },
     {
-        name: 'completedata',
         path: '/completedata',
-        component: CompleteData,
-        props: true
-
+        component: CompleteData
     }, {
         name: 'LeadForm',
         path: '/leadform/:id',

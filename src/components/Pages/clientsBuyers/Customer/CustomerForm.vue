@@ -541,7 +541,6 @@
 import axios from 'axios';
 import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
-import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'CustomerForm',
