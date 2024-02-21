@@ -229,7 +229,7 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0">
+              <div class="card border-0" @click="toDelivery()">
                 <div class="icon-quotations">
                   <div class="text-center">
                     <img
@@ -291,7 +291,7 @@
               </div>
             </div>
             <div class="">
-              <div class="card border-0">
+              <div class="card border-0" @click="toContact()">
                 <div class="icon-quotations">
                   <div class="text-center">
                     <img
@@ -411,6 +411,16 @@ export default {
     ToCustomers() {
       this.$router.push({ name: "AddCustomers" });
     },
+    toDelivery(){
+      this.$router.push({
+        name:'DeliveryNotes'
+      })
+    },
+    toContact(){
+      this.$router.push({
+        name:'ContactsPage'
+      })
+    }
   },
 };
 </script>

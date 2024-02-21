@@ -1,10 +1,237 @@
 <template>
+    <section v-if="salesorder">
+        <nav class="navbar header align-items-center">
+            <div class="container">
+                <div class="d-flex gap-2 p-2 align-items-center" v-if="show">
+                    <div>
+                        <router-link to="/HomePage" class="text-decoration-none text-black">
+                            <i class="ri-arrow-left-line text-black"><span class="ps-2 quotationsfs">SalesOrders &nbsp;({{
+                                totalQuotations
+                            }})</span></i></router-link>
+                    </div>
+                </div>
+                <div v-if="!show">
+                    <span class=" quotationsfs" @click="backMove()"><i class="ri-arrow-left-line text-black me-2 "></i>Sales
+                        Order Details</span>
+                </div>
+                <div class="ri-search-line1">
+                    <i class="ri-search-line"></i>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container" v-if="show">
+            <div class="header2">
+                <div class="d-flex justify-content-between align-items-center buttonsall">
+                    <ul class="d-flex flex-wrap list-unstyled list-group flex-row gap-1">
+                        <div></div>
+                        <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }"
+                            @click="setFilter('All')">
+                            All
+                        </li>
+                        <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }"
+                            @click="setFilter('Draft')">
+                            Draft
+                        </li>
+                        <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
+                            @click="setFilter('Completed')">
+                            Completed
+                        </li>
+                        <li class="list-group-item btn2" @click="setFilter('This Month')">
+                            <span> This Month</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                        <div class="card card1 mb-4" v-for="(sales, index) in filteredQuotations" :key="index">
+                            <div class="d-flex justify-content-between p-2 align-items-baseline"
+                                style="border-bottom: 1px solid #eeeeee">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="d-flex justify-content-center ri-file-edit-line1">
+                                        <i class="ri-file-edit-line"></i>
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 13px" class="align-items-center mt-3">
+                                            {{ sales.name }}<br /><span class="text-muted" style="font-size: 11px">{{
+                                                sales.transaction_date
+                                            }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="savedbutton1" @click="salesDetails(sales)">View</button>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between p-2 align-items-center ">
+                                <div class="p-3">
+                                    <h6 class="" style="font-size: 13px">{{ sales.customer_name }}</h6>
+                                    <!-- <p style="font-size: 11px; color: #3b43f9">Customer</p> -->
+                                </div>
+                                <div>
+                                    <button class="savedbutton">{{ sales.status }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary circle-with-plus" type="button" @click="plusIcon()">+</button>
+            </div>
+        </div>
+
+        <div class="container" v-if="!show">
+            <div class="card card1 p-3">
+                <div class="card card1 p-4">
+                    <p style="font-size: 13px" class="text-black">
+                        Sales Order NO :- <span class=" text-muted ">{{ currentEmployee.name }}</span>
+                    </p>
+                    <p style="font-size: 13px">Customer Name :- <span class=" text-muted ">{{ currentEmployee.customer_name }}</span></p>
+
+                    <!-- <p style="font-size: 13px">Primary Contact Details:</p> -->
+                    <div>
+                        <p style="font-size: 13px">
+                            Mobile NO :- <span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
+                        </p>
+                        <p style="font-size: 13px">
+                            E-mail :- <span class="text-muted">
+                                &nbsp;{{ currentEmployee.contact_email }}</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card1 p-4 mt-3">
+                    <p style="font-size: 14px">Address:</p>
+                    <div class="">
+                        <p style="font-size: 13px">
+                            Billing Address:<br /><span class="text-muted">{{ removeBrTags(currentEmployee.shipping_address)
+                            }}</span>
+                        </p>
+                        <p style="font-size: 13px">
+                            Shipping Address:<br /><span class="text-muted">{{
+                                removeBrTags(currentEmployee.shipping_address) }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class=" card card1">
+                    <div v-for="(item, index) in currentEmployee.items" :key="index">
+                        <div class="card-body card-body123">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6>{{ item.item_name }}</h6>
+                                    <p>{{ item.item_code }}</p>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn border-1 increment">
+                                        <button type="button" class="border-0 bg-transparent rounded-1"
+                                            @click="Decrease(item, index)" :disabled="item.qty == 0">
+                                            <i class="bi bi-dash"></i>
+                                        </button>
+                                        <h6>
+                                            <span id="count">{{ item.qty }}</span>
+                                        </h6>
+                                        <button type="button" class="border-0 bg-transparent rounded-1"
+                                            @click="Increase(item, index)">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </button>
+                                </div>
+                                <div>
+                                    <h6>{{ item.rate }}</h6>
+                                    <p class="text-end" style="color: #3b43f9">Edit</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card tax-card mt-3">
+                    <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
+                        <h6>Total Items Value</h6>
+                        <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
+                    </div>
+                    <div class="d-flex justify-content-between p-1 mt-3">
+                        <div>
+                            <h6>
+                                {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
+                            </h6>
+                        </div>
+                        <div>
+                            <h6 class="text-muted">
+                                ₹ {{ currentEmployee.tax_amount || 0 }}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between p-1 mt-3">
+                        <div>
+                            <h6>SGST:&nbsp;9%</h6>
+                        </div>
+                        <div>
+                            <h6 class="text-muted">₹ 5434</h6>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between p-1 mt-3">
+                        <div>
+                            <h6>IGST:&nbsp;0</h6>
+                        </div>
+                        <div>
+                            <h6 class="text-muted">₹ 0.00</h6>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
+                        <div>
+                            <h6>Total:</h6>
+                        </div>
+                        <div>
+                            <h6>₹ {{ currentEmployee.base_rounded_total }}</h6>
+                        </div>
+                    </div>
+                    <div class="d-flex card2 justify-content-between p-1 mt-3">
+                        <div>
+                            <h6>Discount</h6>
+                            <p class="text-muted">Give additional discount before tax</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <!-- <div class="circle-with-plus">+</div> -->
+                            <div>
+                                <p style="color: #3b43f9" class="text-nowrap">
+                                    Add Discount
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <h6>Grand Total</h6>
+                            <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
+                            <h6>{{ currentEmployee.base_rounded_total }}</h6>
+                        </div>
+                    </div>
+                    <div class="mt-2 d-flex justify-content-end create-quote ">
+                        <button class="btn btn-quot text-decoration-none" @click="quotationExits()">
+                            <h6 class="text-white m-0">Create Sales</h6>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <button class="btn btn-primary circle-with-plus" type="button" @click="plusIcon()">+</button>
+            </div>
+
+        </div>
+    </section>
+
     <section v-if="show1">
         <div class="container-fluid">
             <div class="row">
                 <div class="shadow-lg">
-                    <h6 class="fw-bold py-2"><router-link to="/SalesOrders" class=" text-decoration-none "><i
-                                class="bi bi-arrow-left me-2 mt-5"></i></router-link> Sales Order</h6>
+                    <h6 class="fw-bold py-2"><i class="bi bi-arrow-left me-2 mt-5" @click="sales()"></i>Sales Order</h6>
                 </div>
             </div>
             <div class="row">
@@ -207,7 +434,7 @@
                             <div class="form-group has-search">
                                 <span class="form-control-feedback"><i class="bi bi-search"></i></span>
                                 <input type="search" class="form-control bg-light" placeholder="Search item name"
-                                    @input="SearchDetails" />
+                                    v-model="secondQuery" @input="SearchDetails" />
                             </div>
                         </div>
 
@@ -388,7 +615,8 @@
             <nav class="navbar header shadow-sm">
                 <div class="container w-100 ">
                     <h6 class="fw-bold ">
-                        <span class=""><i @click="backSide()" class="bi bi-arrow-left me-2 mt-5 navbar-heading"></i>New Sales Order</span>
+                        <span class=""><i @click="backSide()" class="bi bi-arrow-left me-2 mt-5 navbar-heading"></i>New
+                            Sales Order</span>
                     </h6>
                 </div>
             </nav>
@@ -569,22 +797,31 @@
         <!-- </div> -->
 
     </section>
-    
 </template>
 
 <script>
 import axios from 'axios';
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
     data() {
         return {
-            show1: true,
+
+            show: true,
+            saleOrders: [],
+            filterType: "All",
+            activeFilter: "All",
+
+            salesorder: true,
+            show1: false,
             show2: false,
             show3: false,
             data: [],
             filteredData: [],
             searchQuery: '',
+            secondQuery: '',
             isOpen: false,
             showdata: true,
             selectedCustomer: null,
@@ -615,20 +852,118 @@ export default {
     mounted() {
         this.fetchData();
         this.fetchItem();
+        this.fetchSales();
+
+    },
+    computed: {
+        totalQuotations() {
+            return this.filteredQuotations.length;
+        },
+        filteredQuotations() {
+            if (this.filterType === "All") {
+                return this.saleOrders;
+            } else {
+                // Filter quotations based on the selected type
+                return this.saleOrders.filter(
+                    (sales) => sales.status === this.filterType
+                );
+            }
+        },
+        itemsData() {
+            return this.itemData.filter(item => {
+                return Object.values(item).some(value => {
+                    return String(value).toLowerCase().includes(this.secondQuery.toLowerCase());
+                });
+            });
+        }
     },
     methods: {
-        // async fetchData() {
-        //     try {
-        //         const response = await fetch(
-        //             'http://192.168.1.177:8000/api/resource/Sales%20Order?fields=[%22*%22]');
-        //         const res = await response.json();
-        //         this.data = res.data;
-        //         this.duplicateArr = res.data;
-
-        //     } catch (error) {
-        //         console.error("Error  data:", error);
-        //     }
+        removeBrTags(data) {
+            return data.replace(/<br\s*\/?>/g, '');
+        },
+        setFilter(type) {
+            this.activeFilter = type;
+            this.filterType = type;
+        },
+        backMove() {
+            // if (this.show == true) this.$router.push();
+            this.show = !this.show;
+        },
+        sales() {
+            this.salesorder = true,
+                this.show1 = false
+        },
+        fetchSales() {
+            this.loading = true;
+            let queryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none",
+                filters: JSON.stringify([]),
+            };
+            axios
+                .get("api/resource/Sales%20Order", {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then((response) => {
+                    this.saleOrders = JSON.parse(JSON.stringify(response.data.data));
+                    console.log(this.saleOrders);
+                })
+                .catch((error) => {
+                    console.error(error.message);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
+        // salesDetails(name) {
+        //     this.show = false;
+        //     this.saleOrders.filter((sales) => {
+        //         if (sales.name == name) {
+        //             this.currentEmployee = sales;
+        //             console.log(this.currentEmployee);
+        //         }
+        //     });
         // },
+
+        salesDetails(quota) {
+            this.show = false;
+            console.log(quota.name , "hdsxgfv");
+
+            let quotationQueryParams = {
+                fields: JSON.stringify(["*"]),
+                limit_page_length: "none"
+            };
+
+            axios
+                .get(ApiUrls.resource + "/" + Doctypes.salesorder + '/' + quota.name, {
+                    params: quotationQueryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then((quotationResponse) => {
+                    this.currentmEployee = quotationResponse.data.data;
+                    console.log(this.currentmEployee , "zbvhjvdv");
+                })
+                .catch((quotationError) => {
+                    console.error("Error fetching quotation data:", quotationError.message);
+                });
+        },
+
+        plusIcon() {
+            this.salesorder = false,
+                this.show1 = true,
+                this.show2 = false,
+                this.show3 = false
+        },
+
 
         fetchData() {
             this.loading = true;
@@ -638,7 +973,7 @@ export default {
                 filters: JSON.stringify([]),
             };
             axios
-                .get("api/resource/Sales%20Order", {
+                .get(ApiUrls.resource + "/" + Doctypes.salesorder, {
                     params: queryParams,
                     headers: {
                         "Content-Type": "application/json",
@@ -683,7 +1018,8 @@ export default {
             console.log(this.DeliveryData);
         },
         additem() {
-            this.show1 = false,
+            this.salesorder = false,
+                this.show1 = false,
                 this.show2 = true,
                 this.show3 = false
         },
@@ -760,31 +1096,6 @@ export default {
             console.log(this.arr, "array");
         },
 
-        // mySubmit() {
-        //     this.show1 = false,
-        //         this.show2 = false,
-        //         this.show3 = true
-        //     if (!this.selectedCustomer) {
-        //         alert("Please select a customer before submitting.");
-        //         return;
-        //     }
-
-        //     this.selectedItems.map((val) => {
-        //         this.duplicate(val);
-        //     });
-
-        //     this.selectedCustomer.party_name = this.selectedCustomer.customer_name;
-        //     const postData = {
-        //         ...this.selectedCustomer,
-        //         items: this.arr,
-        //         ...this.formdata,
-        //         ...this.DeliveryData,
-
-        //     };
-        //     this.savedData = postData;
-        //     console.log(this.savedData)
-        // },
-
         updateTotalQuantityAndPrice() {
             let arr = [];
             let quantity = [];
@@ -826,21 +1137,19 @@ export default {
             this.savedData = postData;
             // console.log(postData);
             // console.log(this.savedData)
-            // axios
-            //     .post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
-            //     .then((res) => (this.savedData = res.data));
         },
+
         saveDraft() {
-            axios
-                .post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
+            axios.post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
                 .then((res) => (this.savedData = res.data.data));
             console.log(this.savedData);
         },
+
         createSales() {
             if (this.savedData) {
                 this.savedData.docstatus = 1;
-                // this.savedData.items=this.arr;
-                this.savedData.party_name=this.selectedCustomer.party_name;
+                this.savedData.items = this.arr;
+                this.savedData.party_name = this.selectedCustomer.party_name;
                 console.log("this.savedData.name:", this.savedData.name);
                 axios
                     .put(ApiUrls.resource + "/" + Doctypes.salesorder + "/" + this.savedData.name, this.savedData)
@@ -852,11 +1161,43 @@ export default {
                         console.error("Error submitting data:", error);
                     });
             } else {
-                alert("No data to submit. Please submit data first."); 
+                alert("No data to submit. Please submit data first.");
             }
-        }
+        },
+        quotationExits() {
+            if (this.currentEmployee) {
+                this.currentEmployee.docstatus = 1;
+                // this.currentEmployee.items = this.arr;
+
+                axios
+                    .put(
+                        ApiUrls.resource +
+                        "/" +
+                        Doctypes.salesorder +
+                        "/" +
+                        this.currentEmployee?.name,
+                        this.currentEmployee
+                    )
+                    .then((response) => (this.newComplete = response.data
+                    ),
+                        toast.success("Quotation Created", {
+                            position: "top-right",
+                        }),
+                        this.show = true
+
+                    )
+                    .catch((error) => console.error("Error updating data:", error));
+            } else {
+                console.error(
+                    "No matching record found for the customer name:",
+
+                );
+            }
+
+        },
 
     },
+
     watch: {
         searchQuery() {
             if (this.searchQuery.length > 0) {
@@ -1377,6 +1718,16 @@ input::placeholder {
     background: #fafafa;
 }
 
+.tax-card {
+    border-radius: 10px 10px 0px 0px;
+    background: #fafafa;
+    padding: 17px 20px 0px 20px;
+}
+
+.card2 {
+    font-size: 12px;
+}
+
 .card-body123 {
     border-bottom: 1px solid #eeeeee;
 }
@@ -1396,7 +1747,7 @@ input::placeholder {
     gap: 15px;
 }
 
-.circle-with-plus {
+/* .circle-with-plus {
     width: 18px;
     height: 18px;
     border-radius: 10px 10px 10px 10px;
@@ -1406,7 +1757,7 @@ input::placeholder {
     color: #3b43f9 !important;
     font-size: 15px;
     border: 1px solid;
-}
+} */
 
 .positionbtn {
     position: sticky;
@@ -1425,7 +1776,7 @@ input::placeholder {
     border-radius: 40px;
     background: #3b43f9;
     color: white;
-    padding: 10px 10px;
+    padding: 12px 30px;
     text-decoration-line: none !important;
 }
 
@@ -1444,5 +1795,206 @@ h6 {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+
+.ri-search-line1 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 21px;
+}
+
+.ri-file-edit-line1 {
+    width: 32px;
+    height: 32px;
+    border-radius: 24px;
+    background: #979bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 25px;
+}
+
+.circle-with-plus {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #3b43f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 25px;
+    position: fixed;
+    /* top: 100%; */
+    bottom: 15%;
+    right: 14%;
+}
+
+.buttonsall {
+    padding: 10px 10px;
+}
+
+.quotationsfs {
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 8px;
+}
+
+.ri-arrow-left-line {
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
+    color: black;
+}
+
+.ri-search-line {
+    font-size: 15px;
+    flex-shrink: 0;
+    color: #3b43f9;
+}
+
+.header {
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    /* width: 430px; */
+    height: 62px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    background-color: white;
+}
+
+.header2 {
+    flex-shrink: 0;
+    background: #fff;
+    box-shadow: 0px 11px 24px 0px rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.active {
+    border-radius: 20px;
+    background: #3b43f9;
+    color: white;
+    border: 0px;
+    /* color: #3C3C3C; */
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    padding: 4px 15px;
+    /* margin: 0px 5px; */
+}
+
+.btn2 {
+    border-radius: 20px;
+
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    padding: 4px 15px;
+
+    margin: 3px 5px;
+}
+
+.list-group-item+.list-group-item.active {
+    border-top-width: 1px !important;
+    background: #3b43f9;
+    color: white;
+    padding: 5px 14px;
+}
+
+li {
+    margin-top: 10px;
+}
+
+.content {
+    background: #f9f9f9;
+    /* display: inline-flex; */
+    padding: 6px 14px;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+    /* height: 932px; */
+}
+
+.card1 {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background: #fff;
+    box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.ri-file-edit-line {
+    font-size: 15px;
+    color: white;
+}
+
+.savedbutton {
+    border-radius: 4px;
+    border: 0.7px solid #3b43f9;
+    background: #ecedff;
+    color: #3b43f9;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    margin-bottom: 20px;
+    font-weight: 500;
+    line-height: normal;
+    padding: 6px 14px;
+}
+
+.savedbutton1 {
+    border: none;
+    background: none;
+    text-decoration: underline;
+    font-size: 13px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+*:focus {
+    outline: none;
+}
+
+@media (min-width: 300px) and (max-width: 420px) {}
+
+.card1 {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background: #fff;
+    box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.create-quote {
+    position: sticky;
+    bottom: 0px;
+    background: white;
 }
 </style>

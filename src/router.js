@@ -15,6 +15,9 @@ import CompleteData from "./components/Pages/pipeline/Quotations/CompleteData.vu
 import AddCustomers from './components/Pages/clientsBuyers/Customer/AddCustomers.vue'
 import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm.vue'
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
+import DeliveryNotes from './components/Pages/pipeline/SalesOrder/DeliveryNotes.vue';
+import ContactsPage from './components/Pages/clientsBuyers/contacts/ContactsPage.vue';
+
 import PracticePage from "./components/PracticePage.vue";
 
 const routes = [
@@ -70,7 +73,7 @@ const routes = [
         component: CompleteData
     }, {
         name: 'LeadForm',
-        path: '/leadform/:id',
+        path: '/leadform',
         component: LeadForm,
         props: true
     },
@@ -81,7 +84,7 @@ const routes = [
     },
     {
         name: 'CustomerForm',
-        path: '/CustomerForm/:id',
+        path: '/CustomerForm',
         component: CustomerForm,
         props: true
     },
@@ -89,6 +92,16 @@ const routes = [
         name: 'NewSalesOrder',
         path: '/NewSalesOrder',
         component: NewSalesOrder
+    },
+    {
+        name: 'DeliveryNotes',
+        path: '/DeliveryNotes',
+        component: DeliveryNotes
+    },
+    {
+        name: 'ContactsPage',
+        path: '/ContactsPage',
+        component: ContactsPage
     },
 
 ]

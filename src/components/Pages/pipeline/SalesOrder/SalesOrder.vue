@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar header align-items-center" >
+  <nav class="navbar header align-items-center">
     <div class="container">
       <div class="d-flex gap-2 p-2 align-items-center" v-if="show">
         <div>
@@ -9,181 +9,183 @@
         </div>
       </div>
       <div v-if="!show">
-          <span class=" quotationsfs" @click="backMove()"><i
-              class="ri-arrow-left-line text-black me-2 "></i>Sales Order Details</span>
+        <span class=" quotationsfs" @click="backMove()"><i class="ri-arrow-left-line text-black me-2 "></i>Sales Order
+          Details</span>
       </div>
       <div class="ri-search-line1">
         <i class="ri-search-line"></i>
       </div>
     </div>
   </nav>
-  
-  <div class="container" v-if="show">
-    <div class="header2">
-      <div class="d-flex justify-content-between align-items-center buttonsall">
-        <ul class="d-flex flex-wrap list-unstyled list-group flex-row gap-1">
-          <div></div>
-          <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
-            All
-          </li>
-          <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }" @click="setFilter('Draft')">
-            Draft
-          </li>
-          <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
-            @click="setFilter('Completed')">
-            Completed
-          </li>
-          <li class="list-group-item btn2" @click="setFilter('This Month')">
-            <select class="border-0 bg-white">
-              <option class="border-0">This Month</option>
-            </select>
-          </li>
-        </ul>
+  <section >
+    <div class="container" v-if="show">
+      <div class="header2">
+        <div class="d-flex justify-content-between align-items-center buttonsall">
+          <ul class="d-flex flex-wrap list-unstyled list-group flex-row gap-1">
+            <div></div>
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
+              All
+            </li>
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }" @click="setFilter('Draft')">
+              Draft
+            </li>
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
+              @click="setFilter('Completed')">
+              Completed
+            </li>
+            <li class="list-group-item btn2" @click="setFilter('This Month')">
+              <select class="border-0 bg-white">
+                <option class="border-0">This Month</option>
+              </select>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="content">
-      <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-          <div class="card card1 mb-4" v-for="(sales, index) in filteredQuotations" :key="index">
-            <div class="d-flex justify-content-between p-2 align-items-baseline" style="border-bottom: 1px solid #eeeeee">
-              <div class="d-flex gap-3 align-items-center">
-                <div class="d-flex justify-content-center ri-file-edit-line1">
-                  <i class="ri-file-edit-line"></i>
+      <div class="content">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+            <div class="card card1 mb-4" v-for="(sales, index) in filteredQuotations" :key="index">
+              <div class="d-flex justify-content-between p-2 align-items-baseline"
+                style="border-bottom: 1px solid #eeeeee">
+                <div class="d-flex gap-3 align-items-center">
+                  <div class="d-flex justify-content-center ri-file-edit-line1">
+                    <i class="ri-file-edit-line"></i>
+                  </div>
+                  <div>
+                    <p style="font-size: 13px" class="align-items-center mt-3">
+                      {{ sales.name }}<br /><span class="text-muted" style="font-size: 11px">{{ sales.transaction_date
+                      }}</span>
+                    </p>
+                  </div>
                 </div>
                 <div>
-                  <p style="font-size: 13px" class="align-items-center mt-3">
-                    {{ sales.name }}<br /><span class="text-muted" style="font-size: 11px">{{ sales.transaction_date
-                    }}</span>
-                  </p>
+                  <button class="savedbutton1" @click="salesDetails(sales.name)">View</button>
                 </div>
               </div>
-              <div>
-                <button class="savedbutton1" @click="salesDetails(sales.name)">View</button>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between p-2 align-items-center ">
-              <div class="p-3">
-                <h6 class="" style="font-size: 13px">{{ sales.customer_name }}</h6>
-                <p style="font-size: 11px; color: #3b43f9">Customer</p>
-              </div>
-              <div>
-                <button class="savedbutton">{{ sales.status }}</button>
+              <div class="d-flex justify-content-between p-2 align-items-center ">
+                <div class="p-3">
+                  <h6 class="" style="font-size: 13px">{{ sales.customer_name }}</h6>
+                  <p style="font-size: 11px; color: #3b43f9">Customer</p>
+                </div>
+                <div>
+                  <button class="savedbutton">{{ sales.status }}</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div>
-      <router-link to="/NewSalesOrder" class="text-decoration-none">
-        <button class="btn btn-primary circle-with-plus" type="button">+</button>
-      </router-link>
-    </div>
-  </div>
-
-  <div class="container" v-if="!show">
-    <div class="card card1 p-3">
-      <div class="card card1 p-4">
-        <p style="font-size: 13px" class="text-black">
-          Sales Order NO :- <span class=" text-muted ">{{ currentEmployee.name }}</span>
-        </p>
-        <p style="font-size: 13px">Customer Name :- <span class=" text-muted ">{{ currentEmployee.customer_name }}</span></p>
-
-        <!-- <p style="font-size: 13px">Primary Contact Details:</p> -->
-        <div>
-          <p style="font-size: 13px">
-           Mobile NO :- <span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
-          </p>
-          <p style="font-size: 13px">
-            E-mail :- <span class="text-muted">
-              &nbsp;{{ currentEmployee.contact_email }}</span>
-          </p>
-        </div>
+      <div>
+        <router-link to="/NewSalesOrder" class="text-decoration-none">
+          <button class="btn btn-primary circle-with-plus" type="button">+</button>
+        </router-link>
       </div>
+    </div>
 
-      <div class="card card1 p-4 mt-3">
-        <p style="font-size: 14px">Address:</p>
-        <div class="">
-          <p style="font-size: 13px">
-            Billing Address:<br /><span class="text-muted">{{ currentEmployee.shipping_address }}</span>
+    <div class="container" v-if="!show">
+      <div class="card card1 p-3">
+        <div class="card card1 p-4">
+          <p style="font-size: 13px" class="text-black">
+            Sales Order NO :- <span class=" text-muted ">{{ currentEmployee.name }}</span>
           </p>
-          <p style="font-size: 13px">
-            Shipping Address:<br /><span class="text-muted">{{ currentEmployee.shipping_address }}</span>
-          </p>
-        </div>
-      </div>
-      <div class="card card1 mt-3 p-4">
-        <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
-          <h6>Total Items Value</h6>
-          <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
-        </div>
-        <div class="d-flex justify-content-between p-1 mt-3">
+          <p style="font-size: 13px">Customer Name :- <span class=" text-muted ">{{ currentEmployee.customer_name
+          }}</span></p>
+
+          <!-- <p style="font-size: 13px">Primary Contact Details:</p> -->
           <div>
-            <h6>
-              {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
-            </h6>
-          </div>
-          <div>
-            <h6 class="text-muted">
-              ₹ {{ currentEmployee.tax_amount || 0 }}
-            </h6>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between p-1 mt-3">
-          <div>
-            <h6>SGST:&nbsp;9%</h6>
-          </div>
-          <div>
-            <h6 class="text-muted">₹ 5434</h6>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between p-1 mt-3">
-          <div>
-            <h6>IGST:&nbsp;0</h6>
-          </div>
-          <div>
-            <h6 class="text-muted">₹ 0.00</h6>
+            <p style="font-size: 13px">
+              Mobile NO :- <span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
+            </p>
+            <p style="font-size: 13px">
+              E-mail :- <span class="text-muted">
+                &nbsp;{{ currentEmployee.contact_email }}</span>
+            </p>
           </div>
         </div>
 
-        <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
-          <div>
-            <h6>Total:</h6>
-          </div>
-          <div>
-            <h6>₹ {{ currentEmployee.base_rounded_total }}</h6>
+        <div class="card card1 p-4 mt-3">
+          <p style="font-size: 14px">Address:</p>
+          <div class="">
+            <p style="font-size: 13px">
+              Billing Address:<br /><span class="text-muted">{{ currentEmployee.shipping_address }}</span>
+            </p>
+            <p style="font-size: 13px">
+              Shipping Address:<br /><span class="text-muted">{{ currentEmployee.shipping_address }}</span>
+            </p>
           </div>
         </div>
-        <div class="d-flex justify-content-between p-1 mt-3">
-          <div>
-            <h6>Discount</h6>
-            <p class="text-muted">Give additional discount before tax</p>
+        <div class="card card1 mt-3 p-4">
+          <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
+            <h6>Total Items Value</h6>
+            <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
           </div>
-          <div class="d-flex gap-2">
-            <!-- <div class="circle-with-plus">+</div> -->
+          <div class="d-flex justify-content-between p-1 mt-3">
             <div>
-              <p style="color: #3b43f9" class="text-nowrap">
-                Add Discount
-              </p>
+              <!-- <h6>
+                {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
+              </h6> -->
+            </div>
+            <div>
+              <h6 class="text-muted">
+                ₹ {{ currentEmployee.tax_amount ||0 }}
+              </h6>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between p-1 mt-3">
+            <div>
+              <h6>SGST:&nbsp;9%</h6>
+            </div>
+            <div>
+              <h6 class="text-muted">₹ 5434</h6>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between p-1 mt-3">
+            <div>
+              <h6>IGST:&nbsp;0</h6>
+            </div>
+            <div>
+              <h6 class="text-muted">₹ 0.00</h6>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
+            <div>
+              <h6>Total:</h6>
+            </div>
+            <div>
+              <h6>₹ {{ currentEmployee.base_rounded_total }} </h6>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between p-1 mt-3">
+            <div>
+              <h6>Discount</h6>
+              <p class="text-muted">Give additional discount before tax</p>
+            </div>
+            <div class="d-flex gap-2">
+              <!-- <div class="circle-with-plus">+</div> -->
+              <div>
+                <p style="color: #3b43f9" class="text-nowrap">
+                  Add Discount
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between">
+              <h6>Grand Total</h6>
+              <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
+              <h6>{{ currentEmployee.base_rounded_total }}</h6>
             </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="d-flex justify-content-between">
-            <h6>Grand Total</h6>
-            <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
-            <h6>{{ currentEmployee.base_rounded_total }}</h6>
-          </div>
-        </div>
+      </div>
+      <div>
+        <router-link to="/NewSalesOrder" class="text-decoration-none">
+          <button class="btn btn-primary circle-with-plus" type="button">+</button>
+        </router-link>
       </div>
     </div>
-    <div>
-      <router-link to="/NewSalesOrder" class="text-decoration-none">
-        <button class="btn btn-primary circle-with-plus" type="button">+</button>
-      </router-link>
-    </div>
-  </div>
-
+  </section>
 </template>
 <script>
 import axios from "axios";
@@ -198,7 +200,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchData();
+    this.fetchSales();
   },
   computed: {
     totalQuotations() {
@@ -224,7 +226,7 @@ export default {
       // if (this.show == true) this.$router.push();
       this.show = !this.show;
     },
-    fetchData() {
+    fetchSales() {
       this.loading = true;
       let queryParams = {
         fields: JSON.stringify(["*"]),
@@ -260,30 +262,6 @@ export default {
         }
       });
     },
-
-    //  fetchData() {
-    //   let queryParams = { filters: [] };
-    //   // queryParams.filters.push(["audit_record_id", "=", this.$route.query.id]);
-    //   queryParams.filters.push(["section", "=", "Main LT Panel"]);
-    //   queryParams.filters = JSON.stringify(queryParams.filters);
-    //   queryParams.fields = JSON.stringify(["*"]);
-    //   console.log("name:", this.$route.query.id);
-    //   console.log("tab name :" + this.fetchData);
-    //   axios
-    //     .get(
-    //       "http://192.168.1.177:8000/api/resource",
-    //       {
-    //         params: queryParams,
-    //       }
-    //     )
-    //     .then((response) => {
-    //       this.data = JSON.parse(JSON.stringify(response.data.data));
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // },
-
 
   },
 };

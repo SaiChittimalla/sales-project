@@ -541,6 +541,7 @@
 import axios from 'axios';
 import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
+import { Doctypes, ApiUrls } from "@/shared/apiUrls";
 
 export default {
     name: 'CustomerForm',
@@ -578,8 +579,11 @@ export default {
         submitForm() {
             console.log(this.formData);
             axios.post(ApiUrls.resource + "/" + Doctypes.customer, this.formData, {
-                withCredentials: true
-            })
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }, withCredentials: true
+            },)
                 .then((response) => {
                     console.log(response);
                     this.formData = {};
