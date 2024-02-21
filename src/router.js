@@ -17,7 +17,7 @@ import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
 import PracticePage from "./components/PracticePage.vue";
 import DeliveryNotes from "./components/Pages/pipeline/SalesOrder/DeliveryNotes.vue";
-import ContactsPage from "./components/Pages/clientsBuyers/contacts/ContactsPage.vue";
+
 
 const routes = [
     {
@@ -75,7 +75,7 @@ const routes = [
 
     }, {
         name: 'LeadForm',
-        path: '/leadform',
+        path: '/leadform/:id',
         component: LeadForm,
         props: true
     },
@@ -86,7 +86,7 @@ const routes = [
     },
     {
         name: 'CustomerForm',
-        path: '/CustomerForm',
+        path: '/CustomerForm/:id',
         component: CustomerForm,
         props: true
     },
@@ -100,11 +100,7 @@ const routes = [
         path: '/DeliveryNotes',
         component: DeliveryNotes
     },
-    {
-        name: 'ContactsPage',
-        path: '/ContactsPage',
-        component: ContactsPage
-    },
+
 
 
 ]
