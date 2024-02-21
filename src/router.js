@@ -18,7 +18,6 @@ import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.
 import PracticePage from "./components/PracticePage.vue";
 import DeliveryNotes from "./components/Pages/pipeline/SalesOrder/DeliveryNotes.vue";
 
-
 const routes = [
     {
         name: 'LoginPage',
