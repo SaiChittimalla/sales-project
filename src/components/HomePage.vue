@@ -299,7 +299,7 @@
                     />
                   </div>
                 </div>
-                <div class="card-body px-2">
+                <div class="card-body px-2" @click="contactsPage()">
                   <h5 class="card-text cards-headings">Contacts</h5>
                 </div>
               </div>
@@ -415,6 +415,11 @@ export default {
     deliveryNotes() {
       this.$router.push({
         name: "DeliveryNotes",
+      });
+    },
+    contactsPage() {
+      this.$router.push({
+        name: "ContactsPage",
       });
     },
   },
