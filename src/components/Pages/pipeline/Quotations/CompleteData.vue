@@ -1160,10 +1160,9 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
           this.customers = response.data.data;
           this.duplicateArr = response.data.data;
-          console.log();
           // this.isOpen = false;
         })
         .catch((error) =>
