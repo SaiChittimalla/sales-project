@@ -6,7 +6,7 @@
           <div>
             <router-link to="/HomePage" class="text-decoration-none text-black">
               <i class="ri-arrow-left-line text-black"
-                ><span class="ps-2 quotationsfs">ContactsList </span></i
+                ><span class="ps-2 quotationsfs">Contacts&nbsp;List </span></i
               ></router-link
             >
           </div>
@@ -68,7 +68,7 @@
               class="form-control"
               :v-model="customerContact.phone_nos[0].phone"
             />
-            <!-- <p class="error-message text-danger">{{ errors.phone }}</p> -->
+            <p class="error-message text-danger">{{ errors.phone }}</p>
 
             <label class="form-label" for="typeNumber">Email_id:</label>
             <input
@@ -83,8 +83,6 @@
             <button type="submit" class="btn submitbtn mt-3">Submit</button>
           </div>
         </form>
-        {{ customerContact.phone_nos[0].phone }}
-        {{ customerContact.phone_nos[1].phone }}
       </div>
     </div>
   </div>
@@ -130,12 +128,12 @@ export default {
         this.errors.first_name = "Name is required";
       }
 
-      // const mobileNumber = this.customerContact.phone.toString().trim();
-      // if (!mobileNumber) {
-      //   this.errors.phone = "MobileNumber is required";
-      // } else if (!/^\d{10}$/.test(mobileNumber)) {
-      //   this.errors.phone = "MobileNumber must contain exactly 10 digits";
-      // }
+      const mobileNumber = this.customerContact.phone.toString().trim();
+      if (!mobileNumber) {
+        this.errors.phone = "MobileNumber is required";
+      } else if (!/^\d{10}$/.test(mobileNumber)) {
+        this.errors.phone = "MobileNumber must contain exactly 10 digits";
+      }
 
       if (!this.customerContact.email_id.trim()) {
         this.errors.email_id = "Email_id is required";
@@ -147,15 +145,15 @@ export default {
     },
     submitForm() {
       if (this.validateForm()) {
-        // if (this.customerContact.phone_nos.length === 0) {
-        //   this.customerContact.phone_nos.push({
-        //     phone: this.newPhoneNumber,
-        //   });
-        // } else {
-        //   this.customerContact.phone_nos[0].phone = this.newPhoneNumber;
-        // }
+        if (this.customerContact.phone_nos.length === 0) {
+          this.customerContact.phone_nos.push({
+            phone: this.newPhoneNumber,
+          });
+        } else {
+          this.customerContact.phone_nos[0].phone = this.newPhoneNumber;
+        }
 
-        // console.log("Updated Contact Data:", this.customerContact);
+        console.log("Updated Contact Data:", this.customerContact);
 
         axios
           .put(
