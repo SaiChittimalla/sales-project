@@ -1,8 +1,5 @@
 <template>
   <template v-if="!twoSteps">
-    <div>
-      <p>Phone Number: <a href="#" @click="callPhoneNumber">9822817266</a></p>
-    </div>
     <div class="">
       <nav class="navbar header" v-if="show">
         <div class="container">
@@ -177,82 +174,21 @@
               <div class="card card1 p-4 mt-3">
                 <span class="data-span">Address:</span>
                 <div class="">
-                  <span class="data-span">
-                    Billing Address:<br /><span class="text-muted">{{
-                      singleQuotation.shipping_address
-                    }}</span>
-                  </span>
-                  <span class="data-span">
-                    Shipping Address:<br /><span class="text-muted">
-                      {{ singleQuotation.shipping_address }}
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div class="card crad1">
-                <div
-                  v-for="(item, index) in singleQuotation.items"
-                  :key="index"
-                >
-                  <div class="card-body card-body123">
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <h6>{{ item.item_name }}</h6>
-                        <p>{{ item.item_code }}</p>
-                      </div>
-                      <div class="d-flex align-items-center gap-2">
-                        <button class="btn border-1 increment">
-                          <button
-                            type="button"
-                            class="border-0 bg-transparent rounded-1"
-                            @click="Decrease(item, index)"
-                            :disabled="item.qty == 0"
-                          >
-                            <i class="bi bi-dash"></i>
-                          </button>
-                          <h6>
-                            <span id="count">{{ item.qty }}</span>
-                          </h6>
-                          <button
-                            type="button"
-                            class="border-0 bg-transparent rounded-1"
-                            @click="Increase(item, index)"
-                          >
-                            <i class="bi bi-plus"></i>
-                          </button>
-                        </button>
-                      </div>
-                      <div>
-                        <h6>{{ item.rate }}</h6>
-                        <p class="text-end" style="color: #3b43f9">Edit</p>
-                      </div>
+                  <div class="data-span">
+                    Billing Address:<br />
+                    <div class="text-muted">
+                      {{ removeBrTags(singleQuotation.shipping_address) }}
+                    </div>
+                  </div>
+                  <div class="data-span">
+                    Shipping Address:<br />
+                    <div class="text-muted">
+                      {{ removeBrTags(singleQuotation.shipping_address) }}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="card card1 mt-3 p-4">
-                <div
-                  class="d-flex justify-content-between mt-2 p-1"
-                  style="border-bottom: 1px dashed #eee"
-                >
-                  <h6>Total Items Value</h6>
-                  <h6>₹{{ singleQuotation.base_rounded_total }}</h6>
-                </div>
-                <div class="d-flex justify-content-between p-1 mt-3">
-                  <div>
-                    <h6>
-                      {{ singleQuotation.account_head
-                      }}{{ singleQuotation.rate }}
-                    </h6>
-                  </div>
-                  <div>
-                    <h6 class="text-muted">
-                      ₹ {{ singleQuotation.tax_amount || 0 }}
-                    </h6>
-                  </div>
-                </div>
-              </div>
               <div class="card card1 mt-3">
                 <div
                   v-for="(item, index) in singleQuotation.items"
