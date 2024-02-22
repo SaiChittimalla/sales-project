@@ -8,8 +8,11 @@
         <div class="container">
           <div class="d-flex gap-2 p-2 align-items-center">
             <div>
-              <i @click="backgo()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Quotations &nbsp;({{
-                totalQuotations }})</span></i>
+              <i @click="backgo()" class="ri-arrow-left-line"
+                ><span class="ps-2 quotationsfs"
+                  >Quotations &nbsp;({{ totalQuotations }})</span
+                ></i
+              >
             </div>
           </div>
         </div>
@@ -18,35 +21,57 @@
         <div class="container">
           <div class="d-flex gap-2 p-2 align-items-center">
             <div>
-              <i @click="backMove()" class="ri-arrow-left-line"><span
-                  class="ps-2 quotationsfs">QuotationDetails</span></i>
+              <i @click="backMove()" class="ri-arrow-left-line"
+                ><span class="ps-2 quotationsfs">QuotationDetails</span></i
+              >
             </div>
           </div>
         </div>
       </nav>
       <div class="container">
         <div class="header2" v-if="show">
-          <div class="d-flex justify-content-between align-items-center buttonsall">
-            <ul class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row">
+          <div
+            class="d-flex justify-content-between align-items-center buttonsall"
+          >
+            <ul
+              class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row"
+            >
               <!-- Add click event handlers to the filter buttons -->
-              <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
+              <li
+                class="list-group-item btn2"
+                :class="{ active: activeFilter === 'All' }"
+                @click="setFilter('All')"
+              >
                 All
               </li>
-              <li class="list-group-item btn2" :class="{ active: activeFilter === 'Lead' }" @click="setFilter('Lead')">
+              <li
+                class="list-group-item btn2"
+                :class="{ active: activeFilter === 'Lead' }"
+                @click="setFilter('Lead')"
+              >
                 Lead
               </li>
-              <li class="list-group-item btn2" :class="{ active: activeFilter === 'Customer' }"
-                @click="setFilter('Customer')">
+              <li
+                class="list-group-item btn2"
+                :class="{ active: activeFilter === 'Customer' }"
+                @click="setFilter('Customer')"
+              >
                 Customer
               </li>
-              <li class="list-group-item btn2" :class="{ active: activeFilter === 'Ordered' }"
-                @click="setFilter('Ordered')">
+              <li
+                class="list-group-item btn2"
+                :class="{ active: activeFilter === 'Ordered' }"
+                @click="setFilter('Ordered')"
+              >
                 Ordered
               </li>
               <!-- ... other filter buttons ... -->
 
-              <li class="list-group-item btn2" :class="{ active: activeFilter === 'This Month' }"
-                @click="setFilter('This Month')">
+              <li
+                class="list-group-item btn2"
+                :class="{ active: activeFilter === 'This Month' }"
+                @click="setFilter('This Month')"
+              >
                 This Month
               </li>
               <!-- <select class="border-0 selectback">
@@ -57,19 +82,38 @@
         </div>
         <div class="content">
           <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4" v-if="show">
-              <div class="card card1 mb-4" v-for="(quotation, index) in filteredQuotations" :key="index">
-                <div class="d-flex justify-content-between p-2 align-items-baseline"
-                  style="border-bottom: 1px solid #eeeeee">
+            <div
+              class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4"
+              v-if="show"
+            >
+              <div
+                class="card card1 mb-4"
+                v-for="(quotation, index) in filteredQuotations"
+                :key="index"
+              >
+                <div
+                  class="d-flex justify-content-between p-2 align-items-baseline"
+                  style="border-bottom: 1px solid #eeeeee"
+                >
                   <div class="d-flex gap-3 align-items-center">
-                    <div class="d-flex justify-content-center ri-file-edit-line1">
-                      <img src="../../../../assets/lets-icons_paper-fill.svg" alt="">
-
+                    <div
+                      class="d-flex justify-content-center ri-file-edit-line1"
+                    >
+                      <img
+                        src="../../../../assets/lets-icons_paper-fill.svg"
+                        alt=""
+                      />
                     </div>
                     <div>
-                      <p style="font-size: 13px" class="align-items-center mt-3">
-                        {{ quotation.name }}<br /><span class="text-muted" style="font-size: 11px">{{
-                          quotation.transaction_date }}</span>
+                      <p
+                        style="font-size: 13px"
+                        class="align-items-center mt-3"
+                      >
+                        {{ quotation.name }}<br /><span
+                          class="text-muted"
+                          style="font-size: 11px"
+                          >{{ quotation.transaction_date }}</span
+                        >
                       </p>
                     </div>
                   </div>
@@ -80,7 +124,9 @@
                     </button>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center p-3">
+                <div
+                  class="d-flex justify-content-between align-items-center p-3"
+                >
                   <div>
                     <h6 class="" style="font-size: 13px">
                       {{ quotation.customer_name }}
@@ -109,21 +155,23 @@
                 </span>
                 <span class="data-span">
                   Title :
-                  <span class=" data-id-tags">
+                  <span class="data-id-tags">
                     {{ singleQuotation.title }}
                   </span>
                 </span>
 
-                <span class=" data-span">Primary Contact Details:</span>
+                <span class="data-span">Primary Contact Details:</span>
 
                 <span class="data-span">
-                  Number:<span class="text-muted">&nbsp;{{ singleQuotation.contact_mobile }}</span>
+                  Number:<span class="text-muted"
+                    >&nbsp;{{ singleQuotation.contact_mobile }}</span
+                  >
                 </span>
                 <span class="data-span">
                   E-mail:<span class="text-muted">
-                    &nbsp;{{ singleQuotation.contact_email }}</span>
+                    &nbsp;{{ singleQuotation.contact_email }}</span
+                  >
                 </span>
-
               </div>
 
               <div class="card card1 p-4 mt-3">
@@ -141,8 +189,11 @@
                   </span>
                 </div>
               </div>
-              <div class=" card crad1">
-                <div v-for="(item, index) in singleQuotation.items" :key="index">
+              <div class="card crad1">
+                <div
+                  v-for="(item, index) in singleQuotation.items"
+                  :key="index"
+                >
                   <div class="card-body card-body123">
                     <div class="d-flex justify-content-between">
                       <div>
@@ -151,14 +202,22 @@
                       </div>
                       <div class="d-flex align-items-center gap-2">
                         <button class="btn border-1 increment">
-                          <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease(item, index)"
-                            :disabled="item.qty == 0">
+                          <button
+                            type="button"
+                            class="border-0 bg-transparent rounded-1"
+                            @click="Decrease(item, index)"
+                            :disabled="item.qty == 0"
+                          >
                             <i class="bi bi-dash"></i>
                           </button>
                           <h6>
                             <span id="count">{{ item.qty }}</span>
                           </h6>
-                          <button type="button" class="border-0 bg-transparent rounded-1" @click="Increase(item, index)">
+                          <button
+                            type="button"
+                            class="border-0 bg-transparent rounded-1"
+                            @click="Increase(item, index)"
+                          >
                             <i class="bi bi-plus"></i>
                           </button>
                         </button>
@@ -170,18 +229,21 @@
                     </div>
                   </div>
                 </div>
-
               </div>
 
               <div class="card card1 mt-3 p-4">
-                <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
+                <div
+                  class="d-flex justify-content-between mt-2 p-1"
+                  style="border-bottom: 1px dashed #eee"
+                >
                   <h6>Total Items Value</h6>
                   <h6>₹{{ singleQuotation.base_rounded_total }}</h6>
                 </div>
                 <div class="d-flex justify-content-between p-1 mt-3">
                   <div>
                     <h6>
-                      {{ singleQuotation.account_head }}{{ singleQuotation.rate }}
+                      {{ singleQuotation.account_head
+                      }}{{ singleQuotation.rate }}
                     </h6>
                   </div>
                   <div>
@@ -191,24 +253,38 @@
                   </div>
                 </div>
               </div>
-              <div class=" card card1 mt-3">
-                <div v-for="(item, index) in singleQuotation.items" :key="index">
-                  <div class="card-body card-body123 d-flex justify-content-between   ">
-
+              <div class="card card1 mt-3">
+                <div
+                  v-for="(item, index) in singleQuotation.items"
+                  :key="index"
+                >
+                  <div
+                    class="card-body card-body123 d-flex justify-content-between"
+                  >
                     <div>
                       <h6>{{ item.item_name }}</h6>
                       <p>{{ item.item_code }}</p>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                       <button class="btn border-1 increment">
-                        <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease2(item, index)"
-                          :disabled="item.qty == 0">
+                        <button
+                          type="button"
+                          class="border-0 bg-transparent rounded-1"
+                          @click="Decrease2(item, index)"
+                          :disabled="item.qty == 0"
+                        >
                           <i class="bi bi-dash"></i>
                         </button>
                         <h6>
-                          <span id="count" :v-model="singleQuotation.items">{{ item.qty }}</span>
+                          <span id="count" :v-model="singleQuotation.items">{{
+                            item.qty
+                          }}</span>
                         </h6>
-                        <button type="button" class="border-0 bg-transparent rounded-1" @click="Increase2(item, index)">
+                        <button
+                          type="button"
+                          class="border-0 bg-transparent rounded-1"
+                          @click="Increase2(item, index)"
+                        >
                           <i class="bi bi-plus"></i>
                         </button>
                       </button>
@@ -217,34 +293,40 @@
                       <h6 :v-model="item.rate">{{ item.rate }}</h6>
                       <p class="text-end" style="color: #3b43f9">Edit</p>
                     </div>
-
                   </div>
                 </div>
-
               </div>
 
               <div class="card card1 mt-3 p-4">
-                <div class="d-flex justify-content-between mt-2 " style="border-bottom: 1px dashed #eee">
+                <div
+                  class="d-flex justify-content-between mt-2"
+                  style="border-bottom: 1px dashed #eee"
+                >
                   <h6>Total Items Value</h6>
-                  <h6 :v-modal="singleQuotation.net_total">₹{{ singleQuotation.net_total }}</h6>
+                  <h6 :v-modal="singleQuotation.net_total">
+                    ₹{{ singleQuotation.net_total }}
+                  </h6>
                 </div>
-                <div v-for="(taxe, index) in singleQuotation.taxes" :key="index">
-                  <div class="d-flex justify-content-between  mt-3">
+                <div
+                  v-for="(taxe, index) in singleQuotation.taxes"
+                  :key="index"
+                >
+                  <div class="d-flex justify-content-between mt-3">
                     <div>
                       <h6>
                         {{ taxe.account_head }}
                       </h6>
                     </div>
                     <div>
-                      <h6 class="text-muted">
-                        ₹ {{ taxe.tax_amount || 0 }}
-                      </h6>
+                      <h6 class="text-muted">₹ {{ taxe.tax_amount || 0 }}</h6>
                     </div>
                   </div>
-
                 </div>
 
-                <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
+                <div
+                  class="d-flex justify-content-between p-1 mt-3"
+                  style="border-bottom: 1px dashed LIGHTGREY"
+                >
                   <div>
                     <h6>Total Taxes:</h6>
                   </div>
@@ -252,7 +334,7 @@
                     <h6>₹ {{ singleQuotation.total_taxes_and_charges }}</h6>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between  mt-3">
+                <div class="d-flex justify-content-between mt-3">
                   <div>
                     <h6>Discount</h6>
                     <p class="text-muted">
@@ -262,11 +344,20 @@
                   <div class="d-flex gap-2">
                     <div class="circle-with-plus">+</div>
                     <div>
-                      <p style="color: #3b43f9" class="text-nowrap m-0 " @click="toggleDiscountInput">
+                      <p
+                        style="color: #3b43f9"
+                        class="text-nowrap m-0"
+                        @click="toggleDiscountInput"
+                      >
                         Add Discount
                       </p>
-                      <input v-model="singleQuotation.additional_discount_percentage" v-if="showDiscountInput" type="text"
-                        class=" form-control-sm " placeholder="Enter discount amount">
+                      <input
+                        v-model="singleQuotation.additional_discount_percentage"
+                        v-if="showDiscountInput"
+                        type="text"
+                        class="form-control-sm"
+                        placeholder="Enter discount amount"
+                      />
                     </div>
                   </div>
                 </div>
@@ -277,10 +368,12 @@
                     <h6>{{ singleQuotation.grand_total }}</h6>
                   </div>
                 </div>
-
               </div>
-              <div class="mt-2 mb-2 d-flex justify-content-end create-quote ">
-                <button class="btn btn-quot text-decoration-none" @click="quotationExits()">
+              <div class="mt-2 mb-2 d-flex justify-content-end create-quote">
+                <button
+                  class="btn btn-quot text-decoration-none"
+                  @click="quotationExits()"
+                >
                   <h6 class="text-white m-0">Create Quotation</h6>
                 </button>
               </div>
@@ -289,15 +382,30 @@
         </div>
         <div></div>
         <div>
-          <button class="btn btn-primary circle-with-plus offcnv text-white" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+          <button
+            class="btn btn-primary circle-with-plus offcnv text-white"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasBottom"
+            aria-controls="offcanvasBottom"
+          >
             +
           </button>
-          <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom"
-            aria-labelledby="offcanvasBottomLabel" data-bs-scroll="true">
+          <div
+            class="offcanvas offcanvas-bottom h-50"
+            tabindex="-1"
+            id="offcanvasBottom"
+            aria-labelledby="offcanvasBottomLabel"
+            data-bs-scroll="true"
+          >
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
             </div>
             <div class="offcanvas-body small">
               <h5 class="offcanvastext text-center">
@@ -306,7 +414,11 @@
 
               <div class=" ">
                 <div class="mt-3 d-flex justify-content-center">
-                  <button type="button" class="btn btncustomer" @click="toCustomer()">
+                  <button
+                    type="button"
+                    class="btn btncustomer"
+                    @click="toCustomer()"
+                  >
                     To Customer
                   </button>
                 </div>
@@ -320,11 +432,24 @@
           </div>
         </div>
         <div>
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            >
               <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div class="modal-body">
                   <h5 class="offcanvastext text-center">
@@ -333,7 +458,10 @@
 
                   <div class=" ">
                     <div class="mt-3 d-flex justify-content-center">
-                      <router-link to="/completedata" class="btn btncustomer w-100">
+                      <router-link
+                        to="/completedata"
+                        class="btn btncustomer w-100"
+                      >
                         To Customer
                       </router-link>
                     </div>
@@ -357,8 +485,11 @@
             <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> -->
             <div class="shadow-lg">
               <h6 class="fw-bold py-2">
-                <i class="bi bi-arrow-left me-2 mt-5" @click="QuotationBack()"></i>New Quotation -
-                Customer
+                <i
+                  class="bi bi-arrow-left me-2 mt-5"
+                  @click="QuotationBack()"
+                ></i
+                >New Quotation - Customer
               </h6>
             </div>
           </div>
@@ -369,11 +500,21 @@
                 <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                   <h6 class="m-2 label-name">Customer</h6>
                   <div class="custom-select">
-                    <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer" type="text"
-                      v-model="searchQuery" @click="isOpen = true" @input="filterOptions" />
+                    <input
+                      class="input-search w-100 border-0 ms-2"
+                      placeholder="search or select a customer"
+                      type="text"
+                      v-model="searchQuery"
+                      @click="isOpen = true"
+                      @input="filterOptions"
+                    />
                     <ul v-show="isOpen" class="ul-tag w-100 ms-2">
-                      <li v-for="customer in filteredData" :key="customer.id" class="list-items"
-                        @click="selectCustomer(customer)">
+                      <li
+                        v-for="customer in filteredData"
+                        :key="customer.id"
+                        class="list-items"
+                        @click="selectCustomer(customer)"
+                      >
                         {{ customer.name }}
                       </li>
                     </ul>
@@ -392,8 +533,14 @@
                         Add items to your quotation.
                       </p>
                     </div>
-                    <div class="col-4 d-flex align-items-center justify-content-center text-nowrap">
-                      <button type="button" class="border-0 bg-white add-item-btn" @click="addItems()">
+                    <div
+                      class="col-4 d-flex align-items-center justify-content-center text-nowrap"
+                    >
+                      <button
+                        type="button"
+                        class="border-0 bg-white add-item-btn"
+                        @click="addItems()"
+                      >
                         <i class="bi bi-plus-circle me-2"></i>Add Item
                       </button>
                     </div>
@@ -425,9 +572,16 @@
           <div class="row mt-3 px-2">
             <div class="col-sm-9 col-md-7 col-lg-7 col-xl-7 col-search">
               <div class="form-group has-search">
-                <span class="form-control-feedback"><i class="bi bi-search"></i></span>
-                <input type="search" class="form-control bg-light" placeholder="Search item name" v-model="secondQuery"
-                  @input="SearchDetails" />
+                <span class="form-control-feedback"
+                  ><i class="bi bi-search"></i
+                ></span>
+                <input
+                  type="search"
+                  class="form-control bg-light"
+                  placeholder="Search item name"
+                  v-model="secondQuery"
+                  @input="SearchDetails"
+                />
               </div>
             </div>
 
@@ -445,7 +599,11 @@
         </div>
         <section>
           <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" v-for="(item, index) in itemsData" :key="index">
+            <div
+              class="col-sm-12 col-md-6 col-lg-4 col-xl-4"
+              v-for="(item, index) in itemsData"
+              :key="index"
+            >
               <div class="row p-3">
                 <div class="col-3">
                   <div>
@@ -468,37 +626,69 @@
                   </div>
                 </div>
                 <div class="col-3">
-                  <button type="button" class="add-btn shadow-sm rounded-5 bg-white" data-bs-toggle="offcanvas"
-                    :data-bs-target="'#item_' + item.idx" role="button" aria-controls="offcanvasExample"
-                    v-show="!item?.qty" @click="priceZero">
+                  <button
+                    type="button"
+                    class="add-btn shadow-sm rounded-5 bg-white"
+                    data-bs-toggle="offcanvas"
+                    :data-bs-target="'#item_' + item.idx"
+                    role="button"
+                    aria-controls="offcanvasExample"
+                    v-show="!item?.qty"
+                    @click="priceZero"
+                  >
                     Add
                   </button>
 
-                  <div class="d-flex align-items-center justify-content-center gap-2 count-btn">
-                    <button type="button" class="border-0 rounded-1" @click="Decrease(item)" v-show="item?.qty">
+                  <div
+                    class="d-flex align-items-center justify-content-center gap-2 count-btn"
+                  >
+                    <button
+                      type="button"
+                      class="border-0 rounded-1"
+                      @click="Decrease(item)"
+                      v-show="item?.qty"
+                    >
                       <i class="bi bi-dash"></i>
                     </button>
                     <p class="mt-3" v-show="item?.qty">{{ item.qty }}</p>
-                    <button type="button" class="border-0 rounded-1" @click="Increase(item)" v-show="item?.qty">
+                    <button
+                      type="button"
+                      class="border-0 rounded-1"
+                      @click="Increase(item)"
+                      v-show="item?.qty"
+                    >
                       <i class="bi bi-plus"></i>
                     </button>
                   </div>
 
-
-                  <button type="button" class="editPrice border-0 bg-white   text-nowrap  mt-3 ms-2" v-show="item?.qty"
-                    data-bs-toggle="offcanvas" :data-bs-target="'#item_' + item.idx" role="button"
-                    aria-controls="offcanvasExample">
+                  <button
+                    type="button"
+                    class="editPrice border-0 bg-white text-nowrap mt-3 ms-2"
+                    v-show="item?.qty"
+                    data-bs-toggle="offcanvas"
+                    :data-bs-target="'#item_' + item.idx"
+                    role="button"
+                    aria-controls="offcanvasExample"
+                  >
                     edit price
                   </button>
 
-                  <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" :id="'item_' + item.idx"
-                    aria-labelledby="offcanvasExampleLabel">
+                  <div
+                    class="offcanvas offcanvas-bottom h-75"
+                    tabindex="-1"
+                    :id="'item_' + item.idx"
+                    aria-labelledby="offcanvasExampleLabel"
+                  >
                     <div class="offcanvas-header">
                       <h5 class="offcanvas-title" id="offcanvasExampleLabel">
                         Add Item
                       </h5>
-                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+                      <button
+                        type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div class="offcanvas-body">
                       <div class="row">
@@ -523,8 +713,12 @@
                         <div class="card rounded-2 price-card">
                           <div class="p-1">
                             <p class="price">1x Price</p>
-                            <span>₹<input type="text" placeholder="Enter negotiated value"
-                                class="border-0 ms-1 ps-2 input-price w-75" /></span>
+                            <span
+                              >₹<input
+                                type="text"
+                                placeholder="Enter negotiated value"
+                                class="border-0 ms-1 ps-2 input-price w-75"
+                            /></span>
                           </div>
                         </div>
                       </div>
@@ -533,13 +727,23 @@
                           <span class="total-qty ms-2">Total Qty</span>
                         </div>
                         <div class="col-sm-3 qty-div1">
-                          <div class="d-flex align-items-center justify-content-center gap-2">
-                            <button type="button" class="border-0 rounded-1" @click="Decrease(item, index)"
-                              :disabled="item.qty == 0">
+                          <div
+                            class="d-flex align-items-center justify-content-center gap-2"
+                          >
+                            <button
+                              type="button"
+                              class="border-0 rounded-1"
+                              @click="Decrease(item, index)"
+                              :disabled="item.qty == 0"
+                            >
                               <i class="bi bi-dash"></i>
                             </button>
                             <p class="mt-3">{{ item.qty }}</p>
-                            <button type="button" class="border-0 rounded-1" @click="Increase(item, index)">
+                            <button
+                              type="button"
+                              class="border-0 rounded-1"
+                              @click="Increase(item, index)"
+                            >
                               <i class="bi bi-plus"></i>
                             </button>
                           </div>
@@ -555,8 +759,12 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <button type="button" class="border-0 add-item-btn text-white w-100" data-bs-dismiss="offcanvas"
-                            @click="showData">
+                          <button
+                            type="button"
+                            class="border-0 add-item-btn text-white w-100"
+                            data-bs-dismiss="offcanvas"
+                            @click="showData"
+                          >
                             Add Item
                           </button>
                         </div>
@@ -570,7 +778,9 @@
           </div>
         </section>
       </div>
-      <section class="submit-section d-flex align-items-center justify-content-center w-100 mt-1">
+      <section
+        class="submit-section d-flex align-items-center justify-content-center w-100 mt-1"
+      >
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12 col-md-12">
@@ -584,13 +794,19 @@
                     <div>
                       <span class="fw-bold">Total price:₹{{ totalPrice }}</span>
                     </div>
-                    <span class="fw-bold">Qty: <b>{{ totalQuantity }}</b></span>
+                    <span class="fw-bold"
+                      >Qty: <b>{{ totalQuantity }}</b></span
+                    >
                   </div>
-                  <div class="col-sm-1 submit-col text-end d-flex align-items-center justify-content-center">
-                    <button @click="mySubmit()" class="border-0 bg-transparent p-2 submit-btn">
+                  <div
+                    class="col-sm-1 submit-col text-end d-flex align-items-center justify-content-center"
+                  >
+                    <button
+                      @click="mySubmit()"
+                      class="border-0 bg-transparent p-2 submit-btn"
+                    >
                       Submit
                     </button>
-
                   </div>
                 </div>
               </div>
@@ -606,9 +822,11 @@
           <div class="container">
             <div class="p-1">
               <h6>
-                <i @click="backSide()" class="ri-arrow-left-line quotationsfs"><span class="ps-2 quotationsfs">New
-                    Quotation -
-                    Customer</span></i>
+                <i @click="backSide()" class="ri-arrow-left-line quotationsfs"
+                  ><span class="ps-2 quotationsfs"
+                    >New Quotation - Customer</span
+                  ></i
+                >
               </h6>
             </div>
           </div>
@@ -628,18 +846,27 @@
               <div>
                 <div class="card card1 mt-4">
                   <div class="card-header border-bottom-0">
-                    <div class="d-flex justify-content-between p-1 align-items-center">
+                    <div
+                      class="d-flex justify-content-between p-1 align-items-center"
+                    >
                       <div>
                         <h6>Products</h6>
                         <p>Add items to your quotation.</p>
                       </div>
                       <div class="d-flex gap-1 align-items-center">
                         <div class="">
+                          <button
+                            class="border-0 bg-white add-item-btn"
+                            @click="moreItems()"
+                          >
+                            <img
+                              src="../../../../assets/gridicons_add-outline.png"
+                              alt="icon"
+                              class="img-fluid"
+                            />
 
-                          <button class="border-0 bg-white add-item-btn " @click="moreItems()">
-                            <img src="../../../../assets/gridicons_add-outline.png" alt="icon" class="img-fluid" />
-
-                            Add Item</button>
+                            Add Item
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -653,15 +880,22 @@
                         </div>
                         <div class="d-flex align-items-center gap-2">
                           <button class="btn border-1 increment">
-                            <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease(item, index)"
-                              :disabled="item.qty == 0">
+                            <button
+                              type="button"
+                              class="border-0 bg-transparent rounded-1"
+                              @click="Decrease(item, index)"
+                              :disabled="item.qty == 0"
+                            >
                               <i class="bi bi-dash"></i>
                             </button>
                             <h6>
                               <span id="count">{{ item.qty }}</span>
                             </h6>
-                            <button type="button" class="border-0 bg-transparent rounded-1"
-                              @click="Increase(item, index)">
+                            <button
+                              type="button"
+                              class="border-0 bg-transparent rounded-1"
+                              @click="Increase(item, index)"
+                            >
                               <i class="bi bi-plus"></i>
                             </button>
                           </button>
@@ -675,24 +909,24 @@
                   </div>
                 </div>
                 <div class="card card1 mt-3 p-1">
-                  <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
+                  <div
+                    class="d-flex justify-content-between mt-2 p-1"
+                    style="border-bottom: 1px dashed #eee"
+                  >
                     <h6>Total Items Value</h6>
                     <h6>₹ {{ this.totalPrice }}</h6>
                   </div>
                   <div v-for="(taxe, index) in customers.taxes" :key="index">
-                    <div class="d-flex justify-content-between  mt-3">
+                    <div class="d-flex justify-content-between mt-3">
                       <div>
                         <h6>
                           {{ taxe.account_head }}
                         </h6>
                       </div>
                       <div>
-                        <h6 class="text-muted">
-                          ₹ {{ taxe.tax_amount || 0 }}
-                        </h6>
+                        <h6 class="text-muted">₹ {{ taxe.tax_amount || 0 }}</h6>
                       </div>
                     </div>
-
                   </div>
                   <!-- <div class="d-flex justify-content-between p-1 mt-3">
                     <div>
@@ -738,7 +972,10 @@
                       <h6 class="text-muted">₹ 0.00</h6>
                     </div>
                   </div> -->
-                  <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
+                  <div
+                    class="d-flex justify-content-between p-1 mt-3"
+                    style="border-bottom: 1px dashed LIGHTGREY"
+                  >
                     <div>
                       <h6>Total:</h6>
                     </div>
@@ -754,10 +991,19 @@
                       </p>
                     </div>
                     <div>
-                      <p style="color: #3b43f9" class="text-nowrap" @click="toggleDiscountInput">
+                      <p
+                        style="color: #3b43f9"
+                        class="text-nowrap"
+                        @click="toggleDiscountInput"
+                      >
                         <i class="ri-add-circle-line"></i>Add Discount
                       </p>
-                      <input v-if="showDiscountInput" type="text" class=" w-75 " placeholder="Enter discount amount">
+                      <input
+                        v-if="showDiscountInput"
+                        type="text"
+                        class="w-75"
+                        placeholder="Enter discount amount"
+                      />
                     </div>
                   </div>
                   <div class="card-footer">
@@ -768,14 +1014,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
+                <div
+                  class="d-flex justify-content-between mt-3 positionbtn mb-1"
+                >
                   <div class="mt-2 mb-2">
                     <button class="btn btndraft" @click="saveDraft()">
                       <h6 class="m-0">Save as draft</h6>
                     </button>
                   </div>
                   <div class="mt-2 mb-2">
-                    <button class="btn btn-quot text-decoration-none" @click="createQuotation()">
+                    <button
+                      class="btn btn-quot text-decoration-none"
+                      @click="createQuotation()"
+                    >
                       <h6 class="text-white m-0">Create Quotation</h6>
                     </button>
                   </div>
@@ -826,16 +1077,12 @@ export default {
       filterType3: "This Month",
       show: true,
       currentquotation: [],
-      postData: {
-
-      },
+      postData: {},
       singleQuotation: [],
       filteredData: [],
       duplicateArr: [],
-      returnUpdate: {
-      },
+      returnUpdate: {},
       showDiscountInput: false,
-
     };
   },
   mounted() {
@@ -845,9 +1092,9 @@ export default {
   },
   methods: {
     backMove() {
-      this.show = true
+      this.show = true;
       this.$router.push({
-        path: '/completedata'
+        path: "/completedata",
       });
     },
     backPage() {
@@ -869,7 +1116,6 @@ export default {
     },
     QuotationBack() {
       this.twoSteps = false;
-
     },
     fetchData() {
       this.loading = true;
@@ -898,9 +1144,9 @@ export default {
     },
     fetchCustomers() {
       let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(['*']);
+      queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = null;
-      queryParams.order_by = 'creation DESC';
+      queryParams.order_by = "creation DESC";
       if (queryParams.filters) {
         queryParams.filters = JSON.stringify(queryParams.filters);
       }
@@ -908,14 +1154,16 @@ export default {
         .get(ApiUrls.resource + "/" + Doctypes.customer, {
           params: queryParams,
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }, withCredentials: true
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
         })
         .then((response) => {
-          console.log(response.data);
+          console.log(response);
           this.customers = response.data.data;
           this.duplicateArr = response.data.data;
+          console.log();
           // this.isOpen = false;
         })
         .catch((error) =>
@@ -930,7 +1178,7 @@ export default {
     },
     filterOptions() {
       console.log(this.customers);
-      this.filteredData = this.duplicateArr.filter(item =>
+      this.filteredData = this.duplicateArr.filter((item) =>
         item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
       console.log(this.filteredData);
@@ -945,7 +1193,6 @@ export default {
       } else {
         this.addBtn = false;
       }
-
     },
     Decrease(item) {
       this.selectedItems.push(item);
@@ -986,7 +1233,6 @@ export default {
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
-
     },
     saveDraft() {
       axios
@@ -995,14 +1241,11 @@ export default {
           this.savedData = res.data.data;
           toast.success("Saved As Drafts", {
             position: "top-right",
-          })
+          });
           console.log(res);
-
         });
-
     },
     createQuotation() {
-
       if (this.savedData) {
         this.savedData.docstatus = 1;
         this.savedData.items = this.arr;
@@ -1010,14 +1253,14 @@ export default {
         axios
           .put(
             ApiUrls.resource +
-            "/" +
-            Doctypes.quotations +
-            "/" +
-            this.savedData.name,
+              "/" +
+              Doctypes.quotations +
+              "/" +
+              this.savedData.name,
             this.savedData
           )
-          .then((response) => (this.newComplete = response.data
-          ),
+          .then(
+            (response) => (this.newComplete = response.data),
             toast.success("Quotation Created", {
               position: "top-right",
             })
@@ -1025,10 +1268,7 @@ export default {
 
           .catch((error) => console.error("Error updating data:", error));
       } else {
-        console.error(
-          "No matching record found for the customer name:",
-
-        );
+        console.error("No matching record found for the customer name:");
       }
     },
     Increase2(item) {
@@ -1038,7 +1278,6 @@ export default {
       this.singleQuotation.net_total += item.valuation_rate;
       this.updateTotalQuantity();
       console.log(this.singleQuotation);
-
     },
     Decrease2(item) {
       if (item.qty > 0) {
@@ -1048,7 +1287,6 @@ export default {
         this.singleQuotation.net_total -= item.valuation_rate;
         this.updateTotalQuantity();
         console.log(this.singleQuotation);
-
       }
     },
     updateTotalQuantity() {
@@ -1064,20 +1302,20 @@ export default {
         axios
           .put(
             ApiUrls.resource +
-            "/" +
-            Doctypes.quotations +
-            "/" +
-            this.singleQuotation?.name,
+              "/" +
+              Doctypes.quotations +
+              "/" +
+              this.singleQuotation?.name,
             this.singleQuotation
           )
-          .then(response => {
+          .then((response) => {
             this.newComplete = response.data;
             toast.success("Quotation Created", {
               position: "top-right",
             });
             this.show = true;
           })
-          .catch(error => console.error("Error updating data:", error));
+          .catch((error) => console.error("Error updating data:", error));
       } else {
         console.error("No matching record found for the customer name:");
       }
@@ -1089,11 +1327,11 @@ export default {
       let quotationQueryParams = {
         fields: JSON.stringify(["*"]),
         limit_page_length: "none",
-        order_by: 'creation DESC'
+        order_by: "creation DESC",
       };
 
       axios
-        .get(ApiUrls.resource + "/" + Doctypes.quotations + '/' + quota.name, {
+        .get(ApiUrls.resource + "/" + Doctypes.quotations + "/" + quota.name, {
           params: quotationQueryParams,
           headers: {
             "Content-Type": "application/json",
@@ -1107,15 +1345,18 @@ export default {
           console.log(this.singleQuotation.taxes, "ghfgh");
         })
         .catch((quotationError) => {
-          console.error("Error fetching quotation data:", quotationError.message);
+          console.error(
+            "Error fetching quotation data:",
+            quotationError.message
+          );
         });
     },
     removeBrTags(address) {
       if (address) {
         // Remove <br> tags from the address data
-        return address.replace(/<br\s*\/?>/g, ' ');
+        return address.replace(/<br\s*\/?>/g, " ");
       } else {
-        return ' '; // or handle the case where address is undefined
+        return " "; // or handle the case where address is undefined
       }
     },
     // backMove() {
@@ -1130,7 +1371,7 @@ export default {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = "none";
-      queryParams.order_by = 'creation DESC';
+      queryParams.order_by = "creation DESC";
       queryParams.filters = JSON.stringify(queryParams?.filters);
       axios
         .get(ApiUrls.resource + "/" + Doctypes.quotations, {
@@ -1188,8 +1429,7 @@ export default {
     },
     toggleDiscountInput() {
       this.showDiscountInput = !this.showDiscountInput;
-    }
-
+    },
   },
   watch: {
     searchQuery() {
@@ -1224,12 +1464,14 @@ export default {
       }
     },
     itemsData() {
-      return this.itemData.filter(item => {
-        return Object.values(item).some(value => {
-          return String(value).toLowerCase().includes(this.secondQuery.toLowerCase());
+      return this.itemData.filter((item) => {
+        return Object.values(item).some((value) => {
+          return String(value)
+            .toLowerCase()
+            .includes(this.secondQuery.toLowerCase());
         });
       });
-    }
+    },
   },
 };
 </script>
