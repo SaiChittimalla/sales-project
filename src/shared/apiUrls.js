@@ -13,7 +13,8 @@ export const Doctypes = {
     salesorder: 'Sales Order',
     items: 'Item',
     delivery: 'Delivery Note',
-    contacts: 'Contact'
+    contacts: 'Contact',
+    taxes: 'Sales Taxes and Charges Template'
 
 };
 

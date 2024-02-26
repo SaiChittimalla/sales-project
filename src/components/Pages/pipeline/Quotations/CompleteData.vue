@@ -25,7 +25,7 @@
           </div>
         </div>
       </nav>
-      <div class="container">
+      <div class="">
         <div class="header2" v-if="show">
           <div
             class="d-flex justify-content-between align-items-center buttonsall"
@@ -84,57 +84,66 @@
               v-if="show"
             >
               <div
-                class="card card1 mb-4"
+                class="card card1 my-3"
                 v-for="(quotation, index) in filteredQuotations"
                 :key="index"
               >
-                <div
-                  class="d-flex justify-content-between p-2 align-items-baseline"
-                  style="border-bottom: 1px solid #eeeeee"
-                >
-                  <div class="d-flex gap-3 align-items-center">
-                    <div
-                      class="d-flex justify-content-center ri-file-edit-line1"
-                    >
-                      <img
-                        src="../../../../assets/lets-icons_paper-fill.svg"
-                        alt=""
-                      />
+                <div class="p-2">
+                  <div
+                    class="d-flex justify-content-between align-items-baseline"
+                    style="border-bottom: 1px solid #eeeeee"
+                  >
+                    <div class="d-flex gap-3 align-items-center">
+                      <div
+                        class="d-flex justify-content-center ri-file-edit-line1"
+                      >
+                        <img
+                          src="../../../../assets/lets-icons_paper-fill.svg"
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <p
+                          style="font-size: 13px"
+                          class="align-items-center mt-3"
+                        >
+                          {{ quotation.name }}<br /><span
+                            class="text-muted"
+                            style="font-size: 11px"
+                            >{{ quotation.transaction_date }}</span
+                          >
+                        </p>
+                      </div>
                     </div>
                     <div>
-                      <p
-                        style="font-size: 13px"
-                        class="align-items-center mt-3"
-                      >
-                        {{ quotation.name }}<br /><span
-                          class="text-muted"
-                          style="font-size: 11px"
-                          >{{ quotation.transaction_date }}</span
-                        >
-                      </p>
+                      <button class="savedbutton1" @click="quotData(quotation)">
+                        View
+                        <hr class="m-0" />
+                      </button>
                     </div>
                   </div>
-                  <div>
-                    <button class="savedbutton1" @click="quotData(quotation)">
-                      View
-                      <hr class="m-0" />
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="d-flex justify-content-between align-items-center p-3"
-                >
-                  <div>
-                    <h6 class="" style="font-size: 13px">
-                      {{ quotation.customer_name }}
-                    </h6>
-                    <p style="font-size: 11px; color: #3b43f9">
-                      {{ quotation.quotation_to }}
-                    </p>
-                  </div>
+                  <div
+                    class="d-flex justify-content-between align-items-center py-3"
+                  >
+                    <div>
+                      <h6 class="" style="font-size: 13px">
+                        {{ quotation.customer_name }}
+                      </h6>
+                      <p style="font-size: 11px; color: #3b43f9">
+                        {{ quotation.quotation_to }}
+                      </p>
+                    </div>
 
-                  <div>
-                    <button class="savedbutton">{{ quotation.status }}</button>
+                    <div v-if="quotation.status !== 'Draft'">
+                      <button class="savedbutton">
+                        {{ quotation.status }}
+                      </button>
+                    </div>
+                    <div v-if="quotation.status == 'Draft'">
+                      <button class="draftbutton">
+                        {{ quotation.status }}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,7 +152,7 @@
 
           <div class="" v-if="!show">
             <div class="">
-              <div class="card card1 p-4">
+              <div class="card card1 mt-3 p-4">
                 <span class="data-span">
                   ID :
                   <span class="data-id-tags">
@@ -238,7 +247,7 @@
                   class="d-flex justify-content-between mt-2"
                   style="border-bottom: 1px dashed #eee"
                 >
-                  <h6>Total Items Value</h6>
+                  <h6 @click="taxesGetData()">Total Items Value</h6>
                   <h6 :v-modal="singleQuotation.net_total">
                     ₹{{ singleQuotation.net_total }}
                   </h6>
@@ -277,7 +286,10 @@
                       Give additional discount before tax
                     </p>
                   </div>
-                  <div class="d-flex gap-2">
+                  <div>
+                    <h6>{{ singleQuotation.discount_amount }}</h6>
+                  </div>
+                  <!-- <div class="d-flex gap-2">
                     <div class="circle-with-plus">+</div>
                     <div>
                       <p
@@ -295,7 +307,7 @@
                         placeholder="Enter discount amount"
                       />
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="card-foot">
                   <div class="d-flex justify-content-between">
@@ -316,7 +328,7 @@
             </div>
           </div>
         </div>
-        <div></div>
+
         <div>
           <button
             class="btn btn-primary circle-with-plus offcnv text-white"
@@ -419,7 +431,7 @@
         <div class="container-fluid">
           <div class="row">
             <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> -->
-            <div class="shadow-lg">
+            <div class="header-bottom">
               <h6 class="fw-bold py-2">
                 <i
                   class="bi bi-arrow-left me-2 mt-5"
@@ -689,7 +701,7 @@
                         <div class="card rounded-2 total-price-card">
                           <div class="p-1">
                             <p class="total-price">Total Price</p>
-                            <span class="amount">₹ {{ item.rate || 0 }}</span>
+                            <span class="amount">₹ {{ item.amount || 0 }}</span>
                           </div>
                         </div>
                       </div>
@@ -837,7 +849,7 @@
                           </button>
                         </div>
                         <div>
-                          <h6>{{ item.rate }}</h6>
+                          <h6>{{ item.amount }}</h6>
                           <p class="text-end" style="color: #3b43f9">Edit</p>
                         </div>
                       </div>
@@ -929,7 +941,7 @@
                     <div>
                       <p
                         style="color: #3b43f9"
-                        class="text-nowrap"
+                        class="text-nowrap d-flex justify-content-end"
                         @click="toggleDiscountInput"
                       >
                         <i class="ri-add-circle-line"></i>Add Discount
@@ -937,8 +949,9 @@
                       <input
                         v-if="showDiscountInput"
                         type="text"
-                        class="w-75"
+                        class="form-control w-75 d-flex justify-content-end"
                         placeholder="Enter discount amount"
+                        v-model="postData.additional_discount_percentage"
                       />
                     </div>
                   </div>
@@ -1013,18 +1026,23 @@ export default {
       filterType3: "This Month",
       show: true,
       currentquotation: [],
-      postData: {},
+      postData: {
+        additional_discount_percentage: 0,
+      },
       singleQuotation: [],
       filteredData: [],
       duplicateArr: [],
       returnUpdate: {},
       showDiscountInput: false,
+      taxesCharges: [],
+      fullCustomerData: [],
     };
   },
   mounted() {
     this.fetchData();
     this.quotationData();
     this.fetchCustomers();
+    this.taxesGetData();
   },
   methods: {
     backMove() {
@@ -1105,12 +1123,51 @@ export default {
           console.error("Error fetching customer data:", error)
         );
     },
+    // selectCustomer(customer) {
+    //   this.searchQuery = customer.name;
+    //   this.selectedCustomer = customer;
+    //   console.log(this.selectedCustomer);
+    //   this.isOpen = false;
+    // },
     selectCustomer(customer) {
       this.searchQuery = customer.name;
       this.selectedCustomer = customer;
-      console.log(this.selectedCustomer);
       this.isOpen = false;
+
+      console.log(customer.name);
+
+      let quotationQueryParams = {
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        order_by: "creation DESC",
+      };
+
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.customer + "/" + customer.name, {
+          params: quotationQueryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((quotationResponse) => {
+          this.fullCustomerData = quotationResponse.data.data;
+          if (this.selectedCustomer.tax_category == "In-State") {
+            this.taxesCharges = this.taxesCharges[1];
+          } else {
+            this.taxesCharges = this.taxesCharges[0];
+          }
+          console.log(this.fullCustomerData);
+        })
+        .catch((quotationError) => {
+          console.error(
+            "Error fetching quotation data:",
+            quotationError.message
+          );
+        });
     },
+
     filterOptions() {
       console.log(this.customers);
       this.filteredData = this.duplicateArr.filter((item) =>
@@ -1122,8 +1179,8 @@ export default {
       this.selectedItems.push(item);
       item.qty++;
       if (item.qty) {
-        item.amount = item.rate;
-        item.rate = item.qty * item.valuation_rate;
+        item.rate = item.valuation_rate;
+        item.amount = item.qty * item.rate;
         this.updateTotalQuantityAndPrice();
       } else {
         this.addBtn = false;
@@ -1133,8 +1190,8 @@ export default {
       this.selectedItems.push(item);
       if (item.qty) {
         item.qty--;
-        item.amount = item.rate;
-        item.rate = item.qty * item.valuation_rate;
+        item.rate = item.valuation_rate;
+        item.amount = item.qty * item.rate;
         this.addBtn = false;
         this.updateTotalQuantityAndPrice();
       } else {
@@ -1157,12 +1214,15 @@ export default {
         return;
       }
       this.selectedItems.forEach((val) => this.duplicate(val));
-
+      console.log(this.selectedCustomer, "Customer");
       this.selectedCustomer.party_name = this.selectedCustomer.name;
+
       this.postData = {
         ...this.selectedCustomer,
         items: this.arr,
         docstatus: 0,
+        taxes: this.taxesCharges,
+        // taxes: this.fullCustomerData.taxes,
       };
       console.log(this.postData);
       this.show1 = false;
@@ -1170,13 +1230,20 @@ export default {
       this.show3 = true;
     },
     saveDraft() {
+      this.postData.additional_discount_percentage = parseInt(
+        this.postData.additional_discount_percentage,
+        10
+      );
       axios
         .post(ApiUrls.resource + "/" + Doctypes.quotations, this.postData)
         .then((res) => {
           this.savedData = res.data.data;
+
           toast.success("Saved As Drafts", {
             position: "top-right",
           });
+          this.twoSteps = false;
+
           console.log(res);
         });
     },
@@ -1208,8 +1275,8 @@ export default {
     },
     Increase2(item) {
       item.qty++; // Increase the quantity locally
-      item.rate = item.qty * item.valuation_rate;
-      item.amount = item.rate;
+      item.rate = item.valuation_rate;
+      item.amount = item.qty * item.rate;
       this.singleQuotation.net_total += item.valuation_rate;
       this.updateTotalQuantity();
       console.log(this.singleQuotation);
@@ -1217,8 +1284,8 @@ export default {
     Decrease2(item) {
       if (item.qty > 0) {
         item.qty--; // Decrease the quantity locally
-        item.rate = item.qty * item.valuation_rate;
-        item.amount = item.rate;
+        item.rate = item.valuation_rate;
+        item.amount = item.qty * item.rate;
         this.singleQuotation.net_total -= item.valuation_rate;
         this.updateTotalQuantity();
         console.log(this.singleQuotation);
@@ -1286,6 +1353,7 @@ export default {
           );
         });
     },
+
     removeBrTags(address) {
       if (address) {
         // Remove <br> tags from the address data
@@ -1352,6 +1420,7 @@ export default {
     },
     toCustomer() {
       this.twoSteps = true;
+      this.selectedCustomer = {};
     },
 
     toLead() {
@@ -1364,6 +1433,26 @@ export default {
     },
     toggleDiscountInput() {
       this.showDiscountInput = !this.showDiscountInput;
+    },
+    taxesGetData() {
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(["*"]);
+      queryParams.limit_page_length = "none";
+      queryParams.order_by = "creation DESC";
+      queryParams.filters = JSON.stringify(queryParams?.filters);
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.taxes, {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res);
+          this.taxesCharges = res.data.data;
+        });
     },
   },
   watch: {
@@ -1412,6 +1501,10 @@ export default {
 </script>
 
 <style scoped>
+.offcanvas-bottom {
+  border-radius: 15px 15px 0px 0px;
+}
+
 .create-quote {
   position: sticky;
   bottom: 0px;
@@ -1462,6 +1555,7 @@ export default {
   z-index: 10;
   background-color: white;
   margin-bottom: 5px;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .add-item {
@@ -1778,7 +1872,7 @@ select option {
   justify-content: center;
 
   font-size: 15px;
-  border: 1px solid;
+  border: none;
   color: white;
 }
 
@@ -1857,7 +1951,7 @@ select option {
 .header {
   border-bottom: 1px solid #eee;
   background: #fff;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); */
   flex-shrink: 0;
   position: sticky;
   top: 0;
@@ -2156,7 +2250,7 @@ input {
 
 .header {
   border-bottom: 1px solid #eee;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); */
   background: #fff;
   flex-shrink: 0;
   position: sticky;
@@ -2170,22 +2264,26 @@ input {
   box-shadow: 0px 11px 24px 0px rgba(0, 0, 0, 0.05);
   width: 100%;
 }
-
+.header-bottom {
+  border-bottom: 1px solid #eeeeee;
+  box-shadow: 0px 0px 20px 0px #00000033;
+}
 .buttonsall {
   padding: 10px 10px;
 }
 
 .btn2 {
   border-radius: 20px;
-  /* background: #f3f3f3;
-  color: #3c3c3c; */
+  background: #f3f3f3;
+  color: #3c3c3c;
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
-  padding: 5px 14px;
+  padding: 4px 15px;
   margin: 3px 5px;
+  border: none;
 }
 
 li {
@@ -2193,7 +2291,6 @@ li {
 }
 
 .content {
-  background: #f9f9f9;
   padding: 6px 14px;
   align-items: center;
   gap: 10px;
@@ -2216,6 +2313,24 @@ li {
   background: none;
   /* text-decoration: underline; */
   font-size: 13px;
+}
+.draftbutton {
+  border-radius: 4px;
+  border: 0.7px solid #999999;
+  /* background: #999999; */
+  background: #f1f1f1;
+  color: #999999;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  /* margin-top: 10px; */
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  padding: 6px 14px;
+  justify-content: center;
 }
 
 .savedbutton {
@@ -2284,10 +2399,19 @@ p {
 .list-group-item.active {
   background: #3b43f9 !important;
   color: white !important;
-  padding: 7px 14px;
+  padding: 4px 15px;
   border: none;
-  margin-top: 0 !important;
-  /* border-top-width: 1 !important; */
+  /* margin-top: 1px !important; */
+  /* border-top-width: none !important; */
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item + .list-group-item.active {
+  /* border-top-width: 0px; */
+  margin-top: 1px !important;
 }
 
 *:focus {
