@@ -14,17 +14,14 @@
                     <span class=" quotationsfs" @click="backMove()"><i class="ri-arrow-left-line text-black me-2 "></i>Sales
                         Order Details</span>
                 </div>
-                <div class="ri-search-line1">
-                    <i class="ri-search-line"></i>
-                </div>
+
             </div>
         </nav>
 
         <div class="container" v-if="show">
             <div class="header2">
-                <div class="d-flex justify-content-between align-items-center buttonsall">
+                <div class=" buttonsall">
                     <ul class="d-flex flex-wrap list-unstyled list-group flex-row gap-1">
-                        <div></div>
                         <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }"
                             @click="setFilter('All')">
                             All
@@ -49,15 +46,14 @@
                         <div class="card card1 mb-4" v-for="(sales, index) in filteredQuotations" :key="index">
                             <div class="d-flex justify-content-between p-2 align-items-baseline"
                                 style="border-bottom: 1px solid #eeeeee">
-                                <div class="d-flex gap-3 align-items-center">
+                                <div class="d-flex ms-2 gap-3 align-items-center">
                                     <div class="d-flex justify-content-center ri-file-edit-line1">
                                         <i class="ri-file-edit-line"></i>
                                     </div>
                                     <div>
                                         <p style="font-size: 13px" class="align-items-center mt-3">
                                             {{ sales.name }}<br /><span class="text-muted" style="font-size: 11px">{{
-                                                sales.transaction_date
-                                            }}</span>
+                                                sales.transaction_date }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -86,19 +82,16 @@
         <div class="container" v-if="!show">
             <div class="card card1 p-3">
                 <div class="card card1 p-4">
-                    <p style="font-size: 13px" class="text-black">
-                        Sales Order NO :- <span class=" text-muted ">{{ currentEmployee.name }}</span>
-                    </p>
-                    <p style="font-size: 13px">Customer Name :- <span class=" text-muted ">{{ currentEmployee.customer_name }}</span></p>
-
-                    <!-- <p style="font-size: 13px">Primary Contact Details:</p> -->
+                    <p style="font-size: 13px" class="text-black">ID :- <span class=" text-muted ">{{ currentEmployee.name
+                    }}</span></p>
+                    <p style="font-size: 13px">Customer Name :- <span class=" text-muted ">{{ currentEmployee.customer_name
+                    }}</span></p>
                     <div>
-                        <p style="font-size: 13px">
-                            Mobile NO :- <span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
+                        <p style="font-size: 13px">Mobile NO :- <span class="text-muted">&nbsp;{{
+                            currentEmployee.contact_mobile }}</span>
                         </p>
-                        <p style="font-size: 13px">
-                            E-mail :- <span class="text-muted">
-                                &nbsp;{{ currentEmployee.contact_email }}</span>
+                        <p style="font-size: 13px">E-mail :- <span class="text-muted">&nbsp;{{
+                            currentEmployee.contact_email }}</span>
                         </p>
                     </div>
                 </div>
@@ -106,42 +99,40 @@
                 <div class="card card1 p-4 mt-3">
                     <p style="font-size: 14px">Address:</p>
                     <div class="">
-                        <p style="font-size: 13px">
-                            Billing Address:<br /><span class="text-muted">{{ removeBrTags(currentEmployee.shipping_address)
-                            }}</span>
+                        <p style="font-size: 13px">Billing Address:<br /><span class="text-muted">{{
+                            removeBrTags(currentEmployee.shipping_address) }}</span>
                         </p>
-                        <p style="font-size: 13px">
-                            Shipping Address:<br /><span class="text-muted">{{
-                                removeBrTags(currentEmployee.shipping_address) }}</span>
+                        <p style="font-size: 13px">Shipping Address:<br /><span class="text-muted">{{
+                            removeBrTags(currentEmployee.shipping_address) }}</span>
                         </p>
                     </div>
                 </div>
-                <div class=" card card1">
+                <div class=" card card1 mt-3">
                     <div v-for="(item, index) in currentEmployee.items" :key="index">
                         <div class="card-body card-body123">
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h6>{{ item.item_name }}</h6>
-                                    <p>{{ item.item_code }}</p>
+                                    <p class="paragraph-txt">{{ item.item_code }}</p>
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
                                     <button class="btn border-1 increment">
                                         <button type="button" class="border-0 bg-transparent rounded-1"
-                                            @click="Decrease(item, index)" :disabled="item.qty == 0">
+                                            @click="Decrease2(item, index)" :disabled="item.qty == 0">
                                             <i class="bi bi-dash"></i>
                                         </button>
                                         <h6>
-                                            <span id="count">{{ item.qty }}</span>
+                                            <span id="count" :v-model="currentEmployee.items">{{ item.qty }}</span>
                                         </h6>
                                         <button type="button" class="border-0 bg-transparent rounded-1"
-                                            @click="Increase(item, index)">
+                                            @click="Increase2(item, index)">
                                             <i class="bi bi-plus"></i>
                                         </button>
                                     </button>
                                 </div>
                                 <div>
-                                    <h6>{{ item.rate }}</h6>
-                                    <p class="text-end" style="color: #3b43f9">Edit</p>
+                                    <h6 :v-model="item.rate">{{ item.rate }}</h6>
+                                    <p class="paragraph-txt text-end" style="color: #3b43f9">Edit</p>
                                 </div>
                             </div>
                         </div>
@@ -151,43 +142,30 @@
                 <div class="card tax-card mt-3">
                     <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
                         <h6>Total Items Value</h6>
-                        <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
+                        <h6 :v-modal="currentEmployee.net_total">₹{{ currentEmployee.net_total }}</h6>
+
                     </div>
-                    <div class="d-flex justify-content-between p-1 mt-3">
-                        <div>
-                            <h6>
-                                {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
-                            </h6>
-                        </div>
-                        <div>
-                            <h6 class="text-muted">
-                                ₹ {{ currentEmployee.tax_amount || 0 }}
-                            </h6>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between p-1 mt-3">
-                        <div>
-                            <h6>SGST:&nbsp;9%</h6>
-                        </div>
-                        <div>
-                            <h6 class="text-muted">₹ 5434</h6>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between p-1 mt-3">
-                        <div>
-                            <h6>IGST:&nbsp;0</h6>
-                        </div>
-                        <div>
-                            <h6 class="text-muted">₹ 0.00</h6>
+                    <div v-for="(taxe, index) in currentEmployee.taxes" :key="index">
+                        <div class="d-flex justify-content-between p-1 mt-3">
+                            <div>
+                                <h6>
+                                    {{ taxe.account_head }}
+                                </h6>
+                            </div>
+                            <div>
+                                <h6 class="text-muted">
+                                    ₹ {{ taxe.tax_amount || 0 }}
+                                </h6>
+                            </div>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
                         <div>
-                            <h6>Total:</h6>
+                            <h6>Total Taxes:</h6>
                         </div>
                         <div>
-                            <h6>₹ {{ currentEmployee.base_rounded_total }}</h6>
+                            <h6>₹ {{ currentEmployee.total_taxes_and_charges }}</h6>
                         </div>
                     </div>
                     <div class="d-flex card2 justify-content-between p-1 mt-3">
@@ -196,24 +174,24 @@
                             <p class="text-muted">Give additional discount before tax</p>
                         </div>
                         <div class="d-flex gap-2">
-                            <!-- <div class="circle-with-plus">+</div> -->
                             <div>
                                 <p style="color: #3b43f9" class="text-nowrap">
                                     Add Discount
                                 </p>
+
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-between">
-                            <h6>Grand Total</h6>
-                            <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
-                            <h6>{{ currentEmployee.base_rounded_total }}</h6>
+                            <h6 class="fw-bold">Grand Total</h6>
+                            <h6 class="fw-bold">Qty - {{ currentEmployee.total_qty }}</h6>
+                            <h6 class="fw-bold">{{ currentEmployee.grand_total }}</h6>
                         </div>
                     </div>
-                    <div class="mt-2 d-flex justify-content-end create-quote ">
-                        <button class="btn btn-quot text-decoration-none" @click="quotationExits()">
-                            <h6 class="text-white m-0">Create Sales</h6>
+                    <div class="mt-2 mb-2 d-flex justify-content-end create-quote ">
+                        <button class="btn btn-quot1 text-decoration-none" @click="quotationExits()">
+                           Create Sales
                         </button>
                     </div>
                 </div>
@@ -338,9 +316,11 @@
                     <div class="mt-4 mx-2">
                         <div class="card rounded-3 shadow-sm product-card1">
                             <div class="row">
-                                <div class="col-6  ">
+                                <div class="col-6">
+                                    <div>
                                     <h6 class="m-2 label-name">Delivery date</h6>
                                     <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.delivery_date }}</p>
+                                   </div>
                                 </div>
 
                                 <div class="col-6 d-flex align-items-center justify-content-center text-nowrap ">
@@ -435,6 +415,7 @@
                                 <span class="form-control-feedback"><i class="bi bi-search"></i></span>
                                 <input type="search" class="form-control bg-light" placeholder="Search item name"
                                     v-model="secondQuery" @input="SearchDetails" />
+
                             </div>
                         </div>
 
@@ -465,7 +446,7 @@
                                             {{ item.item_name }}
                                         </h6>
                                         <div class="d-flex text-nowrap">
-                                            <p>₹ {{ item.last_purchase_rate }}</p>
+                                            <p>₹ {{ item.valuation_rate }}</p>
                                             <li class="ms-1 text-muted">{{ item.item_code }}</li>
                                         </div>
                                         <p class="text-muted item-info">
@@ -521,7 +502,7 @@
                                             <div class="row mb-3 mt-3">
                                                 <div>
                                                     <h6 class="label-heading">
-                                                        ₹ {{ item.last_purchase_rate }}
+                                                        ₹ {{ item.valuation_rate }}
                                                     </h6>
                                                     <p class="label-name">Actual Price 1x</p>
                                                 </div>
@@ -610,7 +591,6 @@
     </section>
 
     <section v-if="show3">
-        <!-- <div> -->
         <div>
             <nav class="navbar header shadow-sm">
                 <div class="container w-100 ">
@@ -632,18 +612,16 @@
                         </div>
                     </div>
 
-                    <div class="inputheader mt-3">
+                    <div class="inputheader mt-3 p-2">
                         <div class="d-flex justify-content-between">
                             <h6 class=" m-2 label-name">Purchase Order Number</h6>
-                            <span><i class="bi bi-pencil-fill me-2 " data-bs-toggle="offcanvas"
-                                    data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"></i></span>
                         </div>
                         <P class="formdata ms-2 mb-4">{{ formdata.po_no }}</P>
                         <h6 class="m-2 label-name">Purchase Order Date</h6>
                         <P class="formdata mt-2 ms-2">{{ formdata.po_date }}</P>
                     </div>
 
-                    <div class="inputheader mt-3">
+                    <div class="inputheader mt-3 p-2">
                         <h6 class="m-2 label-name">Delivery date</h6>
                         <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.delivery_date }}</p>
                     </div>
@@ -654,13 +632,13 @@
                                 <div class="card-header border-bottom-0">
                                     <div class="d-flex justify-content-between p-1 align-items-center">
                                         <div>
-                                            <h6 class="m-2 label-name">Product</h6>
+                                            <h6 class="m-1 label-name">Product</h6>
                                             <p class="text-secondary ms-2 m-0 product">
                                                 Add items to your quotation.
                                             </p>
                                         </div>
 
-                                        <button type="button" class="border-0 add-item-btn1">
+                                        <button type="button" class="border-0 add-item-btn1" @click="backSide()">
                                             <i class="bi bi-plus-circle me-2"></i>Add Item</button>
 
                                     </div>
@@ -695,55 +673,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card card1 mt-3 p-1">
+                            <div class="card card1 mt-3 p-2">
                                 <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
                                     <h6>Total Items Value</h6>
                                     <h6>₹ {{ this.totalPrice }}</h6>
                                 </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>CGST:&nbsp;9%</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 5689.30</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>SGST:&nbsp;9%</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 5345</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>IGST:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>VAT:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>SEZ:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
+                              
                                 <div class="d-flex justify-content-between p-1 mt-3"
                                     style="border-bottom: 1px dashed LIGHTGREY">
                                     <div>
@@ -760,8 +695,8 @@
                                             Give additional discount before tax
                                         </p>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <div class="circle-with-plus">+</div>
+                                    <div class="d-flex gap-1 align-items-center ">
+                                        <div class="mb-3" style="color: #3b43f9">+</div>
                                         <div>
                                             <p style="color: #3b43f9" class=" paragraph-txt text-nowrap">
                                                 Add Discount
@@ -779,9 +714,7 @@
                             </div>
                             <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
                                 <div class="mt-2 mb-2">
-                                    <button class="btn btndraft">
-                                        <h6 class="m-0" @click="saveDraft()">Save as draft</h6>
-                                    </button>
+                                    <button class="btn btndraft" @click="saveDraft()">Save as draft</button>
                                 </div>
                                 <div class="mt-2 mb-2">
                                     <button class="btn btn-quot text-decoration-none" @click="createSales()">
@@ -795,7 +728,6 @@
             </div>
         </div>
         <!-- </div> -->
-
     </section>
 </template>
 
@@ -820,6 +752,7 @@ export default {
             show3: false,
             data: [],
             filteredData: [],
+            currentEmployee: [],
             searchQuery: '',
             secondQuery: '',
             isOpen: false,
@@ -846,6 +779,7 @@ export default {
             arr: [],
             newComplete: [],
             savedData: [],
+            items: []
         }
 
     },
@@ -853,7 +787,6 @@ export default {
         this.fetchData();
         this.fetchItem();
         this.fetchSales();
-
     },
     computed: {
         totalQuotations() {
@@ -878,8 +811,10 @@ export default {
         }
     },
     methods: {
-        removeBrTags(data) {
-            return data.replace(/<br\s*\/?>/g, '');
+        removeBrTags(address) {
+            if (address) {
+                return address.replace(/<br\s*\/?>/g, ' ');
+            }
         },
         setFilter(type) {
             this.activeFilter = type;
@@ -921,22 +856,48 @@ export default {
                 });
         },
         // salesDetails(name) {
+        //     this.items = []
+        //     console.log(name, "name");
+        //     // console.log(this.items,'hgsfd');
         //     this.show = false;
         //     this.saleOrders.filter((sales) => {
-        //         if (sales.name == name) {
+        //         if (sales == name) {
         //             this.currentEmployee = sales;
-        //             console.log(this.currentEmployee);
+        //             let quotationQueryParams = {
+        //                 fields: JSON.stringify(["*"]),
+        //                 limit_page_length: "none"
+        //             };
+        //             axios
+        //                 .get(ApiUrls.resource + "/" + Doctypes.salesorder + '/' + this.currentEmployee?.name, {
+        //                     params: quotationQueryParams,
+        //                     headers: {
+        //                         "Content-Type": "application/json",
+        //                         Accept: "application/json",
+        //                     },
+        //                     withCredentials: true,
+        //                 })
+        //                 .then((quotationResponse) => {
+        //                     this.currentmEployee = quotationResponse.data.data;
+        //                     this.items = this.currentmEployee?.items
+        //                     console.log("zbvhjvdv", this.items);
+        //                     console.log(this.currentmEployee.taxes ,'14352');
+
+        //                 })
+        //                 .catch((quotationError) => {
+        //                     console.error("Error fetching quotation data:", quotationError.message);
+        //                 });
         //         }
         //     });
         // },
 
         salesDetails(quota) {
             this.show = false;
-            console.log(quota.name , "hdsxgfv");
+            console.log(quota.name);
 
             let quotationQueryParams = {
                 fields: JSON.stringify(["*"]),
-                limit_page_length: "none"
+                limit_page_length: "none",
+                order_by: 'creation DESC'
             };
 
             axios
@@ -949,12 +910,14 @@ export default {
                     withCredentials: true,
                 })
                 .then((quotationResponse) => {
-                    this.currentmEployee = quotationResponse.data.data;
-                    console.log(this.currentmEployee , "zbvhjvdv");
+                    this.currentEmployee = quotationResponse.data.data;
+                    console.log(this.currentEmployee, "7213465");
+                    console.log(this.currentEmployee.taxes, "ghfgh");
                 })
                 .catch((quotationError) => {
                     console.error("Error fetching quotation data:", quotationError.message);
                 });
+
         },
 
         plusIcon() {
@@ -963,7 +926,6 @@ export default {
                 this.show2 = false,
                 this.show3 = false
         },
-
 
         fetchData() {
             this.loading = true;
@@ -1061,10 +1023,10 @@ export default {
             console.log(item, "sdv");
             item.qty++;
             item.amount = item.rate;
-            item.rate = item.qty * item.last_purchase_rate;
+            item.rate = item.qty * item.valuation_rate;
             this.selectedItems.push(item);
             if (item.qty) {
-                // item.last_purchase_rate += item.qty;
+                // item.valuation_rate += item.qty;
                 this.updateTotalQuantityAndPrice();
             }
             this.addBtn = false;
@@ -1072,10 +1034,9 @@ export default {
         Decrease(item) {
             this.selectedItems.push(item);
             if (item.qty) {
-
                 item.qty--;
                 item.amount = item.rate;
-                item.rate = item.qty * item.last_purchase_rate;
+                item.rate = item.qty * item.valuation_rate;
                 // item.rate /= 2;
                 this.addBtn = false;
                 this.updateTotalQuantityAndPrice();
@@ -1096,6 +1057,34 @@ export default {
             console.log(this.arr, "array");
         },
 
+        Increase2(item) {
+            item.qty++;
+            item.rate = item.qty * item.valuation_rate;
+            item.amount = item.rate;
+            this.currentEmployee.net_total += item.valuation_rate;
+            this.updateTotalQuantity();
+            console.log(this.currentEmployee.net_total);
+
+        },
+        Decrease2(item) {
+            if (item.qty > 0) {
+                item.qty--;
+                item.rate = item.qty * item.valuation_rate;
+                item.amount = item.rate;
+                this.currentEmployee.net_total -= item.valuation_rate;
+                this.updateTotalQuantity();
+                console.log(this.currentEmployee.net_total);
+
+            }
+        },
+        updateTotalQuantity() {
+            let totalQty = 0;
+            for (let item of this.currentEmployee.items) {
+                totalQty += item.qty;
+            }
+            this.currentEmployee.total_qty = totalQty;
+        },
+
         updateTotalQuantityAndPrice() {
             let arr = [];
             let quantity = [];
@@ -1105,7 +1094,7 @@ export default {
                     quantity.push(data.qty);
                 }
                 this.totalQuantity = quantity.reduce((a, b) => a + b);
-                price = data.qty * data.last_purchase_rate;
+                price = data.qty * data.valuation_rate;
                 if (!arr.includes(price)) {
                     arr.push(price);
                 }
@@ -1136,7 +1125,7 @@ export default {
             };
             this.savedData = postData;
             // console.log(postData);
-            // console.log(this.savedData)
+            console.log(postData, 'jvghvjh')
         },
 
         saveDraft() {
@@ -1195,6 +1184,7 @@ export default {
             }
 
         },
+        
 
     },
 
@@ -1715,7 +1705,7 @@ input::placeholder {
 
 .card1 {
     border-radius: 10px 10px 0px 0px;
-    background: #fafafa;
+    background: #fafafa !important;
 }
 
 .tax-card {
@@ -1768,15 +1758,23 @@ input::placeholder {
 
 .btndraft {
     border-radius: 40px;
-    background: #F2F2F2;
-    padding: 10px 10px;
+    background: #F8F8FF;
+    padding:11px 38px;
+    color:#3b43f9 ;
 }
 
 .btn-quot {
     border-radius: 40px;
     background: #3b43f9;
     color: white;
-    padding: 12px 30px;
+    padding: 14px 15px;
+    text-decoration-line: none !important;
+}
+.btn-quot1 {
+    border-radius: 40px;
+    background: #3b43f9;
+    color: white;
+    padding: 10px 30px;
     text-decoration-line: none !important;
 }
 
@@ -1901,23 +1899,22 @@ h6 {
 
 .btn2 {
     border-radius: 20px;
-
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: 18px;
-    padding: 4px 15px;
-
+    padding: 4px 15px;  
     margin: 3px 5px;
 }
 
 .list-group-item+.list-group-item.active {
     border-top-width: 1px !important;
     background: #3b43f9;
-    color: white;
+    /* color: white; */
     padding: 5px 14px;
 }
+
 
 li {
     margin-top: 10px;

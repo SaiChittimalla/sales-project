@@ -166,7 +166,7 @@
                                             {{ item.item_name }}
                                         </h6>
                                         <div class="d-flex text-nowrap">
-                                            <p>₹ {{ item.last_purchase_rate }}</p>
+                                            <p>₹ {{ item.valuation_rate }}</p>
                                             <li class="ms-1 text-muted">{{ item.item_code }}</li>
                                         </div>
                                         <p class="text-muted item-info">
@@ -222,7 +222,7 @@
                                             <div class="row mb-3 mt-3">
                                                 <div>
                                                     <h6 class="label-heading">
-                                                        ₹ {{ item.last_purchase_rate }}
+                                                        ₹ {{ item.valuation_rate }}
                                                     </h6>
                                                     <p class="label-name">Actual Price 1x</p>
                                                 </div>
@@ -344,7 +344,7 @@
                                             </p>
                                         </div>
 
-                                        <button type="button" class="border-0 add-item-btn1">
+                                        <button type="button" class="border-0 add-item-btn1" @click="backSide()">
                                             <i class="bi bi-plus-circle me-2"></i>Add Item</button>
 
                                     </div>
@@ -384,50 +384,7 @@
                                     <h6>Total Items Value</h6>
                                     <h6>₹ {{ this.totalPrice }}</h6>
                                 </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>CGST:&nbsp;9%</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 5689.30</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>SGST:&nbsp;9%</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 5345</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>IGST:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>VAT:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between p-1 mt-3">
-                                    <div>
-                                        <h6>SEZ:&nbsp;0</h6>
-                                    </div>
-                                    <div>
-                                        <h6 class="text-muted">₹ 0.00</h6>
-                                    </div>
-                                </div>
+                               
                                 <div class="d-flex justify-content-between p-1 mt-3"
                                     style="border-bottom: 1px dashed LIGHTGREY">
                                     <div>
@@ -621,10 +578,10 @@ export default {
             console.log(item, "djfbjh");
             item.qty++;
             item.amount = item.rate;
-            item.rate = item.qty * item.last_purchase_rate;
+            item.rate = item.qty * item.valuation_rate;
             this.selectedItems.push(item);
             if (item.qty) {
-                // item.last_purchase_rate += item.qty;
+                // item.valuation_rate += item.qty;
                 this.updateTotalQuantityAndPrice();
             }
             this.addBtn = false;
@@ -634,7 +591,7 @@ export default {
             if (item.qty) {
                 item.qty--;
                 item.amount = item.rate;
-                item.rate = item.qty * item.last_purchase_rate;
+                item.rate = item.qty * item.valuation_rate;
                 // item.rate /= 2;
                 this.addBtn = false;
                 this.updateTotalQuantityAndPrice();
@@ -663,7 +620,7 @@ export default {
                     quantity.push(data.qty);
                 }
                 this.totalQuantity = quantity.reduce((a, b) => a + b);
-                price = data.qty * data.last_purchase_rate;
+                price = data.qty * data.valuation_rate;
                 if (!arr.includes(price)) {
                     arr.push(price);
                 }
@@ -678,7 +635,7 @@ export default {
         mySubmit() {
                 this.show1 = false,
                 this.show2 = false,
-                this.show3 = true
+                this.show3 = true;
             if (!this.selectedLead) {
                 alert("Please select a customer before submitting.");
                 return;
@@ -686,7 +643,7 @@ export default {
             this.selectedItems.map((val) => {
                 this.duplicate(val);
             });
-            this.selectedLead.party_name = this.selectedLead.lead_name
+            this.selectedLead.party_name = this.selectedLead.name
             this.selectedLead.title = this.selectedLead.lead_name;
             this.select
             const postData = {
