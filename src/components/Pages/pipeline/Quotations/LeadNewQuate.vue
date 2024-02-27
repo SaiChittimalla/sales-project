@@ -45,7 +45,7 @@
                                                         <div class="card lead-card">
                                                             <div>
                                                                 <p class="lead">Lead Name</p>
-                                                                <input type="text" placeholder="Enter Full Name" v-model="formData.lead_name"
+                                                                <input type="text" placeholder="Enter Lead Name" v-model="formData.lead_name"
                                                                     class="border-0 input-lead p-1 w-100 btn text-start  " />
                                                             </div>
                                                         </div>
@@ -82,7 +82,7 @@
                                                         <div class="col-8">
                                                             <div class="text-end">
                                                                 <button type="button"
-                                                                    class="btn border-0 save-btn text-white" @click="saveData()">
+                                                                    class="btn border-0 save-btn text-white" @click="saveData()" >
                                                                     Save
                                                                 </button>
                                                             </div>
@@ -498,7 +498,7 @@ export default {
                 .then((response) => {
                     this.data = response.data.data;
                     this.isOpen = false;
-                    console.log(this.data);
+                    console.log(this.data ,'lead data');
                 })
                 .catch((error) =>
                     console.error("Error fetching Lead data:", error)
@@ -644,7 +644,6 @@ export default {
             });
             this.selectedLead.party_name = this.selectedLead.name
             this.selectedLead.title = this.selectedLead.lead_name;
-            this.select
             const postData = {
                 ...this.selectedLead,
                 items: this.arr,
@@ -652,8 +651,8 @@ export default {
                 ...this.statusData
             };
             this.savedData = postData;
-            console.log(this.savedData)
-            console.log(this.statusdata);
+            console.log(this.savedData ,'postData')
+            // console.log(this.statusdata);
 
             // if (this.savedData) {
             //     axios
