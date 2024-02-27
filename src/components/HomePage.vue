@@ -17,11 +17,11 @@
                   <button class="btn btn-primary mb-3 inside-profile" type="button">
                     {{ usrName }}
                   </button>
-                  <router-link to="/" class="text-decoration-none logout border-0" @click="logout()">
-                    <button type="button" class="btn btn-primary logout">
-                      LOGOUT
-                    </button>
-                  </router-link>
+
+                  <button type="button" @click="logout()" class="btn btn-primary logout">
+                    LOGOUT
+                  </button>
+
                 </div>
               </div>
             </div>
@@ -297,15 +297,29 @@ export default {
       this.usrName = user.usr.charAt(0).toUpperCase();
     }
   },
+
+
   methods: {
     logout() {
-      localStorage.clear();
-      this.$router.push({ name: "LoginPage" });
+      axios.get(ApiUrls.logout, {
+        headers: {
+          "message": "Loggend Out"
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          localStorage.removeItem('user');
+          this.$router.push({ name: "LoginPage" });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
+
     SalesOrder() {
       let queryParams = { filters: [] };
       queryParams.fields = JSON.stringify(["*"]);
-      queryParams.limit_page_length = null;
+      queryParams.limit_page_length = "none";
       queryParams.filters = JSON.stringify(queryParams?.filters);
       axios
         .get(ApiUrls.resource + "/" + Doctypes.salesorder, {
@@ -318,7 +332,7 @@ export default {
         })
         .then((response) => {
           this.data = response.data.data;
-          console.log(this.data.length, "sales orders==", this.data);
+          // console.log(this.data.length, "sales orders==", this.data);
         })
         .catch((error) => {
           console.error(error);
@@ -340,7 +354,7 @@ export default {
         })
         .then((response) => {
           this.delivery = response.data.data;
-          console.log(this.delivery.length, "delivery Notes==", this.delivery);
+          // console.log(this.delivery.length, "delivery Notes==", this.delivery);
         })
         .catch((error) => {
           console.error(error);
@@ -376,8 +390,8 @@ export default {
 }
 
 .main-button {
-  width: 62px;
-  height: 62px;
+  width: 52px;
+  height: 52px;
   background-color: #3b43f9;
   border: none;
   border-radius: 50%;

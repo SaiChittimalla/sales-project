@@ -2,15 +2,15 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
-// import axios from 'axios';
+import axios from 'axios';
 
 // const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
 
 // axios.defaults.baseURL = 'http://192.168.1.177:8000';
 
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.common['Authorization'] = 'application/x-www-form-urlencoded';
 
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
 const app = createApp(App)
