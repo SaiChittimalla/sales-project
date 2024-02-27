@@ -14,7 +14,7 @@ export const Doctypes = {
     items: 'Item',
     delivery: 'Delivery Note',
     contacts: 'Contact',
-    taxes: 'Sales Taxes and Charges Template'
+    taxes: 'erpnext.controllers.accounts_controller.get_taxes_and_charges'
 
 };
 

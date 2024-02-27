@@ -235,7 +235,7 @@
                       </button>
                     </div>
                     <div>
-                      <h6 :v-model="item.rate">{{ item.rate }}</h6>
+                      <h6 :v-model="item.amount">{{ item.amount }}</h6>
                       <p class="text-end" style="color: #3b43f9">Edit</p>
                     </div>
                   </div>
@@ -1026,9 +1026,9 @@ export default {
       filterType3: "This Month",
       show: true,
       currentquotation: [],
-      postData: {
-        additional_discount_percentage: 0,
-      },
+
+      additional_discount_percentage: 0,
+
       singleQuotation: [],
       filteredData: [],
       duplicateArr: [],
@@ -1132,6 +1132,7 @@ export default {
     selectCustomer(customer) {
       this.searchQuery = customer.name;
       this.selectedCustomer = customer;
+
       this.isOpen = false;
 
       console.log(customer.name);
@@ -1153,12 +1154,13 @@ export default {
         })
         .then((quotationResponse) => {
           this.fullCustomerData = quotationResponse.data.data;
-          if (this.selectedCustomer.tax_category == "In-State") {
-            this.taxesCharges = this.taxesCharges[1];
-          } else {
-            this.taxesCharges = this.taxesCharges[0];
-          }
-          console.log(this.fullCustomerData);
+
+          // if (this.selectedCustomer.tax_category == "Out-State") {
+          //   this.taxesCharges = this.taxesCharges[0];
+          // } else {
+          //   console.log(this.taxesCharges);
+          // }
+          console.log(this.fullCustomerData.tax_category, "fulldats");
         })
         .catch((quotationError) => {
           console.error(
@@ -1222,21 +1224,36 @@ export default {
         items: this.arr,
         docstatus: 0,
         taxes: this.taxesCharges,
-        // taxes: this.fullCustomerData.taxes,
       };
       console.log(this.postData);
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
     },
+    // /api/method/erpnext.controllers.accounts_controller.get_taxes_and_charges
     saveDraft() {
       this.postData.additional_discount_percentage = parseInt(
         this.postData.additional_discount_percentage,
         10
       );
+      let queryParams = { filters: [] };
+      queryParams.fields = JSON.stringify(["*"]);
+      queryParams.limit_page_length = null;
+      queryParams.order_by = "creation DESC";
+      if (queryParams.filters) {
+        queryParams.filters = JSON.stringify(queryParams.filters);
+      }
       axios
-        .post(ApiUrls.resource + "/" + Doctypes.quotations, this.postData)
+        .post(ApiUrls.resource + "/" + Doctypes.quotations, this.postData, {
+          params: queryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
         .then((res) => {
+          console.log(res);
           this.savedData = res.data.data;
 
           toast.success("Saved As Drafts", {
@@ -1251,7 +1268,14 @@ export default {
       if (this.savedData) {
         this.savedData.docstatus = 1;
         this.savedData.items = this.arr;
-        this.savedData.party_name = this.selectedCustomer.party_name;
+        this.savedData.party_name = this.selectedCustomer.name;
+        let queryParams = { filters: [] };
+        queryParams.fields = JSON.stringify(["*"]);
+        queryParams.limit_page_length = null;
+        queryParams.order_by = "creation DESC";
+        if (queryParams.filters) {
+          queryParams.filters = JSON.stringify(queryParams.filters);
+        }
         axios
           .put(
             ApiUrls.resource +
@@ -1259,7 +1283,15 @@ export default {
               Doctypes.quotations +
               "/" +
               this.savedData.name,
-            this.savedData
+            this.savedData,
+            {
+              params: queryParams,
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              withCredentials: true,
+            }
           )
           .then(
             (response) => (this.newComplete = response.data),
@@ -1274,7 +1306,7 @@ export default {
       }
     },
     Increase2(item) {
-      item.qty++; // Increase the quantity locally
+      item.qty++;
       item.rate = item.valuation_rate;
       item.amount = item.qty * item.rate;
       this.singleQuotation.net_total += item.valuation_rate;
@@ -1283,7 +1315,7 @@ export default {
     },
     Decrease2(item) {
       if (item.qty > 0) {
-        item.qty--; // Decrease the quantity locally
+        item.qty--;
         item.rate = item.valuation_rate;
         item.amount = item.qty * item.rate;
         this.singleQuotation.net_total -= item.valuation_rate;
@@ -1372,6 +1404,7 @@ export default {
     quotationData() {
       this.loading = true;
       let queryParams = { filters: [] };
+
       queryParams.fields = JSON.stringify(["*"]);
       queryParams.limit_page_length = "none";
       queryParams.order_by = "creation DESC";
@@ -1435,23 +1468,41 @@ export default {
       this.showDiscountInput = !this.showDiscountInput;
     },
     taxesGetData() {
-      let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(["*"]);
-      queryParams.limit_page_length = "none";
-      queryParams.order_by = "creation DESC";
-      queryParams.filters = JSON.stringify(queryParams?.filters);
-      axios
-        .get(ApiUrls.resource + "/" + Doctypes.taxes, {
-          params: queryParams,
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+      let queryParams = {
+        filters: [["master_name", "=", "Output GST ins-State - CTD"]],
+        include_children: JSON.stringify({
+          taxes: {
+            fields: ["*"],
+            limit_page_length: "none",
+            order_by: "creation DESC",
           },
-          withCredentials: true,
-        })
+        }),
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        order_by: "creation DESC",
+      };
+
+      axios
+        .get(
+          // ApiUrls.resource + "/" + Doctypes.taxes,
+          "http://192.168.1.177:8000/api/method/erpnext.controllers.accounts_controller.get_taxes_and_charges?master_doctype=Sales Taxes and Charges Template&master_name=Output GST in-State - CTD",
+
+          {
+            params: queryParams,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials: true,
+          }
+        )
         .then((res) => {
           console.log(res);
-          this.taxesCharges = res.data.data;
+          this.taxesCharges = res.data.message;
+          console.log(this.taxesCharges, "taxcharges");
+        })
+        .catch((error) => {
+          console.error("Error fetching taxes data:", error);
         });
     },
   },
