@@ -131,7 +131,7 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <h6 :v-model="item.rate">{{ item.rate }}</h6>
+                                    <h6 :v-model="item.rate">{{ item.amount }}</h6>
                                     <p class="paragraph-txt text-end" style="color: #3b43f9">Edit</p>
                                 </div>
                             </div>
@@ -173,14 +173,14 @@
                             <h6>Discount</h6>
                             <p class="text-muted">Give additional discount before tax</p>
                         </div>
-                        <div class="d-flex gap-2">
+                        <!-- <div class="d-flex gap-2">
                             <div>
                                 <p style="color: #3b43f9" class="text-nowrap">
                                     Add Discount
                                 </p>
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-between">
@@ -191,7 +191,7 @@
                     </div>
                     <div class="mt-2 mb-2 d-flex justify-content-end create-quote ">
                         <button class="btn btn-quot1 text-decoration-none" @click="quotationExits()">
-                           Create Sales
+                            Create Sales
                         </button>
                     </div>
                 </div>
@@ -278,7 +278,7 @@
                                                 <div class="card lead-card">
                                                     <div>
                                                         <p class="lead">Purchase Order Number</p>
-                                                        <input type="text" placeholder="Enter Purchase order number"
+                                                        <input type="number" placeholder="Enter Purchase order number"
                                                             class="border-0 input-date form-control p-1 w-100"
                                                             v-model="formdata.po_no" />
                                                     </div>
@@ -318,9 +318,10 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div>
-                                    <h6 class="m-2 label-name">Delivery date</h6>
-                                    <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.delivery_date }}</p>
-                                   </div>
+                                        <h6 class="m-2 label-name">Delivery date</h6>
+                                        <p v-show="!date" class="formdata mt-3 ms-2 mb-4">{{ DeliveryData.delivery_date }}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="col-6 d-flex align-items-center justify-content-center text-nowrap ">
@@ -538,7 +539,7 @@
                                                 <div class="card rounded-2 total-price-card">
                                                     <div class="p-1">
                                                         <p class="total-price">Total Price</p>
-                                                        <span class="amount">₹ {{ item.rate || 0 }}</span>
+                                                        <span class="amount">₹ {{ item.amount || 0 }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -666,7 +667,7 @@
                                                 </button>
                                             </div>
                                             <div>
-                                                <h6>{{ item.rate }}</h6>
+                                                <h6>{{ item.amount }}</h6>
                                                 <p class="paragraph-txt text-end" style="color: #3b43f9">Edit</p>
                                             </div>
                                         </div>
@@ -675,19 +676,26 @@
                             </div>
                             <div class="card card1 mt-3 p-2">
                                 <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
-                                    <h6>Total Items Value</h6>
+                                    <h6 @click="taxesGetData()">Total Items Value</h6>
                                     <h6>₹ {{ this.totalPrice }}</h6>
                                 </div>
-                              
-                                <div class="d-flex justify-content-between p-1 mt-3"
-                                    style="border-bottom: 1px dashed LIGHTGREY">
-                                    <div>
-                                        <h6>Total:</h6>
+
+                                <!-- <div v-for="(taxe, index) in taxes" :key="index">
+                                    <div class="d-flex justify-content-between p-1 mt-3"
+                                        style="border-bottom: 1px dashed LIGHTGREY">
+                                        <div>
+                                            <h6>
+                                                {{ taxe.account_head }}
+                                            </h6>
+                                        </div>
+                                        <div>
+                                            <h6 class="text-muted">
+                                                ₹ {{ taxe.tax_amount || 0 }}
+                                            </h6>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h6></h6>
-                                    </div>
-                                </div>
+                                </div> -->
+
                                 <div class="d-flex justify-content-between p-1 mt-3">
                                     <div>
                                         <h6>Discount</h6>
@@ -698,9 +706,14 @@
                                     <div class="d-flex gap-1 align-items-center ">
                                         <div class="mb-3" style="color: #3b43f9">+</div>
                                         <div>
-                                            <p style="color: #3b43f9" class=" paragraph-txt text-nowrap">
+                                            <p style="color: #3b43f9" class=" paragraph-txt text-nowrap"
+                                                @click="toggleDiscountInput">
                                                 Add Discount
                                             </p>
+                                            <input v-if="showDiscountInput" type="text"
+                                                class="form-control w-75 d-flex justify-content-end"
+                                                placeholder="Enter discount amount"
+                                                v-model="postData.additional_discount_percentage" />
                                         </div>
                                     </div>
                                 </div>
@@ -753,6 +766,9 @@ export default {
             data: [],
             filteredData: [],
             currentEmployee: [],
+            postData: {
+                additional_discount_percentage: 0,
+            },
             searchQuery: '',
             secondQuery: '',
             isOpen: false,
@@ -766,7 +782,6 @@ export default {
             DeliveryData: {
                 delivery_date: '',
             },
-
             customers: [],
             qty: 0,
             selectedItems: [],
@@ -779,7 +794,10 @@ export default {
             arr: [],
             newComplete: [],
             savedData: [],
-            items: []
+            items: [],
+            showDiscountInput: false,
+            taxesCharges: [],
+            fullCustomerData: [],
         }
 
     },
@@ -787,6 +805,7 @@ export default {
         this.fetchData();
         this.fetchItem();
         this.fetchSales();
+        this.taxesGetData();
     },
     computed: {
         totalQuotations() {
@@ -847,6 +866,7 @@ export default {
                 .then((response) => {
                     this.saleOrders = JSON.parse(JSON.stringify(response.data.data));
                     console.log(this.saleOrders);
+
                 })
                 .catch((error) => {
                     console.error(error.message);
@@ -970,6 +990,38 @@ export default {
             this.searchQuery = customer.name;
             this.selectedCustomer = customer;
             this.isOpen = false;
+
+            let quotationQueryParams = {
+            fields: JSON.stringify(["*"]),
+            imit_page_length: "none",
+            order_by: "creation DESC",
+      };
+
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.customer + "/" + customer.name, {
+          params: quotationQueryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((quotationResponse) => {
+          this.fullCustomerData = quotationResponse.data.data;
+          if (this.selectedCustomer.tax_category=="In-State") {
+            this.taxesCharges = this.taxesCharges[1];
+          } else {
+            this.taxesCharges = this.taxesCharges[0];
+          }
+          console.log(this.fullCustomerData ,'7365435');
+        })
+        .catch((quotationError) => {
+          console.error(
+            "Error fetching quotation data:",
+            quotationError.message
+          );
+        });
+
         },
         SubmitPurchaseData() {
             this.showdata = false;
@@ -1019,11 +1071,14 @@ export default {
             this.show3 = false;
             this.show2 = true;
         },
+        toggleDiscountInput() {
+            this.showDiscountInput = !this.showDiscountInput;
+        },
         Increase(item) {
             console.log(item, "sdv");
             item.qty++;
-            item.amount = item.rate;
-            item.rate = item.qty * item.valuation_rate;
+            item.rate = item.valuation_rate;
+            item.amount = item.qty * item.rate;
             this.selectedItems.push(item);
             if (item.qty) {
                 // item.valuation_rate += item.qty;
@@ -1035,9 +1090,8 @@ export default {
             this.selectedItems.push(item);
             if (item.qty) {
                 item.qty--;
-                item.amount = item.rate;
-                item.rate = item.qty * item.valuation_rate;
-                // item.rate /= 2;
+                item.rate = item.valuation_rate;
+                item.amount = item.qty * item.rate;
                 this.addBtn = false;
                 this.updateTotalQuantityAndPrice();
             } else {
@@ -1059,22 +1113,21 @@ export default {
 
         Increase2(item) {
             item.qty++;
-            item.rate = item.qty * item.valuation_rate;
-            item.amount = item.rate;
+            item.rate = item.valuation_rate;
+            item.amount = item.qty * item.rate;
             this.currentEmployee.net_total += item.valuation_rate;
             this.updateTotalQuantity();
-            console.log(this.currentEmployee.net_total);
+            // console.log(this.currentEmployee.net_total);
 
         },
         Decrease2(item) {
             if (item.qty > 0) {
                 item.qty--;
-                item.rate = item.qty * item.valuation_rate;
-                item.amount = item.rate;
+                item.rate = item.valuation_rate;
+                item.amount = item.qty * item.rate;
                 this.currentEmployee.net_total -= item.valuation_rate;
                 this.updateTotalQuantity();
-                console.log(this.currentEmployee.net_total);
-
+                // console.log(this.currentEmployee.net_total);
             }
         },
         updateTotalQuantity() {
@@ -1088,21 +1141,16 @@ export default {
         updateTotalQuantityAndPrice() {
             let arr = [];
             let quantity = [];
-            let price;
-            this.selectedItems.map((data) => {
-                if (!quantity.includes(data.qty)) {
-                    quantity.push(data.qty);
-                }
+            this.selectedItems.forEach((data) => {
+                if (!quantity.includes(data.qty)) quantity.push(data.qty);
                 this.totalQuantity = quantity.reduce((a, b) => a + b);
-                price = data.qty * data.valuation_rate;
-                if (!arr.includes(price)) {
-                    arr.push(price);
-                }
+                const price = data.qty * data.valuation_rate;
+                if (!arr.includes(price)) arr.push(price);
             });
             this.totalPrice = arr.reduce((a, b) => a + b);
             console.log(
                 "quantity:",
-                this.totalQuantity + " " + "Total Price:" + this.totalPrice
+                this.totalQuantity + " Total Price:" + this.totalPrice
             );
         },
 
@@ -1122,13 +1170,18 @@ export default {
                 ...this.formdata,
                 ...this.DeliveryData,
                 docstatus: 0,
+                taxes: this.taxesCharges,
             };
             this.savedData = postData;
             // console.log(postData);
-            console.log(postData, 'jvghvjh')
+            console.log(postData, 'postData')
         },
 
         saveDraft() {
+            this.postData.additional_discount_percentage = parseInt(
+                this.postData.additional_discount_percentage,
+                10
+            );
             axios.post(ApiUrls.resource + "/" + Doctypes.salesorder, this.savedData)
                 .then((res) => (this.savedData = res.data.data));
             console.log(this.savedData);
@@ -1157,7 +1210,6 @@ export default {
             if (this.currentEmployee) {
                 this.currentEmployee.docstatus = 1;
                 // this.currentEmployee.items = this.arr;
-
                 axios
                     .put(
                         ApiUrls.resource +
@@ -1182,9 +1234,28 @@ export default {
 
                 );
             }
-
         },
-        
+        taxesGetData() {
+            let queryParams = { filters: [] };
+            queryParams.fields = JSON.stringify(["*"]);
+            queryParams.limit_page_length = "none";
+            queryParams.order_by = "creation DESC";
+            queryParams.filters = JSON.stringify(queryParams?.filters);
+            axios
+                .get(ApiUrls.resource + "/" + Doctypes.taxes, {
+                    params: queryParams,    
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
+                .then((res) => {
+                    this.taxesCharges = res.data.data;
+                    console.log(this.taxesCharges, 'taxes');
+                });
+        },
+
 
     },
 
@@ -1759,8 +1830,8 @@ input::placeholder {
 .btndraft {
     border-radius: 40px;
     background: #F8F8FF;
-    padding:11px 38px;
-    color:#3b43f9 ;
+    padding: 11px 38px;
+    color: #3b43f9;
 }
 
 .btn-quot {
@@ -1770,6 +1841,7 @@ input::placeholder {
     padding: 14px 15px;
     text-decoration-line: none !important;
 }
+
 .btn-quot1 {
     border-radius: 40px;
     background: #3b43f9;
@@ -1904,7 +1976,7 @@ h6 {
     font-style: normal;
     font-weight: 500;
     line-height: 18px;
-    padding: 4px 15px;  
+    padding: 4px 15px;
     margin: 3px 5px;
 }
 

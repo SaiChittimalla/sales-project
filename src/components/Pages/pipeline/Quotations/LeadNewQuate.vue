@@ -258,7 +258,7 @@
                                                 <div class="card rounded-2 total-price-card">
                                                     <div class="p-1">
                                                         <p class="total-price">Total Price</p>
-                                                        <span class="amount">₹ {{ item.rate || 0 }}</span>
+                                                        <span class="amount">₹ {{ item.amount || 0 }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -372,7 +372,7 @@
                                                 </button>
                                             </div>
                                             <div>
-                                                <h6>{{ item.rate }}</h6>
+                                                <h6>{{ item.amount }}</h6>
                                                 <p class="paragraph-txt text-end" style="color: #3b43f9">Edit</p>
                                             </div>
                                         </div>
@@ -470,7 +470,7 @@ export default {
             newComplete: [],
             savedData: [],
             statusData: {
-                status: 'Open',
+                status: 'Draft',
                 quotation_to: 'Lead',
             }
         };
@@ -575,24 +575,23 @@ export default {
             this.show2 = true;
         },
         Increase(item) {
-            console.log(item, "djfbjh");
-            item.qty++;
-            item.amount = item.rate;
-            item.rate = item.qty * item.valuation_rate;
             this.selectedItems.push(item);
+            item.qty++;
             if (item.qty) {
-                // item.valuation_rate += item.qty;
+                item.rate = item.valuation_rate;
+                item.amount = item.qty * item.rate;
                 this.updateTotalQuantityAndPrice();
             }
-            this.addBtn = false;
+            else{
+                this.addBtn = false;
+            }
         },
         Decrease(item) {
             this.selectedItems.push(item);
             if (item.qty) {
                 item.qty--;
-                item.amount = item.rate;
-                item.rate = item.qty * item.valuation_rate;
-                // item.rate /= 2;
+                item.rate = item.valuation_rate;
+                item.amount = item.qty * item.rate;
                 this.addBtn = false;
                 this.updateTotalQuantityAndPrice();
             } else {
