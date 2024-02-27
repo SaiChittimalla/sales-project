@@ -19,6 +19,7 @@ import DeliveryNotes from './components/Pages/pipeline/SalesOrder/DeliveryNotes.
 import ContactsPage from './components/Pages/clientsBuyers/contacts/ContactsPage.vue';
 
 import PracticePage from "./components/PracticePage.vue";
+import SaiNew from "./components/SaiNew.vue";
 
 const routes = [
     {
@@ -102,6 +103,11 @@ const routes = [
         name: 'ContactsPage',
         path: '/ContactsPage',
         component: ContactsPage
+    },
+    {
+        name: 'SaiNew',
+        path: '/SaiNew',
+        component: SaiNew
     },
 
 ]
