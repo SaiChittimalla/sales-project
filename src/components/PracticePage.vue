@@ -1,5 +1,6 @@
 <template>
   <table id="myTable">
+    <button class="btn btn-dark">TEST</button>
     <thead>
       <tr>
         <th
