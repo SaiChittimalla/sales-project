@@ -2,13 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from './components/LoginPage.vue';
 import HomePage from './components/HomePage.vue';
 import QuotationsList from './components/Pages/pipeline/Quotations/QuotationsList.vue';
-
-
 import ItemEdit from './components/Pages/pipeline/Quotations/ItemEdit.vue';
-
 import LeadNewQuate from './components/Pages/pipeline/Quotations/LeadNewQuate.vue';
 import SalesOrder from './components/Pages/pipeline/SalesOrder/SalesOrder.vue';
-// import NewSales from './components/Pages/pipeline/SalesOrder/NewSales.vue';
 import AddLeads from './components/Pages/clientsBuyers/Leads/AddLeads.vue';
 import LeadForm from './components/Pages/clientsBuyers/Leads/LeadForm.vue';
 import CompleteData from "./components/Pages/pipeline/Quotations/CompleteData.vue";
@@ -17,9 +13,9 @@ import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
 import DeliveryNotes from './components/Pages/pipeline/SalesOrder/DeliveryNotes.vue';
 import ContactsPage from './components/Pages/clientsBuyers/contacts/ContactsPage.vue';
-
 import PracticePage from "./components/PracticePage.vue";
 import SaiNew from "./components/SaiNew.vue";
+import NotFound from './components/NotFound.vue';
 
 const routes = [
     {
@@ -109,6 +105,7 @@ const routes = [
         path: '/SaiNew',
         component: SaiNew
     },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 
 ]
 const router = createRouter({
