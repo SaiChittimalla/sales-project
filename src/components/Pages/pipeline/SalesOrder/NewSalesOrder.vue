@@ -1273,11 +1273,13 @@ export default {
         })
         .then((quotationResponse) => {
           this.fullCustomerData = quotationResponse.data.data;
-          //   if (this.selectedCustomer.tax_category == "In-State") {
-          //     this.taxesCharges = this.taxesCharges[1];
-          //   } else {
-          //     this.taxesCharges = this.taxesCharges[0];
-          //   }
+          if (this.fullCustomerData.tax_category == "Out-State") {
+            this.fullCustomerData.taxes = [...this.taxValue];
+            console.log("outstate", this.fullCustomerData);
+          } else {
+            this.fullCustomerData.taxes = [...this.taxesCharges];
+            console.log("In State===", this.fullCustomerData);
+          }
           console.log(this.fullCustomerData, "7365435");
         })
         .catch((quotationError) => {
@@ -1526,6 +1528,79 @@ export default {
         .catch((error) =>
           console.error("Error fetching customer data:", error)
         );
+    },
+    taxesAndCharges() {
+      let queryParams = {
+        filters: [["master_name", "=", "Output GST Out-State - CTD"]],
+        include_children: JSON.stringify({
+          taxes: {
+            fields: ["*"],
+            limit_page_length: "none",
+            order_by: "creation DESC",
+          },
+        }),
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        order_by: "creation DESC",
+      };
+      axios
+        .get(
+          "http://192.168.1.177:8000/api/method/erpnext.controllers.accounts_controller.get_taxes_and_charges?master_doctype=Sales Taxes and Charges Template&master_name=Output GST Out-State - CTD",
+
+          {
+            params: queryParams,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          this.taxValue = res.data.message;
+        })
+        .catch((error) => {
+          console.error("Error fetching taxes data:", error);
+        });
+    },
+
+    taxesGetData() {
+      let queryParams = {
+        filters: [["master_name", "=", "Output GST In-State - CTD"]],
+        include_children: JSON.stringify({
+          taxes: {
+            fields: ["*"],
+            limit_page_length: "none",
+            order_by: "creation DESC",
+          },
+        }),
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        order_by: "creation DESC",
+      };
+
+      axios
+        .get(
+          //  ApiUrls.resource + "/" + Doctypes.taxes,
+          "http://192.168.1.177:8000/api/method/erpnext.controllers.accounts_controller.get_taxes_and_charges?master_doctype=Sales Taxes and Charges Template&master_name=Output GST In-State - CTD",
+
+          {
+            params: queryParams,
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          this.taxesCharges = res.data.message;
+          console.log(this.taxesCharges, "taxescharges");
+        })
+        .catch((error) => {
+          console.error("Error fetching taxes data:", error);
+        });
     },
 
     // taxesGetData() {

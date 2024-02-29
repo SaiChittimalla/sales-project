@@ -6,11 +6,8 @@
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i @click="backgo()" class="ri-arrow-left-line"
-              ><span class="ps-2 quotationsfs"
-                >DeliveryNotes &nbsp;({{ totalQuotations }})</span
-              ></i
-            >
+            <i @click="backgo()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">DeliveryNotes &nbsp;({{
+              totalQuotations }})</span></i>
           </div>
         </div>
       </div>
@@ -19,98 +16,66 @@
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i @click="backMove()" class="ri-arrow-left-line"
-              ><span class="ps-2 quotationsfs">DeliveryDetails</span></i
-            >
+            <i @click="backMove()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">DeliveryDetails</span></i>
           </div>
         </div>
       </div>
     </nav>
     <div class="container">
       <div class="header2" v-if="show">
-        <div
-          class="d-flex justify-content-between align-items-center buttonsall"
-        >
+        <div class="d-flex justify-content-between align-items-center buttonsall">
           <ul class="d-flex list-unstyled flex-wrap list-group flex-row">
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'All' }"
-              @click="setFilter('All')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
               All
             </li>
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Draft' }"
-              @click="setFilter('Draft')"
-            >
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }" @click="setFilter('Draft')">
               Draft
             </li>
-            <li
+            <!-- <li
               class="list-group-item btn2"
               :class="{ active: activeFilter === 'Customer' }"
               @click="setFilter('Customer')"
             >
               Customer
-            </li>
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Completed' }"
-              @click="setFilter('Completed')"
-            >
+            </li> -->
+            <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
+              @click="setFilter('Completed')">
               Completed
             </li>
             <!-- ... other filter buttons ... -->
 
-            <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'This Month' }"
-              @click="setFilter('This Month')"
-            >
+            <!-- <li class="list-group-item btn2" :class="{ active: activeFilter === 'This Month' }"
+              @click="setFilter('This Month')">
               This Month
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
       <div class="content">
         <div class="row">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4" v-if="show">
-            <div
-              class="card card1 mb-4"
-              v-for="(quotation, index) in filteredQuotations"
-              :key="index"
-            >
-              <div
-                class="d-flex justify-content-between p-2 align-items-baseline"
-                style="border-bottom: 1px solid #eeeeee"
-              >
+            <div class="card card1 mb-4" v-for="(quotation, index) in filteredQuotations" :key="index">
+              <div class="d-flex justify-content-between p-2 align-items-baseline"
+                style="border-bottom: 1px solid #eeeeee">
                 <div class="d-flex gap-3 align-items-center">
                   <div class="d-flex justify-content-center ri-file-edit-line1">
                     <i class="ri-file-edit-line"></i>
                   </div>
                   <div>
                     <p style="font-size: 13px" class="align-items-center mt-3">
-                      {{ quotation.name }}<br /><span
-                        class="text-muted"
-                        style="font-size: 11px"
-                        >{{ quotation.transaction_date }}</span
-                      >
+                      {{ quotation.name }}<br /><span class="text-muted" style="font-size: 11px">{{
+                        quotation.transaction_date }}</span>
                     </p>
                   </div>
                 </div>
                 <div>
-                  <button
-                    class="savedbutton1"
-                    @click="quotData(quotation.name)"
-                  >
+                  <button class="savedbutton1" @click="quotData(quotation.name)">
                     View
                     <hr class="m-0" />
                   </button>
                 </div>
               </div>
-              <div
-                class="d-flex justify-content-between align-items-center p-3"
-              >
+              <div class="d-flex justify-content-between align-items-center p-3">
                 <div>
                   <h6 class="" style="font-size: 13px">
                     {{ quotation.customer_name }}
@@ -139,14 +104,11 @@
               <p style="font-size: 13px">Primary Contact Details:</p>
               <div class="">
                 <p style="font-size: 13px">
-                  Number:<span class="text-muted"
-                    >&nbsp;{{ currentEmployee.contact_mobile }}</span
-                  >
+                  Number:<span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
                 </p>
                 <p style="font-size: 13px">
                   E-mail:<span class="text-muted">
-                    &nbsp;{{ currentEmployee.contact_email }}</span
-                  >
+                    &nbsp;{{ currentEmployee.contact_email }}</span>
                 </p>
               </div>
             </div>
@@ -167,10 +129,7 @@
               </div>
             </div>
             <div class="card card1 mt-3 p-4">
-              <div
-                class="d-flex justify-content-between mt-2 p-1"
-                style="border-bottom: 1px dashed #eee"
-              >
+              <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
                 <h6>Total Items Value</h6>
                 <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
               </div>
@@ -203,10 +162,7 @@
                 </div>
               </div>
 
-              <div
-                class="d-flex justify-content-between p-1 mt-3"
-                style="border-bottom: 1px dashed LIGHTGREY"
-              >
+              <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
                 <div>
                   <h6>Total:</h6>
                 </div>
@@ -243,7 +199,7 @@
     </div>
   </div>
 </template>
-  <script>
+<script>
 import axios from "axios";
 
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
@@ -353,19 +309,22 @@ export default {
   },
 };
 </script>
-  <style scoped>
+<style scoped>
 @media (min-width: 575px) and (max-width: 2560px) {
   .offcnv {
     display: none !important;
   }
+
   .mdl-btn {
     display: block !important;
   }
 }
+
 @media (min-width: 300px) and (max-width: 574px) {
   .offcnv {
     display: block !important;
   }
+
   .mdl-btn {
     display: none !important;
   }
@@ -374,10 +333,12 @@ export default {
 .selectback {
   background: none !important;
 }
+
 .btn-clicked {
   background-color: #ff0000;
   color: #ffffff;
 }
+
 .draftbtn {
   border-radius: 4px;
   border: 0.7px solid #999;
@@ -450,6 +411,7 @@ export default {
   bottom: 10%;
   right: 6%;
 }
+
 .circle-with-plus2 {
   width: 50px;
   height: 50px;
@@ -545,12 +507,14 @@ li {
   font-size: 15px;
   color: white;
 }
+
 .savedbutton1 {
   border: none;
   background: none;
   /* text-decoration: underline; */
   font-size: 13px;
 }
+
 .savedbutton {
   border-radius: 4px;
   border: 0.7px solid #3b43f9;
@@ -568,6 +532,7 @@ li {
   padding: 6px 14px;
   justify-content: center;
 }
+
 h6 {
   color: #111;
   font-family: Montserrat;
@@ -607,6 +572,7 @@ p {
   .btncustomer {
     width: 30%;
   }
+
   .circle-with-plus {
     display: block;
   }
@@ -620,6 +586,7 @@ p {
   margin-top: 0 !important;
   /* border-top-width: 1 !important; */
 }
+
 *:focus {
   outline: none;
 }
