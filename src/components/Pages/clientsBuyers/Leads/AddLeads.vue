@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <template v-if="showOne">
             <nav class="navbar navigated">
                 <div class=" container ">
@@ -185,14 +184,14 @@ export default {
         LeadData() {
             let queryParams = { filters: [] };
             queryParams.fields = JSON.stringify(['*']);
-            queryParams.limit_page_length = null;
+            queryParams.limit_page_length = "none";
             queryParams.order_by = 'creation DESC';
             queryParams.filters = JSON.stringify(queryParams?.filters);
             axios.get(ApiUrls.resource + "/" + Doctypes.lead, {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    Accept: 'application/json'
                 }, withCredentials: true
             })
                 .then((response) => {
