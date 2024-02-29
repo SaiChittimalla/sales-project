@@ -183,7 +183,7 @@
                 <div class="d-flex justify-content-between mt-2" style="border-bottom: 1px dashed #eee">
                   <h6 @click="taxesGetData()">Total Items Value</h6>
                   <!-- <h6 @click="taxesAndCharges()">Total Items Value</h6> -->
-                  <h6 :v-modal="singleQuotation.net_total">
+                  <h6 :v-model="singleQuotation.net_total">
                     ₹{{ singleQuotation.net_total }}
                   </h6>
                 </div>
@@ -195,7 +195,7 @@
                       </h6>
                     </div>
                     <div>
-                      <h6 class="text-muted">₹ {{ taxe.tax_amount || 0 }}</h6>
+                      <h6 :v-model="taxe.tax_amount" class="text-muted">₹ {{ taxe.tax_amount || 0 }}</h6>
                     </div>
                   </div>
                 </div>
@@ -205,7 +205,8 @@
                     <h6 @click="taxesAndCharges()">Total Taxes:</h6>
                   </div>
                   <div>
-                    <h6>₹ {{ singleQuotation.total_taxes_and_charges }}</h6>
+                    <h6 :v-model="singleQuotation.total_taxes_and_charges">₹ {{ singleQuotation.total_taxes_and_charges }}
+                    </h6>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between mt-3">
@@ -216,7 +217,7 @@
                     </p>
                   </div>
                   <div>
-                    <h6>{{ singleQuotation.discount_amount }}</h6>
+                    <h6>{{ singleQuotation.discount_amount || 0 }}</h6>
                   </div>
                   <!-- <div class="d-flex gap-2">
                     <div class="circle-with-plus">+</div>
@@ -488,7 +489,7 @@
                         <div class="card rounded-2 price-card">
                           <div class="p-1">
                             <p class="price">1x Price</p>
-                            <span>₹<input type="text" placeholder="Enter negotiated value"
+                            <span>₹<input type="text" placeholder="Enter negotiated value" v-model="item.valuation_rate"
                                 class="border-0 ms-1 ps-2 input-price w-75" /></span>
                           </div>
                         </div>
@@ -631,7 +632,85 @@
                         </div>
                         <div>
                           <h6>{{ item.amount }}</h6>
-                          <p class="text-end" style="color: #3b43f9">Edit</p>
+                          <!-- <p class="text-end" style="color: #3b43f9">Edit</p> -->
+                          <button type="button" class="edit border-0 bg-white text-nowrap " v-show="item?.qty"
+                            data-bs-toggle="offcanvas" :data-bs-target="'#item_' + item.idx" role="button"
+                            aria-controls="offcanvasExample">
+                            edit
+                          </button>
+                          <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" :id="'item_' + item.idx"
+                            aria-labelledby="offcanvasExampleLabel">
+                            <div class="offcanvas-header">
+                              <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                                Add Item
+                              </h5>
+                              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                              <div class="row">
+                                <div class="col-sm-10 offcanvas-txt">
+                                  <h6 class="label-heading">{{ item.item_name }}</h6>
+                                  <p class="label-name">Item Name</p>
+                                </div>
+                                <div class="col-sm-2 offcanvas-txt1 text-end">
+                                  <h6 class="label-heading">{{ item.item_code }}</h6>
+                                  <p class="label-name">Item Code</p>
+                                </div>
+                              </div>
+                              <div class="row mb-3 mt-3">
+                                <div>
+                                  <h6 class="label-heading">
+                                    ₹ {{ item.valuation_rate }}
+                                  </h6>
+                                  <p class="label-name">Actual Price 1x</p>
+                                </div>
+                              </div>
+                              <div class="row mb-2 m-1">
+                                <div class="card rounded-2 price-card">
+                                  <div class="p-1">
+                                    <p class="price">1x Price</p>
+                                    <span>₹<input type="text" placeholder="Enter negotiated value"
+                                        v-model="item.valuation_rate"
+                                        class="border-0 ms-1 ps-2 input-price w-75" /></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb-4 qty-row">
+                                <div class="col-sm-9 qty-div">
+                                  <span class="total-qty ms-2">Total Qty</span>
+                                </div>
+                                <div class="col-sm-3 qty-div1">
+                                  <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <button type="button" class="border-0 rounded-1" @click="Decrease(item, index)"
+                                      :disabled="item.qty == 0">
+                                      <i class="bi bi-dash"></i>
+                                    </button>
+                                    <p class="mt-3">{{ item.qty }}</p>
+                                    <button type="button" class="border-0 rounded-1" @click="Increase(item, index)">
+                                      <i class="bi bi-plus"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb-4 m-1">
+                                <div class="card rounded-2 total-price-card">
+                                  <div class="p-1">
+                                    <p class="total-price">Total Price</p>
+                                    <span class="amount">₹ {{ item.amount || 0 }}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <button type="button" class="border-0 add-item-btn text-white w-100"
+                                    data-bs-dismiss="offcanvas" @click="showData">
+                                    Add Item
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -713,13 +792,15 @@
                         Give additional discount before tax
                       </p>
                     </div>
-                    <div>
-                      <p style="color: #3b43f9" class="text-nowrap d-flex justify-content-end"
-                        @click="toggleDiscountInput">
-                        <i class="ri-add-circle-line"></i>Add Discount
-                      </p>
-                      <input v-if="showDiscountInput" type="text" class="form-control w-75 d-flex justify-content-end"
-                        placeholder="Enter discount amount" v-model="postData.additional_discount_percentage" />
+                    <div class=" d-flex  justify-content-end ">
+                      <div>
+                        <p style="color: #3b43f9" class="text-nowrap d-flex justify-content-end"
+                          @click="toggleDiscountInput">
+                          <i class="ri-add-circle-line"></i>Add Discount
+                        </p>
+                        <input v-if="showDiscountInput" type="text" class="form-control w-75 d-flex justify-content-end"
+                          placeholder="Enter discount amount" v-model="postData.additional_discount_percentage" />
+                      </div>
                     </div>
                   </div>
                   <div class="card-footer">
@@ -730,17 +811,18 @@
                     </div>
                   </div>
                 </div>
-                <div class="d-flex justify-content-between mt-3 positionbtn mb-1">
+                <div class=" d-flex  justify-content-end  mt-3 positionbtn mb-1">
                   <div class="mt-2 mb-2">
-                    <button class="btn btndraft" @click="saveDraft()">
-                      <h6 class="m-0">Save as draft</h6>
+                    <button class="btn btn-save  " @click="saveDraft()">
+                      <h6 class="m-0 text-white ">Save</h6>
                     </button>
                   </div>
-                  <div class="mt-2 mb-2">
-                    <button class="btn btn-quot text-decoration-none" @click="createQuotation()">
+                  <!-- <div class="mt-2 mb-2">
+                    <button class="btn btn-quot text-decoration-none" v-show="showCreateQuotationButton"
+                      @click="createQuotation()">
                       <h6 class="text-white m-0">Create Quotation</h6>
                     </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -799,6 +881,7 @@ export default {
       taxesCharges: [],
       taxValue: [],
       fullCustomerData: [],
+
     };
   },
   mounted() {
@@ -920,12 +1003,12 @@ export default {
           this.fullCustomerData = quotationResponse.data.data;
 
           if (this.fullCustomerData.tax_category == "Out-State") {
-            this.fullCustomerData.taxes=[...this.taxValue]
-            console.log("outstate",this.fullCustomerData);
-          } 
+            this.fullCustomerData.taxes = [...this.taxValue]
+            console.log("outstate", this.fullCustomerData);
+          }
           else {
-            this.fullCustomerData.taxes=[...this.taxesCharges]
-            console.log("In State===",this.fullCustomerData);
+            this.fullCustomerData.taxes = [...this.taxesCharges]
+            console.log("In State===", this.fullCustomerData);
 
           }
         })
@@ -990,9 +1073,9 @@ export default {
         ...this.selectedCustomer,
         items: this.arr,
         docstatus: 0,
-        // taxes:this.fullCustomerData.taxes
+        taxes: this.fullCustomerData.taxes
       };
-      console.log(this.postData ,'postData');
+      console.log(this.postData, 'postData');
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
@@ -1003,16 +1086,8 @@ export default {
         this.postData.additional_discount_percentage,
         10
       );
-      let queryParams = { filters: [] };
-      queryParams.fields = JSON.stringify(["*"]);
-      queryParams.limit_page_length = null;
-      queryParams.order_by = "creation DESC";
-      if (queryParams.filters) {
-        queryParams.filters = JSON.stringify(queryParams.filters);
-      }
       axios
         .post(ApiUrls.resource + "/" + Doctypes.quotations, this.postData, {
-          params: queryParams,
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
@@ -1022,56 +1097,47 @@ export default {
         .then((res) => {
           console.log(res);
           this.savedData = res.data.data;
-
-          toast.success("Saved As Drafts", {
+          toast.success("Quotation Saved", {
             position: "top-right",
           });
-          this.twoSteps = false;
-
-          console.log(res);
+          this.twoSteps = false
         });
     },
-    createQuotation() {
-      if (this.savedData) {
-        this.savedData.docstatus = 1;
-        this.savedData.items = this.arr;
-        this.savedData.party_name = this.selectedCustomer.name;
-        let queryParams = { filters: [] };
-        queryParams.fields = JSON.stringify(["*"]);
-        queryParams.limit_page_length = null;
-        queryParams.order_by = "creation DESC";
-        if (queryParams.filters) {
-          queryParams.filters = JSON.stringify(queryParams.filters);
-        }
-        axios
-          .put(
-            ApiUrls.resource +
-            "/" +
-            Doctypes.quotations +
-            "/" +
-            this.savedData.name,
-            this.savedData,
-            {
-              params: queryParams,
-              headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-              },
-              withCredentials: true,
-            }
-          )
-          .then(
-            (response) => (this.newComplete = response.data),
-            toast.success("Quotation Created", {
-              position: "top-right",
-            })
-          )
+    // createQuotation() {
+    //   if (this.savedData) {
+    //     this.savedData.docstatus = 1;
+    //     this.savedData.items = this.arr;
+    //     this.savedData.party_name = this.selectedCustomer.name;
+    //     axios
+    //       .put(
+    //         ApiUrls.resource +
+    //         "/" +
+    //         Doctypes.quotations +
+    //         "/" +
+    //         this.savedData.name,
+    //         this.savedData.items,
+    //         this.savedData.party_name,
+    //         {
+    //           headers: {
+    //             "Content-Type": "application/json",
+    //             Accept: "application/json",
+    //           },
+    //           withCredentials: true,
+    //         }
+    //       )
+    //       .then(
+    //         (response) => (this.newComplete = response.data),
+    //         toast.success("Quotation Created", {
+    //           position: "top-right",
+    //         }),
 
-          .catch((error) => console.error("Error updating data:", error));
-      } else {
-        console.error("No matching record found for the customer name:");
-      }
-    },
+    //       )
+
+    //       .catch((error) => console.error("Error updating data:", error));
+    //   } else {
+    //     console.error("No matching record found for the customer name:");
+    //   }
+    // },
     Increase2(item) {
       item.qty++;
       item.rate = item.valuation_rate;
@@ -1090,6 +1156,7 @@ export default {
         console.log(this.singleQuotation);
       }
     },
+
     updateTotalQuantity() {
       let totalQty = 0;
       for (let item of this.singleQuotation.items) {
@@ -1100,6 +1167,8 @@ export default {
     quotationExits() {
       if (this.singleQuotation) {
         this.singleQuotation.docstatus = 1;
+        this.singleQuotation.items
+        this.singleQuotation.net_total
         axios
           .put(
             ApiUrls.resource +
@@ -1507,6 +1576,15 @@ input::placeholder {
   text-decoration-line: underline;
 }
 
+.edit {
+  color: #3b43f9;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+}
+
 .bi-gift-fill {
   padding: 7px 10px;
   border-radius: 24px;
@@ -1743,6 +1821,16 @@ select option {
   color: white;
   padding: 10px 10px;
   text-decoration-line: none !important;
+
+}
+
+.btn-save {
+  border-radius: 40px;
+  background: #3b43f9;
+  color: white;
+  padding: 10px 10px;
+  text-decoration-line: none !important;
+  width: 100px;
 }
 
 .increment {
@@ -1959,25 +2047,7 @@ input {
   font-size: 14px;
 }
 
-@media (min-width: 575px) and (max-width: 2560px) {
-  .offcnv {
-    display: none !important;
-  }
 
-  .mdl-btn {
-    display: block !important;
-  }
-}
-
-@media (min-width: 300px) and (max-width: 574px) {
-  .offcnv {
-    display: block !important;
-  }
-
-  .mdl-btn {
-    display: none !important;
-  }
-}
 
 .selectback {
   background: none !important;

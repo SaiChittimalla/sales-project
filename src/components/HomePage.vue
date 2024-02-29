@@ -267,11 +267,11 @@
       </div>
     </div>
 
-    <div>
+    <!-- <div>
       <button type="button" class="main-button">
         <span>+</span>
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -309,7 +309,9 @@ export default {
         .then((res) => {
           console.log(res);
           localStorage.removeItem('user');
+          window.location.reload();
           this.$router.push({ name: "LoginPage" });
+
         })
         .catch((err) => {
           console.error(err);

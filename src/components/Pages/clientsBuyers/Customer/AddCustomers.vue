@@ -1,7 +1,6 @@
 <template>
     <div>
-
-        <template v-if="!show">
+        <template v-if="showOne">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <router-link to="/Homepage" class=" text-decoration-none ">
@@ -26,13 +25,13 @@
                                     <td>
                                         <div>{{ item.name }}</div>
                                         <div>
-                                            <span class="idNumbers">ID : {{ item.customer_name }}</span>
+                                            <span class="idNumbers">ID : {{ item.name }}</span>
                                         </div>
                                         <div>
                                             <span class="idStatus">Customer Type : {{ item.customer_type }}</span>
                                         </div>
                                     </td>
-                                    <td><span><i class="ri-pencil-fill"></i></span></td>
+                                    <td><span><i class="ri-eye-line" @click="toDetails(item.name)"></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -45,7 +44,39 @@
                 </div>
             </div>
         </template>
-        <template v-if="show">
+        <template v-if="showTwo">
+            <nav class="navbar navigated">
+                <div class=" container ">
+                    <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Customer</h4>
+                </div>
+            </nav>
+            <div class="m-3 ">
+                <div class="card card1 ps-3 ">
+                    <div>
+                        <div class=" profile-img d-flex justify-content-center align-items-center ">
+                            <p class="Name-alpha">{{ customerDetails.name.charAt(0).toUpperCase() }}</p>
+                        </div>
+                    </div>
+                    <p class="details-heading">Name : <span class="details-data"> {{ customerDetails.name }} </span></p>
+                    <p class="details-heading">Customer Type : <span class="details-data"> {{ customerDetails.customer_type
+                    }} </span></p>
+                    <p class="details-heading">Owner: <span class="details-data"> {{ customerDetails.owner }} </span>
+                    </p>
+                    <div>
+                        <p class="details-heading">Phone Number: <a href="# " class="details-data text-decoration-none "
+                                @click="callPhoneNumber">{{ customerDetails.mobile_no || "No Number" }}</a> <i
+                                class="ri-phone-line fs-5 fw-light mx-2 " @click="callPhoneNumber"></i>
+                            <a href="#" class=" text-decoration-none  text-success " @click="redirectToWhatsApp"><i
+                                    class="ri-whatsapp-line fs-4 "></i></a>
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </template>
+        <template v-if="showThree">
             <nav class="navbar navigated">
                 <div class=" container ">
                     <h4 class="back-to"><i class="bi bi-arrow-left ps-3" @click="backtolist()"></i> New Customer</h4>
@@ -136,7 +167,10 @@ export default {
     data() {
         return {
             Customer: [],
-            show: false
+            showOne: true,
+            showTwo: false,
+            showThree: false,
+            customerDetails: []
         }
     },
     mounted() {
@@ -144,13 +178,15 @@ export default {
         let user = JSON.parse(localStorage.getItem('user'));
         if (!user) {
             this.$router.push({ name: 'LoginPage' })
+        } else {
+            this.usrName = user.usr.charAt(0).toUpperCase();
         }
     },
     methods: {
         CustomerData() {
             let queryParams = { filters: [] };
             queryParams.fields = JSON.stringify(['*']);
-            queryParams.limit_page_length = null;
+            queryParams.limit_page_length = "none";
             queryParams.order_by = 'creation DESC';
             if (queryParams.filters) {
                 queryParams.filters = JSON.stringify(queryParams.filters);
@@ -159,7 +195,7 @@ export default {
                 params: queryParams,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    Accept: 'application/json'
                 }, withCredentials: true
             })
                 .then((response) => {
@@ -171,10 +207,26 @@ export default {
                 });
         },
         AddCustomers() {
-            this.show = true;
+            this.showOne = false;
+            this.showTwo = false;
+            this.showThree = true;
         },
         backtolist() {
-            this.show = false;
+            this.showOne = true
+            this.showTwo = false
+            this.showThree = false
+        },
+        toDetails(name) {
+            this.showOne = false
+            this.showTwo = true
+            this.showThree = false
+            this.Customer.filter(Customer => {
+                if (Customer.name == name) {
+                    this.customerDetails = Customer
+                }
+            })
+            console.log(this.customerDetails);
+
         },
         started() {
             this.$router.push({
@@ -182,12 +234,75 @@ export default {
                 name: 'CustomerForm'
 
             })
-        }
+        },
+        callPhoneNumber() {
+            const phoneNumber = this.customerDetails.mobile_no;
+            const telUrl = `tel:${phoneNumber}`;
+            window.open(telUrl, '_self');
+        },
+        redirectToWhatsApp() {
+            const phoneNumber = this.customerDetails.mobile_no;
+            const message = 'Hello!';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        },
+
     }
 }
 </script>
 
 <style  scoped>
+.Name-alpha {
+    font-size: 52px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    background: #f3f3f3;
+    border-radius: 5px;
+    margin-top: 10px;
+
+}
+
+.profile-img:hover {
+    background: #fff;
+
+}
+
+.card1 {
+    border-radius: 10px;
+    background: #fafafa;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+
+}
+
+.details-heading {
+    color: #111;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.details-data {
+    color: #999;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.ri-eye-line {
+    cursor: pointer;
+}
+
 table tr {
     border: 1px solid #EEE;
     border-collapse: collapse;

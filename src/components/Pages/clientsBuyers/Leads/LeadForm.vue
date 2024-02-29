@@ -152,7 +152,7 @@
                                                         <select class="form-select form-select-lg" name="" id=""
                                                             v-model="this.formData.tax_category">
                                                             <option selected>Select Tax Category</option>
-                                                            <option class="tax-option ps-3 " value="In-State">In-Statee
+                                                            <option class="tax-option ps-3 " value="In-State">In-State
                                                             </option>
                                                             <option class="tax-option ps-3 " value="Out-State">Out-State
                                                             </option>
