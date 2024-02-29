@@ -25,12 +25,13 @@
                                     </li>
                                     <li>
                                         <div>
-                                            <button type="button" class="new-lead-btn rounded-3 mt-2 w-100  text-start fw-bold  "
+                                            <button type="button"
+                                                class="new-lead-btn rounded-3 mt-2 w-100  text-start fw-bold  "
                                                 data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                                                 aria-controls="offcanvasExample">
                                                 <i class="bi bi-plus new-lead-icon me-2 fw-bold "></i>Add New Lead
                                             </button>
-                                            <div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasExample"
+                                            <div class="offcanvas offcanvas-bottom h-75" tabindex="-1" id="offcanvasExample"
                                                 aria-labelledby="offcanvasExampleLabel">
                                                 <div class="offcanvas-header">
                                                     <h5 class="offcanvas-title new-lead-offcanvas"
@@ -45,7 +46,8 @@
                                                         <div class="card lead-card">
                                                             <div>
                                                                 <p class="lead">Lead Name</p>
-                                                                <input type="text" placeholder="Enter Lead Name" v-model="formData.lead_name"
+                                                                <input type="text" placeholder="Enter Lead Name"
+                                                                    v-model="formData.lead_name"
                                                                     class="border-0 input-lead p-1 w-100 btn text-start  " />
                                                             </div>
                                                         </div>
@@ -56,7 +58,8 @@
                                                             <div>
                                                                 <p class="lead">Mobile Number</p>
                                                                 <span>+91<input type="Number" placeholder="0 0 0 0 0 0 0 "
-                                                                        class="border-0 ms-2 input-lead p-1 w-75 btn text-start"  v-model="formData.mobile_no" /></span>
+                                                                        class="border-0 ms-2 input-lead p-1 w-75 btn text-start"
+                                                                        v-model="formData.mobile_no" /></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -66,7 +69,24 @@
                                                             <div>
                                                                 <p class="lead">Email Address</p>
                                                                 <input type="text" placeholder="Enter Email Address"
-                                                                    class="border-0 input-lead p-1 w-100 btn text-start" v-model="formData.email_id"/>
+                                                                    class="border-0 input-lead p-1 w-100 btn text-start"
+                                                                    v-model="formData.email_id" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-2 m-1">
+                                                        <div class="card lead-card">
+                                                            <div>
+                                                                <p class="lead">Tax Category</p>
+                                                                <!-- <input type="text" placeholder="Enter Email Address"
+                                                                    class="border-0 input-lead p-1 w-100 btn text-start"
+                                                                    v-model="formData.email_id" /> -->
+                                                                <select v-model="formData.tax_category" class="w-100 p-2">
+                                                                    <option value="In-state">In-state</option>
+                                                                    <option value="Out-state">Out-state</option>
+
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -82,7 +102,8 @@
                                                         <div class="col-8">
                                                             <div class="text-end">
                                                                 <button type="button"
-                                                                    class="btn border-0 save-btn text-white" @click="saveData()" >
+                                                                    class="btn border-0 save-btn text-white"
+                                                                    @click="saveData()">
                                                                     Save
                                                                 </button>
                                                             </div>
@@ -116,7 +137,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -316,7 +336,7 @@
                 <div class="container w-100 ">
                     <h6 class="fw-bold">
                         <span class=""><i @click="backSide()" class="bi bi-arrow-left me-2 ">
-                                </i>New Quotation - lead</span>
+                            </i>New Quotation - lead</span>
                     </h6>
                 </div>
             </nav>
@@ -384,7 +404,7 @@
                                     <h6>Total Items Value</h6>
                                     <h6>₹ {{ this.totalPrice }}</h6>
                                 </div>
-                               
+
                                 <div class="d-flex justify-content-between p-1 mt-3"
                                     style="border-bottom: 1px dashed LIGHTGREY">
                                     <div>
@@ -424,11 +444,11 @@
                                         <h6 class="m-0" @click="saveDraft()">Save as draft</h6>
                                     </button>
                                 </div>
-                                <div class="mt-2 mb-2">
+                                <!-- <div class="mt-2 mb-2">
                                     <button class="btn btn-quot text-decoration-none" @click="createQuotation()">
                                         <h6 class="text-white m-0">Create Quotation</h6>
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -446,9 +466,9 @@ export default {
     data() {
         return {
             data: [],
-            show1:true,
-            show2:false,
-            show3:false,
+            show1: true,
+            show2: false,
+            show3: false,
             searchQuery: '',
             filteredData: [],
             isOpen: false,
@@ -457,6 +477,7 @@ export default {
                 lead_name: '',
                 mobile_no: '',
                 email_id: '',
+                tax_category: ''
             },
             customers: [],
             qty: 0,
@@ -498,7 +519,7 @@ export default {
                 .then((response) => {
                     this.data = response.data.data;
                     this.isOpen = false;
-                    console.log(this.data ,'lead data');
+                    console.log(this.data, 'lead data');
                 })
                 .catch((error) =>
                     console.error("Error fetching Lead data:", error)
@@ -514,16 +535,16 @@ export default {
             this.selectedLead = item;
             this.searchQuery = item.lead_name;
             this.isOpen = false;
+            console.log(this.selectedLead, 'selected Lead');
         },
         saveData() {
             console.log(this.formData);
-
             axios
                 .post(ApiUrls.resource + "/" + Doctypes.lead, this.formData)
-                .then((res) => {this.fetchData();
+                .then((res) => {
+                    this.fetchData();
                     console.log(res);
                 })
-
         },
         additem() {
             this.show1 = false,
@@ -552,20 +573,20 @@ export default {
                         ...item,
                         qty: 0,
                     }));
-                    console.log(this.itemData);
+                    console.log(this.itemData, 'Items Data');
                 })
                 .catch((error) => console.error(error.message))
                 .finally(() => (this.loading = false));
         },
 
-        SearchDetails() {
-            // let value = search.target.value;
-            // this.itemData = this.data.filter((each) =>
-            //     each.item_name.toLowerCase().includes(value.toLowerCase()) ? each : null);
-            return this.itemData.filter(item => {
-            return item.data.toLowerCase().includes(this.SearchDetails.toLowerCase())
-      })
-        },
+        // SearchDetails() {
+        //     // let value = search.target.value;
+        //     // this.itemData = this.data.filter((each) =>
+        //     //     each.item_name.toLowerCase().includes(value.toLowerCase()) ? each : null);
+        //     return this.itemData.filter(item => {
+        //         return item.data.toLowerCase().includes(this.SearchDetails.toLowerCase())
+        //     })
+        // },
         NewQuote() {
             this.show2 = false;
             this.show1 = true;
@@ -582,7 +603,7 @@ export default {
                 item.amount = item.qty * item.rate;
                 this.updateTotalQuantityAndPrice();
             }
-            else{
+            else {
                 this.addBtn = false;
             }
         },
@@ -601,7 +622,6 @@ export default {
         showData() {
             this.showBtn = false;
         },
-
         duplicate(val) {
             const objectString = JSON.stringify(val);
             if (!this.obj.has(objectString)) {
@@ -632,7 +652,7 @@ export default {
         },
 
         mySubmit() {
-                this.show1 = false,
+            this.show1 = false,
                 this.show2 = false,
                 this.show3 = true;
             if (!this.selectedLead) {
@@ -651,7 +671,7 @@ export default {
                 ...this.statusData
             };
             this.savedData = postData;
-            console.log(this.savedData ,'postData')
+            console.log(this.savedData, ' savedData')
             // console.log(this.statusdata);
 
             // if (this.savedData) {
@@ -673,35 +693,46 @@ export default {
             // }
         },
 
-        saveDraft(){
+        saveDraft() {
+            let queryParams = { filters: [] };
+            queryParams.fields = JSON.stringify(["*"]);
+            queryParams.limit_page_length = null;
+            queryParams.order_by = "creation DESC";
             axios
-                .post(ApiUrls.resource + "/" + Doctypes.quotations, this.savedData)
+                .post(ApiUrls.resource + "/" + Doctypes.quotations, this.savedData, {
+                    params: queryParams,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    withCredentials: true,
+                })
                 .then((res) => (this.savedData = res.data.data));
-                console.log(this.savedData);
+            console.log(this.savedData, 'postData')
+            this.$router.push('/completedata')
+
         },
-
-        createQuotation() {
-            if (this.savedData) {
-                this.savedData.docstatus=1;
-                // this.savedData.items=this.arr,
-                console.log(this.savedData);
-                axios
-                    .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
-                    .then((response) => {
-                        this.newComplete = response.data;
-                        console.log(this.newComplete);
-                    })
-                    .catch((error) => {
-                        console.error("Error Updating data:", error);
-                    });
-                // this.savedData = null;
-            } else {
-               console.log("No data to submit. Please submit data first.");
-            }
-        },
-
-
+        // createQuotation() {
+        //     if (this.savedData) {
+        //         this.savedData.docstatus = 1;
+        //         // this.savedData.items=this.arr,
+        //         console.log(this.savedData);
+        //         axios
+        //             .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
+        //             .then((response) => {
+        //                 this.newComplete = response.data;
+        //                 console.log(this.newComplete);
+        //             })
+        //             .catch((error) => {
+        //                 console.error("Error Updating data:", error);
+        //             });
+        //         // this.savedData = null;
+        //     } else {
+        //         console.log("No data to submit. Please submit data first.");
+        //     }
+        // },
     },
+
 };
 </script>
 
@@ -829,7 +860,8 @@ input {
     background: #fff;
     font-size: 14px;
 }
-.new-lead-icon{
+
+.new-lead-icon {
     font-size: 19px;
     font-weight: bold;
 
@@ -1154,7 +1186,8 @@ input::placeholder {
     line-height: normal;
     padding: 12px;
 }
-.add-item-btn1{
+
+.add-item-btn1 {
     color: #444;
     font-size: 13px;
     font-style: normal;
@@ -1253,9 +1286,11 @@ input::placeholder {
     /* color: #3b43f9; */
     padding: 10px 10px;
 }
+
 .btn:focus {
     box-shadow: none;
 }
+
 .btn-quot {
     border-radius: 40px;
     background: #3b43f9;
