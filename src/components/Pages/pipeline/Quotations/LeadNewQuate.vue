@@ -709,28 +709,27 @@ export default {
                 })
                 .then((res) => (this.savedData = res.data.data));
             console.log(this.savedData, 'postData')
-            this.$router.push('/completedata')
 
         },
-        // createQuotation() {
-        //     if (this.savedData) {
-        //         this.savedData.docstatus = 1;
-        //         // this.savedData.items=this.arr,
-        //         console.log(this.savedData);
-        //         axios
-        //             .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
-        //             .then((response) => {
-        //                 this.newComplete = response.data;
-        //                 console.log(this.newComplete);
-        //             })
-        //             .catch((error) => {
-        //                 console.error("Error Updating data:", error);
-        //             });
-        //         // this.savedData = null;
-        //     } else {
-        //         console.log("No data to submit. Please submit data first.");
-        //     }
-        // },
+        createQuotation() {
+            if (this.savedData) {
+                this.savedData.docstatus = 1;
+                // this.savedData.items=this.arr,
+                console.log(this.savedData);
+                axios
+                    .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
+                    .then((response) => {
+                        this.newComplete = response.data;
+                        console.log(this.newComplete);
+                    })
+                    .catch((error) => {
+                        console.error("Error Updating data:", error);
+                    });
+                // this.savedData = null;
+            } else {
+                console.log("No data to submit. Please submit data first.");
+            }
+        },
     },
 
 };
