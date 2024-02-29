@@ -6,6 +6,9 @@
       </a>
     </div>
   </nav>
+  <!-- <div>
+    <button @click="Tologin()">login</button>
+  </div> -->
 
   <div class="d-flex justify-content-center align-items-center">
     <div class="from-padding mt-5">
@@ -19,17 +22,9 @@
         </div> -->
         <div class="mb-2 position-relative">
           <label for="Email" class="form-label">Username </label>
-          <input
-            type="text"
-            class="form-control input-radius"
-            name="Email"
-            :class="{ 'is-invalid': errors.email }"
-            id="Email"
-            aria-describedby="emailHelpId"
-            placeholder="Enter your username"
-            v-model="formData.email"
-            @input="validatemail"
-          />
+          <input type="text" class="form-control input-radius" name="Email" :class="{ 'is-invalid': errors.email }"
+            id="Email" aria-describedby="emailHelpId" placeholder="Enter your username" v-model="formData.email"
+            @input="validatemail" />
           <i class="bi bi-person"></i>
         </div>
         <div class="text-danger errsize my-1" v-if="errors.email">
@@ -37,30 +32,15 @@
         </div>
         <div class="mb-2 position-relative">
           <label for="password" class="form-label">Password </label>
-          <input
-            :type="showPassword ? 'text' : 'password'"
-            class="form-control input-radius"
-            name="password"
-            :class="{ 'is-invalid': errors.password }"
-            id="password"
-            placeholder="Enter your password"
-            v-model="formData.password"
-            @input="vaildatePassword"
-          />
+          <input :type="showPassword ? 'text' : 'password'" class="form-control input-radius" name="password"
+            :class="{ 'is-invalid': errors.password }" id="password" placeholder="Enter your password"
+            v-model="formData.password" @input="vaildatePassword" />
           <!-- <i class="ri-lock-line"></i> -->
           <i class="bi bi-lock"></i>
 
           <div class="eyes">
-            <i
-              v-show="!showPassword"
-              class="bi bi-eye-slash-fill"
-              @click="togglePasswordVisibility"
-            ></i>
-            <i
-              v-show="showPassword"
-              class="bi bi-eye-fill"
-              @click="togglePasswordVisibility"
-            ></i>
+            <i v-show="!showPassword" class="bi bi-eye-slash-fill" @click="togglePasswordVisibility"></i>
+            <i v-show="showPassword" class="bi bi-eye-fill" @click="togglePasswordVisibility"></i>
           </div>
         </div>
         <div class="text-danger errsize my-1" v-if="errors.password">
@@ -68,18 +48,12 @@
         </div>
 
         <div class="text-end mt-3">
-          <a href="" class="forget-pass text-decoration-none"
-            >Forget Password?</a
-          >
+          <a href="" class="forget-pass text-decoration-none">Forget Password?</a>
         </div>
         <!-- <button type="submit" class=" btn btn-white login">LOGIN</button> -->
         <!-- :disabled="!formData.email || !formData.password" -->
 
-        <button
-          type="submit"
-          class="btn btn-white login"
-          :disabled="!formData.email || !formData.password"
-        >
+        <button type="submit" class="btn btn-white login" :disabled="!formData.email || !formData.password">
           <!-- !ipPort -->
           <div v-if="loading" class="spinner-border spinner-border-sm"></div>
           <span v-if="!loading"> LOGIN </span>
@@ -110,6 +84,7 @@ export default {
       showPassword: false,
       loading: false,
       ipPort: "",
+
     };
   },
   mounted() {
@@ -120,10 +95,32 @@ export default {
   },
 
   methods: {
+    // Tologin() {
+    //   const data = {
+    //     usr: "Administrator",
+    //     pwd: "Welcome@123",
+    //   };
+    //   axios.post('https://ssmh.sensay.in/api/method/teachme.teachme.doctype.teachme.teachme.checkEnteredOtpCorrectOrNot', {
+    //     "mobile_number": 8888888888,
+    //     "otp": "210122",
+    //     "type": "st"
+    //   }
+    //   ).then((response) => {
+    //     console.log(response);
+    //     axios.get('https://ssmh.sensay.in/api/resource/Student'
+    //     ).then((responsetwo) => {
+    //       console.log(responsetwo);
+    //     })
+
+    //   })
+
+    // },
     submitForm() {
       const data = {
         usr: this.formData.email,
         pwd: this.formData.password,
+        // usr: "Administrator",
+        // pwd: "Welcome@123#",
       };
       // const url = `http://${this.ipAddress}:${this.port}/api/method/login`;
 
@@ -194,6 +191,13 @@ export default {
       const parts = this.ipPort.split(":");
       this.ipAddress = parts[0] || "";
       this.port = parts[1] || "";
+    },
+    setCookies(data) {
+      document.cookie = `user_id=${data.email}; path=/`;
+      document.cookie = `full_name=${data.full_name}; path=/`;
+      if (data.sid) {
+        document.cookie = `sid=${data.sid}; path=/`;
+      }
     },
   },
 };
