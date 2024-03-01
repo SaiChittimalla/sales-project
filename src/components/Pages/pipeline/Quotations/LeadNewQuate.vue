@@ -444,11 +444,11 @@
                                         <h6 class="m-0" @click="saveDraft()">Save as draft</h6>
                                     </button>
                                 </div>
-                                <!-- <div class="mt-2 mb-2">
+                                <div class="mt-2 mb-2">
                                     <button class="btn btn-quot text-decoration-none" @click="createQuotation()">
                                         <h6 class="text-white m-0">Create Quotation</h6>
                                     </button>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -673,24 +673,6 @@ export default {
             this.savedData = postData;
             console.log(this.savedData, ' savedData')
             // console.log(this.statusdata);
-
-            // if (this.savedData) {
-            //     axios
-            //         .post(
-            //             "http://192.168.1.177:8000/api/resource/Quotation?fields=[%22*%22]",
-            //             this.savedData
-            //         )
-            //         .then((response) => {
-            //             this.newComplete = response.data;
-
-            //             console.log(this.newComplete);
-            //         })
-            //         .catch((error) => {
-            //             console.error("Error submitting data:", error);
-            //         });
-            // } else {
-            //     alert.warn("No data to submit. Please submit data first.");
-            // }
         },
 
         saveDraft() {
@@ -708,13 +690,13 @@ export default {
                     withCredentials: true,
                 })
                 .then((res) => (this.savedData = res.data.data));
-            console.log(this.savedData, 'postData')
+            console.log(this.savedData, 'post Data')
 
         },
         createQuotation() {
             if (this.savedData) {
                 this.savedData.docstatus = 1;
-                // this.savedData.items=this.arr,
+                this.savedData.items=this.arr,
                 console.log(this.savedData);
                 axios
                     .put(ApiUrls.resource + "/" + Doctypes.quotations + "/" + this.savedData.name, this.savedData)
