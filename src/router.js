@@ -13,6 +13,7 @@ import CustomerForm from './components/Pages/clientsBuyers/Customer/CustomerForm
 import NewSalesOrder from './components/Pages/pipeline/SalesOrder/NewSalesOrder.vue';
 import DeliveryNotes from './components/Pages/pipeline/SalesOrder/DeliveryNotes.vue';
 import ContactsPage from './components/Pages/clientsBuyers/contacts/ContactsPage.vue';
+import CustomerTosales from './components/Pages/pipeline/SalesOrder/CustomerTosales.vue';
 import PracticePage from "./components/PracticePage.vue";
 import SaiNew from "./components/SaiNew.vue";
 import NotFound from './components/NotFound.vue';
@@ -99,6 +100,11 @@ const routes = [
         name: 'ContactsPage',
         path: '/ContactsPage',
         component: ContactsPage
+    },
+    {
+        name: 'CustomerTosales',
+        path: '/CustomerTosales',
+        component: CustomerTosales
     },
     {
         name: 'SaiNew',

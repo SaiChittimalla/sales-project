@@ -10,7 +10,8 @@
     <button @click="Tologin()">login</button>
   </div> -->
 
-  <div class="d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-center position-relative  align-items-center">
+    <div class="load bg-dark h-25  w-25 z-0     position-absolute  "></div>
     <div class="from-padding mt-5">
       <form @submit.prevent="submitForm()">
         <h4 class="login-tag">Login</h4>
