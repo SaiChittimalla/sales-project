@@ -6,7 +6,7 @@
           <div class="d-flex gap-2 p-2 align-items-center">
             <div>
               <i @click="backgo()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Quotations &nbsp;({{
-                totalQuotations }})</span></i>
+    totalQuotations }})</span></i>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
                       <div>
                         <p style="font-size: 13px" class="align-items-center mt-3">
                           {{ quotation.name }}<br /><span class="text-muted" style="font-size: 11px">{{
-                            quotation.transaction_date }}</span>
+    quotation.transaction_date }}</span>
                         </p>
                       </div>
                     </div>
@@ -173,8 +173,8 @@
                         </button>
                         <h6>
                           <span id="count" :v-model="singleQuotation.items">{{
-                            item.qty
-                          }}</span>
+    item.qty
+  }}</span>
                         </h6>
                         <button type="button" class="border-0 bg-transparent rounded-1" @click="Increase2(item, index)">
                           <i class="bi bi-plus"></i>
@@ -199,8 +199,8 @@
                       <button class="btn  increment border-0 ">
                         <h6>
                           <span id="count">{{
-                            item.qty
-                          }}</span>
+    item.qty
+  }}</span>
                         </h6>
                       </button>
                     </div>
@@ -237,7 +237,8 @@
                     <h6 @click="taxesAndCharges()">Total Taxes:</h6>
                   </div>
                   <div>
-                    <h6 :v-model="singleQuotation.total_taxes_and_charges">₹ {{ singleQuotation.total_taxes_and_charges }}
+                    <h6 :v-model="singleQuotation.total_taxes_and_charges">₹ {{ singleQuotation.total_taxes_and_charges
+                      }}
                     </h6>
                   </div>
                 </div>
@@ -257,7 +258,8 @@
                           <h6>{{ singleQuotation.discount_amount || 0 }}</h6>
                         </div>
                         <input v-if="showDiscountInput" type="text" class="form-control w-75 d-flex justify-content-end"
-                          placeholder="Enter discount amount" v-model="singleQuotation.additional_discount_percentage" />
+                          placeholder="Enter discount amount"
+                          v-model="singleQuotation.additional_discount_percentage" />
                       </div>
                     </div>
                   </div>
@@ -288,7 +290,8 @@
               </div>
             </div>
             <div v-if="!cardShow">
-              <label><b>title : </b></label><br><input class=" form-control mb-3 mt-2  " v-model="singleQuotation.title">
+              <label><b>title : </b></label><br><input class=" form-control mb-3 mt-2  "
+                v-model="singleQuotation.title">
               <label><b>naming_series : </b></label><br><input class=" form-control mb-3 mt-2 "
                 v-model="singleQuotation.naming_series">
               <label><b>transaction_date : </b></label><br>
@@ -320,8 +323,8 @@
                       <button class="btn  increment border-0 ">
                         <h6>
                           <span id="count">{{
-                            item.qty
-                          }}</span>
+    item.qty
+  }}</span>
                         </h6>
                       </button>
                     </div>
@@ -334,7 +337,7 @@
               </div>
               <label for="form-control"><b>Delivery Date</b></label>
               <input class=" form-control mb-3 mt-2 " v-model="delivery_date
-                " type="date"><br>
+    " type="date"><br>
               <label for=" form-select">Set Source Warehouse</label>
               <select v-model="set_warehouse" class=" form-select mb-3 ">
                 <option value="All Warehouses - CTD">All Warehouses - CTD</option>
@@ -342,9 +345,9 @@
                 <option value="Goods In Transit - CTD">Goods In Transit - CTD</option>
                 <option value="Stores - CTD">Stores - CTD</option>
               </select>
-              <div class="mb-5">
-                <button @click="tosaleee()">save</button>
-                <button @click="tosaleee2()">submit</button>
+              <div class="mb-5 d-flex justify-content-between">
+                <button class="btn border-0  rounded-3 btncustomer1" @click="tosaleee()">save</button>
+                <button class="btn border-0 rounded-3 btncustomer1" @click="tosaleee2()">submit</button>
 
               </div>
             </div>
@@ -360,7 +363,8 @@
             aria-labelledby="offcanvasBottomLabel" data-bs-scroll="true">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasBottomLabel"></h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
             </div>
             <div class="offcanvas-body small">
               <h5 class="offcanvastext text-center">
@@ -385,6 +389,7 @@
       </div>
     </div>
   </template>
+
   <template v-if="twoSteps">
     <section v-if="show1">
       <section>
@@ -404,8 +409,8 @@
                 <div class="card p-2 rounded-3 shadow-sm dropdown-card">
                   <h6 class="m-2 label-name">Customer</h6>
                   <div class="custom-select">
-                    <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer" type="text"
-                      v-model="searchQuery" @click="isOpen = true" @input="filterOptions" />
+                    <input class="input-search w-100 border-0 ms-2" placeholder="search or select a customer"
+                      type="text" v-model="searchQuery" @click="isOpen = true" @input="filterOptions" />
                     <ul v-show="isOpen" class="ul-tag w-100 ms-2">
                       <li v-for="customer in filteredData" :key="customer.id" class="list-items"
                         @click="selectCustomer(customer)">
@@ -589,8 +594,8 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-12">
-                          <button type="button" class="border-0 add-item-btn text-white w-100" data-bs-dismiss="offcanvas"
-                            @click="showData">
+                          <button type="button" class="border-0 add-item-btn text-white w-100"
+                            data-bs-dismiss="offcanvas" @click="showData">
                             Add Item
                           </button>
                         </div>
@@ -685,8 +690,8 @@
                         </div>
                         <div class="d-flex align-items-center gap-2">
                           <button class="btn border-1 increment">
-                            <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease(item, index)"
-                              :disabled="item.qty == 0">
+                            <button type="button" class="border-0 bg-transparent rounded-1"
+                              @click="Decrease(item, index)" :disabled="item.qty == 0">
                               <i class="bi bi-dash"></i>
                             </button>
                             <h6>
@@ -837,7 +842,7 @@
                 </div>
                 <div class=" d-flex  justify-content-end  mt-3 positionbtn mb-1">
                   <div class="mt-2 mb-2">
-                    <button class="btn btn-save  " @click="saveDraft()">
+                    <button class="btn btn-save " @click="saveDraft()">
                       <h6 class="m-0 text-white ">Save</h6>
                     </button>
                   </div>
@@ -856,6 +861,7 @@
     </div>
   </template>
 </template>
+
 <script>
 import axios from "axios";
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
@@ -1092,6 +1098,7 @@ export default {
     },
     showData() {
       this.showBtn = false;
+
     },
     duplicate(val) {
       const objectString = JSON.stringify(val);
@@ -1105,7 +1112,14 @@ export default {
         alert("Please select a customer before submitting.");
         return;
       }
+
       this.selectedItems.forEach((val) => this.duplicate(val));
+
+
+      this.arr.forEach(item => {
+        item.prevdoc_docname = '';
+      });
+
       console.log(this.selectedCustomer, "Customer");
       this.selectedCustomer.party_name = this.selectedCustomer.name;
       this.selectedCustomer.naming_series = "Q-"
@@ -1116,12 +1130,14 @@ export default {
         docstatus: 0,
         taxes: this.fullCustomerData.taxes
       };
+
       console.log(this.postData, 'postData');
       this.show1 = false;
       this.show2 = false;
       this.show3 = true;
     },
-    // /api/method/erpnext.controllers.accounts_controller.get_taxes_and_charges
+
+
     saveDraft() {
       this.postData.additional_discount_percentage = parseInt(
         this.postData.additional_discount_percentage,
@@ -1332,6 +1348,8 @@ export default {
     },
     createSalesOrder() {
       this.cardShow = false
+      this.singleQuotation.items.prevdoc_docname = this.singleQuotation.name,
+        console.log(this.singleQuotation.items.prevdoc_docname = this.singleQuotation.name, 'narenreddy');
       // console.log(quota.name);
       // let quotationQueryParams = {
       //   fields: JSON.stringify(["*"]),
@@ -1442,6 +1460,10 @@ export default {
       this.singleQuotation.set_warehouse = this.set_warehouse;
       this.singleQuotation.customer = this.singleQuotation.title;
       this.singleQuotation.status = 'Draft';
+
+      this.singleQuotation.items.forEach(item => {
+        item.prevdoc_docname = this.singleQuotation.name;
+      });
       axios
         .post(ApiUrls.resource + "/" + Doctypes.salesorder, this.singleQuotation, {
           headers: {
@@ -2210,6 +2232,13 @@ input {
   width: 100%;
 }
 
+.btncustomer1 {
+  border-radius: 30px;
+  background: #3b43f9;
+  color: white;
+
+}
+
 .offcanvastext {
   color: #111;
   font-family: Montserrat;
@@ -2507,5 +2536,3 @@ p {
   outline: none;
 }
 </style>
-
-

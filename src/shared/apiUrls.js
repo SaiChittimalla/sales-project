@@ -14,6 +14,8 @@ export const Doctypes = {
     items: 'Item',
     delivery: 'Delivery Note',
     contacts: 'Contact',
+    invoices: 'Sales Invoice',
+
 
 
 };

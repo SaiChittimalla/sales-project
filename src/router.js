@@ -17,7 +17,7 @@ import CustomerTosales from './components/Pages/pipeline/SalesOrder/CustomerTosa
 import PracticePage from "./components/PracticePage.vue";
 import SaiNew from "./components/SaiNew.vue";
 import NotFound from './components/NotFound.vue';
-
+import SalesInvoice from './components/Pages/pipeline/Quotations/SalesInvoice.vue';
 const routes = [
     {
         name: 'LoginPage',
@@ -107,9 +107,19 @@ const routes = [
         component: CustomerTosales
     },
     {
+        name: 'CustomerTosales',
+        path: '/CustomerTosales',
+        component: CustomerTosales
+    },
+    {
         name: 'SaiNew',
         path: '/SaiNew',
         component: SaiNew
+    },
+    {
+        name: 'SalesInvoice',
+        path: '/SalesInvoice',
+        component: SalesInvoice
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 

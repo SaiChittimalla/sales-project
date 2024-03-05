@@ -1,13 +1,12 @@
-
-
 <template>
   <div class="">
     <nav class="navbar header" v-if="show">
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i @click="backgo()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">DeliveryNotes &nbsp;({{
-              totalQuotations }})</span></i>
+            <i @click="backgo()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Delivery&nbsp;Notes
+                &nbsp;({{
+      totalInvoices }})</span></i>
           </div>
         </div>
       </div>
@@ -16,77 +15,88 @@
       <div class="container">
         <div class="d-flex gap-2 p-2 align-items-center">
           <div>
-            <i @click="backMove()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">DeliveryDetails</span></i>
+            <i @click="backMove()" class="ri-arrow-left-line"><span class="ps-2 quotationsfs">Delivery
+                &nbsp;Details</span></i>
           </div>
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class=" container p-0">
       <div class="header2" v-if="show">
         <div class="d-flex justify-content-between align-items-center buttonsall">
-          <ul class="d-flex list-unstyled flex-wrap list-group flex-row">
+          <ul class="d-flex list-unstyled justify-content-between flex-wrap list-group flex-row">
+            <!-- Add click event handlers to the filter buttons -->
             <li class="list-group-item btn2" :class="{ active: activeFilter === 'All' }" @click="setFilter('All')">
               All
             </li>
             <li class="list-group-item btn2" :class="{ active: activeFilter === 'Draft' }" @click="setFilter('Draft')">
               Draft
             </li>
-            <!-- <li
-              class="list-group-item btn2"
-              :class="{ active: activeFilter === 'Customer' }"
-              @click="setFilter('Customer')"
-            >
-              Customer
-            </li> -->
             <li class="list-group-item btn2" :class="{ active: activeFilter === 'Completed' }"
               @click="setFilter('Completed')">
               Completed
             </li>
+
             <!-- ... other filter buttons ... -->
 
-            <!-- <li class="list-group-item btn2" :class="{ active: activeFilter === 'This Month' }"
-              @click="setFilter('This Month')">
-              This Month
-            </li> -->
+
+            <!-- <select class="border-0 selectback">
+              <option class="border-0 bg-none">This Month</option> 
+            </select> -->
           </ul>
         </div>
       </div>
-      <div class="content">
+      <div class="content container ">
         <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4" v-if="show">
-            <div class="card card1 mb-4" v-for="(quotation, index) in filteredQuotations" :key="index">
-              <div class="d-flex justify-content-between p-2 align-items-baseline"
-                style="border-bottom: 1px solid #eeeeee">
-                <div class="d-flex gap-3 align-items-center">
-                  <div class="d-flex justify-content-center ri-file-edit-line1">
-                    <i class="ri-file-edit-line"></i>
+          <div class=" col-sm-12 mb-4" v-if="show">
+            <div class="card card1 my-3" v-for="(quotation, index) in salesInvoicesfiltered " :key="index">
+              <div class="p-2">
+                <div class="d-flex justify-content-between align-items-baseline"
+                  style="border-bottom: 1px solid #eeeeee">
+                  <div class="d-flex gap-3 align-items-center">
+                    <div class="d-flex justify-content-center ri-file-edit-line1">
+                      <img src="../../../../assets/lets-icons_paper-fill.svg" alt="" />
+                    </div>
+                    <div>
+                      <p style="font-size: 13px" class="align-items-center mt-3">
+                        {{ quotation.name }}<br /><span class="text-muted" style="font-size: 11px">{{
+      quotation.transaction_date }}</span>
+                      </p>
+                    </div>
                   </div>
                   <div>
-                    <p style="font-size: 13px" class="align-items-center mt-3">
-                      {{ quotation.name }}<br /><span class="text-muted" style="font-size: 11px">{{
-                        quotation.transaction_date }}</span>
-                    </p>
+                    <button class="savedbutton1" @click="quotData(quotation)">
+                      View
+                      <hr class="m-0" />
+                    </button>
                   </div>
                 </div>
-                <div>
-                  <button class="savedbutton1" @click="quotData(quotation.name)">
-                    View
-                    <hr class="m-0" />
-                  </button>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between align-items-center p-3">
-                <div>
-                  <h6 class="" style="font-size: 13px">
-                    {{ quotation.customer_name }}
-                  </h6>
-                  <p style="font-size: 11px; color: #3b43f9">
-                    {{ quotation.quotation_to }}
-                  </p>
-                </div>
+                <div class="d-flex justify-content-between align-items-center py-3">
+                  <div>
+                    <h6 class="" style="font-size: 13px">
+                      {{ quotation.customer_name }}
+                    </h6>
+                    <p style="font-size: 11px; color: #3b43f9">
+                      {{ quotation.quotation_to }}
+                    </p>
+                  </div>
 
-                <div>
-                  <button class="savedbutton">{{ quotation.status }}</button>
+                  <div v-if="quotation.status == 'Draft'">
+                    <button class="draftbutton">
+                      {{ quotation.status }}
+                    </button>
+                  </div>
+                  <div v-if="quotation.status == 'Completed'">
+                    <button class="savedbutton">
+                      {{ quotation.status }}
+                    </button>
+                  </div>
+                  <div v-if="quotation.status == 'Unpaid'">
+                    <button class="Cancelledbutton">
+                      {{ quotation.status }}
+                    </button>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -94,121 +104,188 @@
         </div>
 
         <div class="" v-if="!show">
-          <div class="card card1 p-3">
-            <div class="card card1 p-4">
-              <p style="font-size: 13px" class="text-black">
-                {{ currentEmployee.name }}
-              </p>
-              <p style="font-size: 13px">{{ currentEmployee.title }}</p>
+          <div class="">
+            <div class="card card1 mt-3 p-3">
+              <span class="data-span">
+                ID :
+                <span class="data-id-tags">
+                  {{ singleQuotation.name }}
+                </span>
+              </span>
+              <span class="data-span">
+                Title :
+                <span class="data-id-tags">
+                  {{ singleQuotation.title }}
+                </span>
+              </span>
 
-              <p style="font-size: 13px">Primary Contact Details:</p>
-              <div class="">
-                <p style="font-size: 13px">
-                  Number:<span class="text-muted">&nbsp;{{ currentEmployee.contact_mobile }}</span>
-                </p>
-                <p style="font-size: 13px">
-                  E-mail:<span class="text-muted">
-                    &nbsp;{{ currentEmployee.contact_email }}</span>
-                </p>
-              </div>
+              <span class="data-span">Primary Contact Details:</span>
+
+              <span class="data-span">
+                Number:<span class="text-muted">&nbsp;{{ singleQuotation.contact_mobile }}</span>
+              </span>
+              <span class="data-span">
+                E-mail:<span class="text-muted">
+                  &nbsp;{{ singleQuotation.contact_email }}</span>
+              </span>
             </div>
 
-            <div class="card card1 p-4 mt-3">
-              <p style="font-size: 13px">Address:</p>
+            <div class="card card1 p-3 mt-3">
+              <span class="data-span">Address:</span>
               <div class="">
-                <p style="font-size: 13px">
-                  Billing Address:<br /><span class="text-muted">{{
-                    currentEmployee.shipping_address
-                  }}</span>
-                </p>
-                <p style="font-size: 13px">
-                  Shipping Address:<br /><span class="text-muted">
-                    {{ currentEmployee.shipping_address }}
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div class="card card1 mt-3 p-4">
-              <div class="d-flex justify-content-between mt-2 p-1" style="border-bottom: 1px dashed #eee">
-                <h6>Total Items Value</h6>
-                <h6>₹{{ currentEmployee.base_rounded_total }}</h6>
-              </div>
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>
-                    {{ currentEmployee.account_head }}{{ currentEmployee.rate }}
-                  </h6>
+                <div class="data-span">
+                  Billing Address:<br />
+                  <div class="text-muted">
+                    {{ removeBrTags(singleQuotation.shipping_address) }}
+                  </div>
                 </div>
-                <div>
-                  <h6 class="text-muted">
-                    ₹ {{ currentEmployee.tax_amount || 0 }}
-                  </h6>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>SGST:&nbsp;9%</h6>
-                </div>
-                <div>
-                  <h6 class="text-muted">₹ 5434</h6>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>IGST:&nbsp;0</h6>
-                </div>
-                <div>
-                  <h6 class="text-muted">₹ 0.00</h6>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between p-1 mt-3" style="border-bottom: 1px dashed LIGHTGREY">
-                <div>
-                  <h6>Total:</h6>
-                </div>
-                <div>
-                  <h6>₹ {{ currentEmployee.base_rounded_total }}</h6>
-                </div>
-              </div>
-              <div class="d-flex justify-content-between p-1 mt-3">
-                <div>
-                  <h6>Discount</h6>
-                  <p class="text-muted">Give additional discount before tax</p>
-                </div>
-                <div class="d-flex gap-2">
-                  <div class="circle-with-plus">+</div>
-                  <div>
-                    <p style="color: #3b43f9" class="text-nowrap">
-                      Add Discount
-                    </p>
+                <div class="data-span">
+                  Shipping Address:<br />
+                  <div class="text-muted">
+                    {{ removeBrTags(singleQuotation.shipping_address) }}
                   </div>
                 </div>
               </div>
-              <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                  <h6>Grand Total</h6>
-                  <h6 class="text-muted">{{ currentEmployee.qty }}</h6>
-                  <h6>{{ currentEmployee.base_rounded_total }}</h6>
+            </div>
+
+            <div v-if="singleQuotation.status == 'Draft'" class="card card1 mt-3">
+              <div v-for="(item, index) in singleQuotation.items" :key="index">
+                <div class="card-body card-body123 d-flex justify-content-between">
+                  <div>
+                    <h6>{{ item.item_name }}</h6>
+                    <p>{{ item.item_code }}</p>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <button class="btn border-1 increment">
+                      <button type="button" class="border-0 bg-transparent rounded-1" @click="Decrease2(item, index)"
+                        :disabled="item.qty == 0">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <h6>
+                        <span id="count" :v-model="singleQuotation.items">{{
+      item.qty
+    }}</span>
+                      </h6>
+                      <button type="button" class="border-0 bg-transparent rounded-1" @click="Increase2(item, index)">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </button>
+                  </div>
+                  <div>
+                    <h6 :v-model="item.amount">{{ item.amount }}</h6>
+                    <p class="text-end" style="color: #3b43f9">Edit</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <div v-if="singleQuotation.status == 'Open'" class="card card1 mt-3">
+              <div v-for="(item, index) in singleQuotation.items" :key="index">
+                <div class="card-body card-body123 d-flex justify-content-between">
+                  <div>
+                    <h6>{{ item.item_name }}</h6>
+                    <p>{{ item.item_code }}</p>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <button class="btn  increment border-0 ">
+                      <h6>
+                        <span id="count">{{
+      item.qty
+    }}</span>
+                      </h6>
+                    </button>
+                  </div>
+                  <div>
+                    <h6 :v-model="item.amount">{{ item.amount }}</h6>
+                    <p class="text-end" style="color: #3b43f9">Edit</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card1 mt-3 p-3">
+              <div class="d-flex justify-content-between mt-2" style="border-bottom: 1px dashed #eee">
+                <h6 @click="taxesGetData()">Total Items Value</h6>
+                <h6 :v-model="singleQuotation.net_total">
+                  ₹{{ singleQuotation.net_total }}
+                </h6>
+              </div>
+              <div v-for="(taxe, index) in singleQuotation.taxes" :key="index">
+                <div class="d-flex justify-content-between mt-3">
+                  <div>
+                    <h6>
+                      {{ taxe.account_head }}
+                    </h6>
+                  </div>
+                  <div>
+                    <h6 :v-model="taxe.tax_amount" class="text-muted">₹ {{ taxe.tax_amount || 0 }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between mt-3" style="border-bottom: 1px dashed LIGHTGREY">
+                <div>
+                  <h6 @click="taxesAndCharges()">Total Taxes:</h6>
+                </div>
+                <div>
+                  <h6 :v-model="singleQuotation.total_taxes_and_charges">₹ {{
+      singleQuotation.total_taxes_and_charges
+    }}
+                  </h6>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between mt-3">
+                <div>
+                  <h6 class="mb-0">Discount</h6>
+                  <p class="text-muted">
+                    Give additional discount before tax
+                  </p>
+                </div>
+                <div>
+
+                  <div class=" d-flex  justify-content-end ">
+                    <div>
+                      <div style="color: #3b43f9" class="text-nowrap d-flex justify-content-end"
+                        @click="toggleDiscountInput">
+                        <h6>{{ singleQuotation.discount_amount || 0 }}</h6>
+                      </div>
+                      <input v-if="showDiscountInput" type="text" class="form-control w-75 d-flex justify-content-end"
+                        placeholder="Enter discount amount" v-model="singleQuotation.additional_discount_percentage" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-foot">
+                <div class="d-flex justify-content-between">
+                  <h6>Grand Total</h6>
+                  <h6 class="text-muted">{{ singleQuotation.total_qty }}</h6>
+                  <h6>{{ singleQuotation.grand_total }}</h6>
+                </div>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </div>
-      <div></div>
+
+
     </div>
   </div>
 </template>
+
 <script>
 import axios from "axios";
-
+// import apiUrls from "@/shared/apiUrls";
+// import Doctypes from "@/shared/apiUrls";
+// import apiUrls from "@/shared/apiUrls";
 import { Doctypes, ApiUrls } from "@/shared/apiUrls";
-
+// import HomePageVue from "@/components/HomePage.vue";
 export default {
   data() {
     return {
       data: [],
-      deliveryNotes: [],
+      allQuotation: [],
       filterType: "All",
       employeeFilterType: "Lead",
       activeFilter: "All",
@@ -216,34 +293,35 @@ export default {
       filterType2: "Lead",
       filterType3: "This Month",
       show: true,
-      currentEmployee: [],
+      singleQuotation: [],
     };
   },
   mounted() {
-    this.quotationData();
+    this.invoicesData();
+    // console.log(Doctypes.quotations);
   },
   computed: {
-    totalQuotations() {
-      return this.filteredQuotations.length;
+    totalInvoices() {
+      return this.salesInvoicesfiltered.length;
     },
-    filteredQuotations() {
+    salesInvoicesfiltered() {
       if (this.filterType === "All") {
-        return this.deliveryNotes;
-      } else if (this.filterType1 === "Customer") {
-        return this.deliveryNotes.filter(
-          (quotation) => quotation.quotation_to === this.filterType1
+        return this.allQuotation;
+      } else if (this.filterType1 === "Draft") {
+        return this.allQuotation.filter(
+          (customer) => customer.status === this.filterType1
         );
-      } else if (this.filterType2 === "Lead") {
-        return this.deliveryNotes.filter(
-          (quotation) => quotation.quotation_to === this.filterType2
+      } else if (this.filterType2 === "Completed") {
+        return this.allQuotation.filter(
+          (customer) => customer.status === this.filterType2
         );
       } else if (this.filterType3 === "This Month") {
-        return this.deliveryNotes.filter(
-          (quotation) => quotation.transaction_date === this.filterType3
+        return this.allQuotation.filter(
+          (customer) => customer.transaction_date === this.filterType3
         );
       } else {
-        return this.deliveryNotes.filter(
-          (quotation) => quotation.status === this.filterType
+        return this.allQuotation.filter(
+          (customer) => customer.status === this.filterType
         );
       }
     },
@@ -259,32 +337,57 @@ export default {
     toLead() {
       this.$router.push("/LeadNewQuate");
     },
-    quotData(name) {
+    quotData(quota) {
       this.show = false;
-      this.deliveryNotes.filter((quotation) => {
-        if (quotation.name == name) {
-          this.currentEmployee = quotation;
-          console.log(this.currentEmployee);
-        }
-      });
-      // this.deliveryNotes.filter((taxes) => {
-      //   if (taxes.taxes == taxes) {
-      //     this.currentEmployee = taxes;
-      //     console.log(this.currentEmployee);
-      //   }
-      // });
+
+      let quotationQueryParams = {
+        fields: JSON.stringify(["*"]),
+        limit_page_length: "none",
+        order_by: "creation DESC",
+      };
+
+      axios
+        .get(ApiUrls.resource + "/" + Doctypes.delivery + "/" + quota.name, {
+          params: quotationQueryParams,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((quotationResponse) => {
+          this.singleQuotation = quotationResponse.data.data;
+          console.log(this.singleQuotation);
+          console.log(this.singleQuotation.taxes, "ghfgh");
+        })
+        .catch((quotationError) => {
+          console.error(
+            "Error fetching quotation data:",
+            quotationError.message
+          );
+        });
     },
     backMove() {
+      // if (this.show == true) this.$router.push();
       this.show = !this.show;
     },
     backgo() {
       this.$router.push("HomePage");
     },
-    quotationData() {
+    removeBrTags(address) {
+      if (address) {
+        // Remove <br> tags from the address data
+        return address.replace(/<br\s*\/?>/g, " ");
+      } else {
+        return " "; // or handle the case where address is undefined
+      }
+    },
+    invoicesData() {
       this.loading = true;
       let queryParams = {
         fields: JSON.stringify(["*"]),
         limit_page_length: "none",
+        filters: JSON.stringify([]),
       };
       axios
         .get(ApiUrls.resource + "/" + Doctypes.delivery, {
@@ -296,7 +399,7 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          this.deliveryNotes = response.data.data;
+          this.allQuotation = response.data.data;
           console.log(response);
         })
         .catch((error) => {
@@ -309,6 +412,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 @media (min-width: 575px) and (max-width: 2560px) {
   .offcnv {
@@ -336,7 +440,9 @@ export default {
 
 .btn-clicked {
   background-color: #ff0000;
+  /* Change to the desired color */
   color: #ffffff;
+  /* Change to the desired text color */
 }
 
 .draftbtn {
@@ -475,7 +581,7 @@ export default {
 .btn2 {
   border-radius: 20px;
   /* background: #f3f3f3;
-    color: #3c3c3c; */
+  color: #3c3c3c; */
   font-family: Montserrat;
   font-size: 12px;
   font-style: normal;
@@ -498,6 +604,7 @@ li {
 
 .card1 {
   border-radius: 4px;
+  font-size: 13px;
   border: 1px solid #eee;
   background: #fff;
   box-shadow: 0px 3px 2px 0px rgba(0, 0, 0, 0.05);
@@ -526,6 +633,23 @@ li {
   font-weight: 500;
   line-height: normal;
   /* margin-top: 10px; */
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  padding: 6px 14px;
+  justify-content: center;
+}
+
+.Cancelledbutton {
+  border-radius: 4px;
+  border: none;
+  background: #f1f1f1;
+  color: #b52a2a;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   align-items: center;
   gap: 10px;
   display: inline-flex;
@@ -592,7 +716,26 @@ p {
 }
 
 /* .list-group-item + .list-group-item.active {
-    margin-top: 0 !important;
-    border-top-width: 0 !important;
-  } */
+  margin-top: 0 !important;
+  border-top-width: 0 !important;
+} */
+.draftbutton {
+  border-radius: 4px;
+  /* border: 0.7px solid #999999; */
+  border: none;
+  /* background: #999999; */
+  background: #f1f1f1;
+  color: #999999;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  /* margin-top: 10px; */
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  padding: 6px 14px;
+  justify-content: center;
+}
 </style>
