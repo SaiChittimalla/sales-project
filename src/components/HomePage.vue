@@ -172,7 +172,7 @@
                     <img src="../assets/dollar1.svg" alt="icon" class="img-fluid pipe-imgs" />
                   </div>
                 </div>
-                <div class="card-body px-2">
+                <div class="card-body px-2" @click="salesInvoices()">
                   <h5 class="card-text cards-headings">Sales Invoices</h5>
                 </div>
               </div>
@@ -274,6 +274,7 @@
     </div> -->
   </div>
 </template>
+
 <script>
 import axios from "axios";
 import { ApiUrls, Doctypes } from "@/shared/apiUrls";
@@ -377,10 +378,16 @@ export default {
       this.$router.push({
         name: 'ContactsPage'
       })
+    },
+    salesInvoices() {
+      this.$router.push({
+        name: 'SalesInvoice'
+      })
     }
   },
 };
 </script>
+
 <style scoped>
 .card {
   cursor: pointer;
@@ -662,4 +669,4 @@ export default {
     font-size: 14px;
   }
 }
-</style> 
+</style>
