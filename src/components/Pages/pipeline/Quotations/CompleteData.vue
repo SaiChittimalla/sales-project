@@ -345,9 +345,9 @@
                 <option value="Goods In Transit - CTD">Goods In Transit - CTD</option>
                 <option value="Stores - CTD">Stores - CTD</option>
               </select>
-              <div class="mb-5 d-flex justify-content-between">
-                <button class="btn border-0  rounded-3 btncustomer1" @click="tosaleee()">save</button>
-                <button class="btn border-0 rounded-3 btncustomer1" @click="tosaleee2()">submit</button>
+              <div class="mb-5 mt-5  d-flex justify-content-between">
+                <button v-if="hide" class="btn border-0  rounded-3 btncustomer1" @click="tosaleee()">save</button>
+                <button v-if="hide" class="btn border-0 rounded-3 btncustomer1" @click="tosaleee2()">submit</button>
 
               </div>
             </div>
@@ -1453,6 +1453,14 @@ export default {
         });
     },
     tosaleee() {
+      if (!this.delivery_date) {
+        alert("Please select a Delivery Date and Set Warehouse before submitting.");
+        return;
+      }
+      if (!this.set_warehouse) {
+        alert("Please select a Delivery Date and Set Warehouse before submitting.");
+        return;
+      }
       this.singleQuotation.docstatus = 0;
       this.singleQuotation.delivery_date = this.delivery_date;
       this.singleQuotation.doctype = 'Sales Order';
@@ -1475,10 +1483,23 @@ export default {
         .then((res) => {
           console.log(res);
           this.saiSale = res.data.data;
+          toast.success("Sales Order Saved", {
+            position: "top-right",
+          }),
+            this.tosaleee2 = this.show
           console.log(this.saiSale, "poseted responce");
         });
     },
     tosaleee2() {
+      // if (!this.delivery_date) {
+      //   alert("Please select a Delivery Date and Set Warehouse before submitting.");
+      //   return;
+      // }
+      // if (!this.set_warehouse) {
+      //   alert("Please select a Delivery Date and Set Warehouse before submitting.");
+      //   return;
+      // }
+
       this.saiSale.docstatus = 1;
       axios
         .put(ApiUrls.resource + "/" + Doctypes.salesorder + "/" + this.saiSale?.name, this.saiSale, {
@@ -1490,23 +1511,11 @@ export default {
         })
         .then((res) => {
           console.log(res, "lastSale responce");
+          toast.success("Sales Order Submitted", {
+            position: "top-right",
+          })
         });
-      console.log(this.saiSale, "dfffffffffffffff");
-      this.singleQuotation.status = 'Ordered';
-      this.singleQuotation.docstatus = 1;
-      axios
-        .put(
-          ApiUrls.resource +
-          "/" +
-          Doctypes.quotations +
-          "/" +
-          this.singleQuotation?.name,
-          this.singleQuotation, this.singleQuotation.status
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => console.error("Error updating data:", error));
+
       this.twoSteps = false
     }
   },

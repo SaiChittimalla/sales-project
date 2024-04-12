@@ -22,7 +22,8 @@
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
                                                     <label for="Name" class="form-label text-muted">First Name
-                                                        <span v-if="!error.first_name" class=" required">(required)</span>
+                                                        <span v-if="!error.first_name"
+                                                            class=" required">(required)</span>
                                                         <span class="text-danger required "
                                                             v-if="error.first_name">(required)
                                                         </span>
@@ -48,7 +49,8 @@
                                             <div class="padding-div border-top-0 ">
                                                 <div class="">
                                                     <label for="Name" class="form-label text-muted">Mobile
-                                                        <span v-if="!error.mobile_no" class=" required">(required)</span>
+                                                        <span v-if="!error.mobile_no"
+                                                            class=" required">(required)</span>
                                                         <span class="text-danger required "
                                                             v-if="error.mobile_no">(required)
                                                         </span>
@@ -79,7 +81,8 @@
                                             </div>
                                             <div class="padding-div">
                                                 <div class="">
-                                                    <label for="Name" class="form-label text-muted"> Alternate mobile number
+                                                    <label for="Name" class="form-label text-muted"> Alternate mobile
+                                                        number
                                                     </label>
                                                     <input type="text" class="form-control  " name="Name" id="Name"
                                                         aria-describedby="helpId" placeholder=""
@@ -178,11 +181,13 @@
                                         <div>
                                             <div class="my-2">
                                                 <input type="radio" class="btn-check " name="btnradio-1" id="btnradio1"
-                                                    v-model="this.formData.type" v-bind:value="'Client'" autocomplete="off">
+                                                    v-model="this.formData.type" v-bind:value="'Client'"
+                                                    autocomplete="off">
                                                 <label class="btn btn-primary checking-box  " for="btnradio1">
                                                     <div class="padding-div border-top-0 ">
                                                         <h4 class="lead-type text-start ">Client</h4>
-                                                        <p class="lead-discription text-start  text-muted">A client receives
+                                                        <p class="lead-discription text-start  text-muted">A client
+                                                            receives
                                                             services or
                                                             products
                                                             from a
@@ -198,7 +203,8 @@
                                                 <label class="btn btn-primary checking-box " for="btnradio2">
                                                     <div class="padding-div border-top-0 ">
                                                         <h4 class="lead-type text-start ">Channel Partner</h4>
-                                                        <p class="lead-discription text-start  text-muted">A channel partner
+                                                        <p class="lead-discription text-start  text-muted">A channel
+                                                            partner
                                                             collaborates with a company to market and distribute its
                                                             products.
                                                         </p>
@@ -214,7 +220,8 @@
                                                         <h4 class="lead-type text-start ">Consultant</h4>
                                                         <p class="lead-discription text-start  text-muted">A consultant
                                                             offers
-                                                            expert advice and solutions to address specific challenges.</p>
+                                                            expert advice and solutions to address specific challenges.
+                                                        </p>
                                                     </div>
                                                 </label>
                                             </div>
@@ -226,8 +233,8 @@
                                 <div class=" d-flex justify-content-center ">
                                     <div class="m-2 organization data-height">
                                         <div class="">
-                                            <div class=" text-end "><span class="text-muted" @click="next()">Skip <span><i
-                                                            class="ri-skip-forward-fill"></i></span></span></div>
+                                            <div class=" text-end "><span class="text-muted" @click="next()">Skip
+                                                    <span><i class="ri-skip-forward-fill"></i></span></span></div>
                                             <div>
                                                 <h2 class="lead-heading mt-3 ">
                                                     Which source did your lead contact you through?
@@ -238,9 +245,11 @@
                                                 <div class=" row">
                                                     <div class="col-4 mb-3">
                                                         <input type="radio" class="btn-check " name="btnradio"
-                                                            v-model="this.formData.source" v-bind:value="'Advertisement'"
-                                                            id="btnradio11" autocomplete="off">
-                                                        <label class="btn h-100 btn-primary bg-check-none" for="btnradio11">
+                                                            v-model="this.formData.source"
+                                                            v-bind:value="'Advertisement'" id="btnradio11"
+                                                            autocomplete="off">
+                                                        <label class="btn h-100 btn-primary bg-check-none"
+                                                            for="btnradio11">
                                                             <div>
                                                                 <div class=" text-center py-4  ">
                                                                     <img src="../../../../assets/game-icons_bugle-call.svg"
@@ -435,8 +444,10 @@
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
                                                         v-model="this.formData.request_type"
-                                                        v-bind:value="'Product Enquiry'" id="btnradio22" autocomplete="off">
-                                                    <label class="btn h-100 btn-primary bg-check-none " for="btnradio22">
+                                                        v-bind:value="'Product Enquiry'" id="btnradio22"
+                                                        autocomplete="off">
+                                                    <label class="btn h-100 btn-primary bg-check-none "
+                                                        for="btnradio22">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
                                                                 <img src="../../../../assets/fluent-mdl2_product-variant.svg"
@@ -455,7 +466,8 @@
                                                         v-model="this.formData.request_type"
                                                         v-bind:value="'Request for Information'" id="btnradio23"
                                                         autocomplete="off">
-                                                    <label class="btn h-100 btn-primary bg-check-none " for="btnradio23">
+                                                    <label class="btn h-100 btn-primary bg-check-none "
+                                                        for="btnradio23">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
                                                                 <img src="../../../../assets/mingcute_information-line.svg"
@@ -471,9 +483,10 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 mb-3 cat-div">
                                                 <div class="">
                                                     <input type="radio" class="btn-check" name="categoryradio"
-                                                        v-model="this.formData.request_type" v-bind:value="'Suggestions'"
-                                                        id="btnradio24" autocomplete="off">
-                                                    <label class="btn h-100 btn-primary bg-check-none " for="btnradio24">
+                                                        v-model="this.formData.request_type"
+                                                        v-bind:value="'Suggestions'" id="btnradio24" autocomplete="off">
+                                                    <label class="btn h-100 btn-primary bg-check-none "
+                                                        for="btnradio24">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
                                                                 <img src="../../../../assets/ic_outline-settings-suggest.svg"
@@ -491,7 +504,8 @@
                                                     <input type="radio" class="btn-check" name="categoryradio"
                                                         v-model="this.formData.request_type" v-bind:value="'Other'"
                                                         id="btnradio25" autocomplete="off">
-                                                    <label class="btn h-100 btn-primary bg-check-none " for="btnradio25">
+                                                    <label class="btn h-100 btn-primary bg-check-none "
+                                                        for="btnradio25">
                                                         <div class=" card-body  d-flex  justify-content-evenly ">
                                                             <div>
                                                                 <img src="../../../../assets/icon-park-outline_more-four.svg"
